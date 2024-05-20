@@ -11,7 +11,7 @@ declare global {
   const lazy: typeof import('react')['lazy']
   const memo: typeof import('react')['memo']
   const metadata: typeof import('./app/layout')['metadata']
-  const page: typeof import('./app/page')['default']
+  const page: typeof import('./app/page_original')['default']
   const startTransition: typeof import('react')['startTransition']
   const useCallback: typeof import('react')['useCallback']
   const useContext: typeof import('react')['useContext']
