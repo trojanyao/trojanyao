@@ -14,7 +14,7 @@ export default function SectionHeader({
   children?: React.ReactNode;
 }) {
   return (
-    <div className="w-full flex justify-between">
+    <div className="w-full px-[2px] mb-6 flex justify-between items-center">
       {/* Left */}
       <Link href={url} className="group">
         <div className="flex items-center gap-1 cursor-pointer">
