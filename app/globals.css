@@ -5,6 +5,8 @@
 /* ========== Light Mode ========== */
 @layer base {
   :root {
+    --primary: 92 144 229;
+    --border-secondary: rgba(215, 221, 228, 0.5);
     --orange: 255 102 0;
   }
 

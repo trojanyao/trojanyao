@@ -1,0 +1,79 @@
+import Image from 'next/image';
+import Link from 'next/link';
+
+import LogoText from '@/public/logo+text.svg';
+import { RssIcon } from '@heroicons/react/20/solid';
+import { Fragment } from 'react';
+
+const menus = [
+  [
+    {
+      name: '服务',
+      path: '/service',
+    },
+    {
+      name: '开发',
+      path: '/dev',
+    },
+  ],
+  [
+    {
+      name: '关于',
+      path: '/about',
+    },
+    {
+      name: '留言板',
+      path: 'guestbook',
+    },
+  ],
+];
+
+export default function Nav() {
+  return (
+    <header className="w-[1200px] h-20 mx-auto absolute flex justify-between items-center">
+      {/* Logo */}
+      <div>
+        <Image src={LogoText} alt="Logo" height={48} priority />
+      </div>
+
+      {/* Nav */}
+      <nav className="bg-white/50 px-4 py-3 rounded-full backdrop-blur-xl fixed top-4 left-1/2 -translate-x-1/2 flex items-center gap-2">
+        {menus.map((menuGroup, groupIndex) => (
+          <Fragment key={groupIndex}>
+            {groupIndex !== 0 && (
+              <div className="w-[1px] h-4 bg-border-secondary" />
+            )}
+            <ul className="flex items-center">
+              {menuGroup.map((menu, index) => (
+                <li
+                  key={menu.path}
+                  className={`${
+                    index === 0
+                      ? '-mr-1'
+                      : index === menuGroup?.length - 1
+                      ? '-ml-1'
+                      : '-mx-1'
+                  } flex`}
+                >
+                  <Link
+                    href={menu.path}
+                    className="hover:bg-gradient-link px-4 py-3 rounded-full text-primary leading-none text-nowrap"
+                  >
+                    {menu.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </Fragment>
+        ))}
+      </nav>
+
+      {/* Tools */}
+      <div>
+        <Link href="/rss">
+          <RssIcon className="size-5 text-orange cursor-pointer" />
+        </Link>
+      </div>
+    </header>
+  );
+}
