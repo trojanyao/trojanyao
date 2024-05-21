@@ -1,9 +1,12 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
 
 import LogoText from '@/public/logo+text.svg';
 import { RssIcon } from '@heroicons/react/20/solid';
 import { Fragment } from 'react';
+import { usePathname } from 'next/navigation';
 
 const menus = [
   [
@@ -29,6 +32,8 @@ const menus = [
 ];
 
 export default function Nav() {
+  const pathname = usePathname();
+
   return (
     <header className="w-[1200px] h-20 mx-auto absolute flex justify-between items-center">
       {/* Logo */}
@@ -57,7 +62,9 @@ export default function Nav() {
                 >
                   <Link
                     href={menu.path}
-                    className="hover:bg-gradient-link px-4 py-3 rounded-full text-primary leading-none text-nowrap"
+                    className={`hover:bg-gradient-link px-4 py-3 rounded-full text-primary leading-none text-nowrap ${
+                      pathname === menu.path ? 'font-medium' : 'font-[350]'
+                    }`}
                   >
                     {menu.name}
                   </Link>
