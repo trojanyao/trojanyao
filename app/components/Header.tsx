@@ -35,10 +35,12 @@ export default function Nav() {
   const pathname = usePathname();
 
   return (
-    <header className="w-[1200px] h-20 mx-auto absolute flex justify-between items-center">
+    <header className="w-[1200px] h-20 mx-auto absolute z-10 flex justify-between items-center">
       {/* Logo */}
       <div>
-        <Image src={LogoText} alt="Logo" height={48} priority />
+        <Link href="/">
+          <Image src={LogoText} alt="Logo" height={48} priority />
+        </Link>
       </div>
 
       {/* Nav */}
@@ -46,7 +48,7 @@ export default function Nav() {
         {menus.map((menuGroup, groupIndex) => (
           <Fragment key={groupIndex}>
             {groupIndex !== 0 && (
-              <div className="w-[1px] h-4 bg-border-secondary" />
+              <div className="w-[1px] h-4 bg-[var(--border-secondary)]" />
             )}
             <ul className="flex items-center">
               {menuGroup.map((menu, index) => (
@@ -63,7 +65,7 @@ export default function Nav() {
                   <Link
                     href={menu.path}
                     className={`hover:bg-gradient-link px-4 py-3 rounded-full text-primary leading-none text-nowrap ${
-                      pathname === menu.path ? 'font-medium' : 'font-[350]'
+                      pathname === menu.path && 'font-medium'
                     }`}
                   >
                     {menu.name}
