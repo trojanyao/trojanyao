@@ -10,6 +10,10 @@
     --orange: 255 102 0;
   }
 
+  *::-webkit-scrollbar {
+    display: none;
+  }
+
 }
 
 body {
