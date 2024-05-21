@@ -13,8 +13,16 @@ const config: Config = {
         current: 'currentColor',
 
         primary: 'rgb(var(--primary) / <alpha-value>)',
-        'border-secondary': 'rgba(215, 221, 228, 0.5)',
         orange: 'rgb(var(--orange) / <alpha-value>)',
+        green: 'rgb(var(--green) / <alpha-value>)',
+      },
+      textColor: {
+        black: 'rgb(var(--text-primary) / <alpha-value>)',
+        secondary: 'rgb(var(--text-secondary) / <alpha-value>)',
+        light: 'rgb(var(--text-light) / <alpha-value>)',
+      },
+      borderColor: {
+        secondary: 'rgba(215, 221, 228, 0.5)',
       },
       backgroundImage: {
         'gradient-link':
@@ -22,6 +30,9 @@ const config: Config = {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+      },
+      fontWeight: {
+        normal: '350',
       },
     },
   },

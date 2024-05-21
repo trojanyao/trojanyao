@@ -6,18 +6,38 @@
 @layer base {
   :root {
     --primary: 92 144 229;
+    --secondary-light-blue: #F8FAFC;
+    --text-primary: 51 51 51;
+    --text-secondary: 76 76 76;
+    --text-light: 168 168 168;
     --border-secondary: rgba(215, 221, 228, 0.5);
     --orange: 255 102 0;
+    --green: 63 214 96;
   }
 
   *::-webkit-scrollbar {
     display: none;
   }
 
+  /* 英文字体 */
+  @font-face {
+    font-family: 'MyFont';
+    src: local("Inter"), url('./fonts/Inter-VariableFont_slnt,wght.ttf');
+  }
+  
+  /* 中文字体 */
+  @font-face {
+    font-family: 'MyFont';
+    src: local("PingFang SC");
+    unicode-range: U+4E00-9FFF;
+  }
+
+  body {
+    font-family: 'MyFont';
+  }
+
 }
 
-body {
-}
 
 /* ========== Dark Mode ========== */
 @media (prefers-color-scheme: dark) {
