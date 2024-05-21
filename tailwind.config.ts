@@ -34,6 +34,15 @@ const config: Config = {
       fontWeight: {
         normal: '350',
       },
+      animation: {
+        'bounce-right': 'bounce-right 600ms ease-out 2',
+      },
+      keyframes: {
+        'bounce-right': {
+          '0% 100%': { transform: 'translateX(0)' },
+          '50%': { transform: 'translateX(4px)' },
+        },
+      },
     },
   },
   plugins: [],

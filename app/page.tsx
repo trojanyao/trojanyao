@@ -1,14 +1,16 @@
 import Image from 'next/image';
 import { Kaushan_Script } from 'next/font/google';
 
-import './page.css';
 import Memoji from '@/public/memoji.png';
+import './page.css';
+import SectionService from './components/SectionService';
 
 const kaushan_script = Kaushan_Script({ weight: '400', subsets: ['latin'] });
 
 export default function Home() {
   return (
     <>
+      {/* Banner */}
       <div className="banner-wrap w-screen h-screen min-h-[600px] box-content border-b border-secondary flex flex-col items-center">
         <div className="w-[1200px] h-full min-h-[600px] relative flex flex-col justify-center items-center">
           {/* Title */}
@@ -42,7 +44,11 @@ export default function Home() {
           />
         </div>
       </div>
-      <div className="h-96"></div>
+
+      {/* Content */}
+      <div className="w-[1200px] py-12 mx-auto flex flex-col gap-8">
+        <SectionService />
+      </div>
     </>
   );
 }
