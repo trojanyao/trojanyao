@@ -4,6 +4,7 @@ import { Kaushan_Script } from 'next/font/google';
 import Memoji from '@/public/memoji.png';
 import './page.css';
 import SectionService from './components/SectionService';
+import SectionProject from './components/SectionProject';
 
 const kaushan_script = Kaushan_Script({ weight: '400', subsets: ['latin'] });
 
@@ -48,6 +49,7 @@ export default function Home() {
       {/* Content */}
       <div className="w-[1200px] py-12 mx-auto flex flex-col gap-8">
         <SectionService />
+        <SectionProject />
       </div>
     </>
   );

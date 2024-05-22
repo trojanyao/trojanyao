@@ -24,6 +24,9 @@ const config: Config = {
       borderColor: {
         secondary: 'rgba(215, 221, 228, 0.5)',
       },
+      backgroundColor: {
+        light: 'rgb(var(--background-light) / <alpha-value>)',
+      },
       backgroundImage: {
         'gradient-link':
           'linear-gradient(to bottom, rgba(230, 234, 237, 0.3), rgba(241, 241, 241, 0.3))',
