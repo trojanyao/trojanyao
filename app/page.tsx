@@ -5,6 +5,7 @@ import Memoji from '@/public/memoji.png';
 import './page.css';
 import SectionService from './components/SectionService';
 import SectionProject from './components/SectionProject';
+import SectionSkill from './components/SectionSkill';
 
 const kaushan_script = Kaushan_Script({ weight: '400', subsets: ['latin'] });
 
@@ -50,6 +51,7 @@ export default function Home() {
       <div className="w-[1200px] py-12 mx-auto flex flex-col gap-8">
         <SectionService />
         <SectionProject />
+        <SectionSkill />
       </div>
     </>
   );
