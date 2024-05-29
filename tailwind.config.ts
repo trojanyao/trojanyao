@@ -22,6 +22,7 @@ const config: Config = {
         light: 'rgb(var(--text-light) / <alpha-value>)',
       },
       borderColor: {
+        first: 'rgb(215 221 228 / <alpha-value>)',
         secondary: 'rgba(215, 221, 228, 0.5)',
       },
       backgroundColor: {
