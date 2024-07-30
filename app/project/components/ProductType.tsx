@@ -3,14 +3,14 @@
 type ProductType = 'Web 官网' | '小程序'; /* 产品类型 */
 
 export default function ProductType({ type }: { type: ProductType }) {
-  let colorSuffix = '';
+  let color = '';
 
   switch (type) {
     case 'Web 官网':
-      colorSuffix = 'primary';
+      color = 'bg-blue/10 text-blue';
       break;
     case '小程序':
-      colorSuffix = 'green';
+      color = 'bg-green/10 text-green';
       break;
     default:
       break;
@@ -18,7 +18,7 @@ export default function ProductType({ type }: { type: ProductType }) {
 
   return (
     <div
-      className={`px-2 py-1 ${`bg-${colorSuffix}/10`} rounded-full text-center text-${colorSuffix} text-[0.625rem]`}
+      className={`px-2 py-1 ${color} rounded-full text-center text-[0.625rem]`}
     >
       {type}
     </div>
