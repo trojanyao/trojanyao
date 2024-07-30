@@ -7,13 +7,14 @@ import SectionService from './components/SectionService';
 import SectionProject from './components/SectionProject';
 import SectionSkill from './components/SectionSkill';
 
+
 const kaushan_script = Kaushan_Script({ weight: '400', subsets: ['latin'] });
 
 export default function Home() {
   return (
     <>
       {/* Banner */}
-      <div className="banner-wrap w-screen h-screen min-h-[600px] box-content border-b border-secondary flex flex-col items-center">
+      <div className="banner-wrap w-screen h-[80vh] min-h-[600px] box-content border-b border-secondary flex flex-col items-center">
         <div className="w-[1200px] h-full min-h-[600px] relative flex flex-col justify-center items-center">
           {/* Title */}
           <div className="pb-[200px] flex flex-col items-center gap-4">
