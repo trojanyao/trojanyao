@@ -13,8 +13,14 @@ const config: Config = {
         current: 'currentColor',
 
         primary: 'rgb(var(--primary) / <alpha-value>)',
+        'secondary-light-blue':
+          'rgb(var(--secondary-light-blue) / <alpha-value>)',
+        'secondary-middle-blue':
+          'rgb(var(--secondary-middle-blue) / <alpha-value>)',
+
         orange: 'rgb(var(--orange) / <alpha-value>)',
         green: 'rgb(var(--green) / <alpha-value>)',
+        blue: 'rgb(var(--blue) / <alpha-value>)',
       },
       textColor: {
         black: 'rgb(var(--text-primary) / <alpha-value>)',
