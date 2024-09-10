@@ -35,7 +35,7 @@ export default function Nav() {
   const pathname = usePathname();
 
   return (
-    <header className="w-[1200px] h-20 mx-auto absolute z-10 flex justify-between items-center">
+    <header className="w-[1200px] h-24 mx-auto absolute z-10 flex justify-between items-center">
       {/* Logo */}
       <div>
         <Link href="/">
