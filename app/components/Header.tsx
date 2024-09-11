@@ -44,7 +44,7 @@ export default function Nav() {
       </div>
 
       {/* Nav */}
-      <nav className="bg-white/50 px-4 py-3 rounded-full backdrop-blur-xl fixed top-4 left-1/2 -translate-x-1/2 flex items-center gap-2">
+      <nav className="bg-white/75 px-4 py-3 rounded-full shadow-[0_2px_12px_rgba(0,0,0,0.05)] backdrop-blur-[6px] fixed top-4 left-1/2 -translate-x-1/2 flex items-center gap-2">
         {menus.map((menuGroup, groupIndex) => (
           <Fragment key={groupIndex}>
             {groupIndex !== 0 && (
