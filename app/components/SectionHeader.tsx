@@ -6,15 +6,15 @@ export default function SectionHeader({
   url,
   title,
   icon,
-  showArrow = true,
   children,
 }: {
   url?: string;
   title: string;
   icon: React.ReactNode;
-  showArrow?: boolean;
   children?: React.ReactNode;
 }) {
+  const showArrow = !!url;
+
   function content() {
     return (
       <div

@@ -10,7 +10,7 @@ export default function SectionProject() {
         url="/project"
         title="精选项目"
         icon={<CheckBadgeIcon />}
-      ></SectionHeader>
+      />
 
       <div className="max-w-full flex gap-6 overflow-x-scroll">
         {Array.from({ length: 6 }).map((item, index) => (

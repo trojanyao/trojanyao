@@ -2,6 +2,7 @@ import Image from 'next/image';
 import { Kaushan_Script } from 'next/font/google';
 
 import Memoji from '@/public/memoji.png';
+
 import './page.css';
 import SectionService from './components/SectionService';
 import SectionProject from './components/SectionProject';

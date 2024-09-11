@@ -45,6 +45,14 @@
   body {
     font-family: 'MyFont';
   }
+
+  .section-list {
+    @apply w-[1200px] py-12 flex flex-col gap-9;
+  }
+
+  .section-item {
+    @apply gap-6;
+  }
 }
 
 /* ========== Dark Mode ========== */
