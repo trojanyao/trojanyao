@@ -8,7 +8,7 @@ import Link from 'next/link';
 export default function ProjectItem() {
   return (
     <Link href="">
-      <div className="w-96 min-w-96 aspect-[4/3] bg-light rounded-[20px] overflow-hidden flex flex-col">
+      <div className="w-96 min-w-96 aspect-[4/3] bg-light-gray rounded-[20px] overflow-hidden flex flex-col">
         {/* Cover */}
         <div className="flex-1 overflow-hidden">
           <Image src={Duomo} alt="多墨智能" />

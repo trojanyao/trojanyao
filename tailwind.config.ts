@@ -32,7 +32,8 @@ const config: Config = {
         secondary: 'rgba(215, 221, 228, 0.5)',
       },
       backgroundColor: {
-        light: 'rgb(var(--background-light) / <alpha-value>)',
+        'light-gray': 'rgb(var(--bg-light-gray) / <alpha-value>)',
+        'light-blue': 'rgb(var(--bg-light-blue) / <alpha-value>)',
       },
       backgroundImage: {
         'gradient-link':

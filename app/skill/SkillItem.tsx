@@ -14,7 +14,7 @@ export default function SkillItem() {
   return (
     <Link
       href=""
-      className="col-span-2 bg-light p-4 rounded-2xl flex items-center gap-3 group"
+      className="col-span-2 bg-light-gray p-4 rounded-2xl flex items-center gap-3 group"
     >
       <Image
         src={NextLogo}
