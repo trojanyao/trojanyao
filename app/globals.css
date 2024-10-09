@@ -47,11 +47,20 @@
   }
 
   .section-list {
-    @apply w-[1200px] py-12 flex flex-col gap-9;
+    @apply w-[1200px] pt-12 flex flex-col gap-9;
   }
 
   .section-item {
     @apply gap-6;
+  }
+
+  /* ===== Text ===== */
+  .title-small {
+    @apply text-xl font-medium leading-none;
+  }
+
+  .text-small {
+    @apply text-sm leading-none;
   }
 }
 
