@@ -21,6 +21,7 @@ const config: Config = {
         orange: 'rgb(var(--orange) / <alpha-value>)',
         green: 'rgb(var(--green) / <alpha-value>)',
         blue: 'rgb(var(--blue) / <alpha-value>)',
+        yellow: 'rgb(var(--yellow) / <alpha-value>)',
       },
       textColor: {
         black: 'rgb(var(--text-primary) / <alpha-value>)',

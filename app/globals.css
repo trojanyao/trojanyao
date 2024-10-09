@@ -30,6 +30,7 @@ html {
     --orange: 255 102 0;
     --green: 63 214 96;
     --blue: 71 141 255;
+    --yellow: 238 140 43;
   }
 
   *::-webkit-scrollbar {
@@ -62,12 +63,19 @@ html {
   }
 
   /* ===== Text ===== */
+  .title-middle {
+    @apply text-2xl font-semibold leading-none;
+  }
   .title-small {
     @apply text-xl font-medium leading-none;
   }
 
   .text-small {
-    @apply text-sm leading-none;
+    @apply text-sm font-normal leading-none;
+  }
+
+  .text-mini {
+    @apply text-xs font-normal leading-none;
   }
 }
 

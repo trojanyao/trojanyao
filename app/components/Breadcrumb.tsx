@@ -5,7 +5,7 @@ import { Fragment } from 'react';
 
 interface MenuItem {
   text: string;
-  url: string;
+  url?: string;
 }
 
 export default function Breadcrumb({ menus }: { menus: MenuItem[] }) {
@@ -19,14 +19,17 @@ export default function Breadcrumb({ menus }: { menus: MenuItem[] }) {
         {menus?.map((menu: MenuItem, index: number) => (
           <Fragment key={index.toString()}>
             <ChevronRightIcon className="size-4 text-light" />
-            <Link
-              href={menu?.url}
+            <div
               className={`${
                 index === menus?.length - 1 ? 'text-secondary' : 'text-light'
               } text-small hover:text-secondary`}
             >
-              {menu?.text}
-            </Link>
+              {menu?.url ? (
+                <Link href={menu?.url}>{menu?.text}</Link>
+              ) : (
+                <span>{menu?.text}</span>
+              )}
+            </div>
           </Fragment>
         ))}
       </div>
