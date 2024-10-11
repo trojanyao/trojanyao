@@ -18,6 +18,9 @@ import {
 import StatusDown from '../components/StatusDown';
 import ProductType from '../components/ProductType';
 import PreviewCarousel from '../components/PreviewCarousel';
+import SectionHeader from '@/app/components/SectionHeader';
+import { CodeBracketIcon } from '@heroicons/react/24/outline';
+import SkillGrid from '@/app/skill/SkillGrid';
 
 export default function ProjectDetail() {
   const isAvailable = false;
@@ -107,6 +110,16 @@ export default function ProjectDetail() {
     );
   }
 
+  /* === Component: TechStack === */
+  function TechStack() {
+    return (
+      <div>
+        <SectionHeader title="技术栈" icon={<CodeBracketIcon />} />
+        <SkillGrid />
+      </div>
+    );
+  }
+
   return (
     <div>
       <Breadcrumb menus={breadcrumbMenus} />
@@ -121,6 +134,7 @@ export default function ProjectDetail() {
             require('../components/04.png'),
           ]}
         />
+        <TechStack />
       </div>
     </div>
   );
