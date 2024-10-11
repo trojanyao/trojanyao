@@ -9,13 +9,15 @@ const breadcrumbMenus = [
 
 import DuomoLogo from '@/public/Logo_Duomo.svg';
 import Cover from '@/public/2023.11 多墨智能.png';
-import ProductType from '../components/ProductType';
 import Link from 'next/link';
 import {
   ArrowTopRightOnSquareIcon,
   CheckIcon,
 } from '@heroicons/react/16/solid';
+
 import StatusDown from '../components/StatusDown';
+import ProductType from '../components/ProductType';
+import PreviewCarousel from '../components/PreviewCarousel';
 
 export default function ProjectDetail() {
   const isAvailable = false;
@@ -111,6 +113,14 @@ export default function ProjectDetail() {
 
       <div className="flex flex-col gap-8">
         <BasicInfo />
+        <PreviewCarousel
+          data={[
+            require('../components/01.png'),
+            require('../components/02.png'),
+            require('../components/03.png'),
+            require('../components/04.png'),
+          ]}
+        />
       </div>
     </div>
   );
