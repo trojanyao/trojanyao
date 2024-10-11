@@ -19,6 +19,7 @@ html {
     /* 背景色 */
     --bg-light-gray: 250 250 250; /* 浅灰 */
     --bg-light-blue: 248 250 252; /* 浅蓝 */
+    --bg-middle-gray: 245 245 245; /* 中灰 */
 
     /* 中性色 */
     --text-primary: 51 51 51;
