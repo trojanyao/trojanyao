@@ -37,7 +37,7 @@ export default function Develop() {
       {/* Develop Skills */}
       <section className="section-item">
         <SectionHeader
-          url="/dev/skills"
+          url="/skill/dev"
           icon={<CodeBracketSquareIcon />}
           title="开发技能"
         />
