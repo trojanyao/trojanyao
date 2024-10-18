@@ -7,7 +7,6 @@ import './page.css';
 import SectionService from './components/SectionService';
 import SectionProject from './components/SectionProject';
 import SectionSkill from './components/SectionSkill';
-import SmoothScroll from './components/SmoothScroll';
 
 const kaushan_script = Kaushan_Script({ weight: '400', subsets: ['latin'] });
 
@@ -19,9 +18,7 @@ export default function Home() {
         <div className="w-[1200px] h-full min-h-[600px] relative flex flex-col justify-center items-center">
           {/* Title */}
           <div className="pb-[200px] flex flex-col items-center gap-4">
-            <div className="text-secondary text-xl leading-none">
-              我是 TROJAN
-            </div>
+            <div className="text-secondary text-xl leading-none">TROJAN</div>
             <div className="flex flex-col items-center gap-8">
               <div className="flex items-center gap-2">
                 <span className="text-2xl font-semibold">全职远程</span>
