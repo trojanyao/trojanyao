@@ -64,11 +64,19 @@ html {
   }
 
   /* ===== Text ===== */
+  .title-large {
+    @apply text-[1.875rem] font-semibold leading-none;
+  }
+
   .title-middle {
     @apply text-2xl font-semibold leading-none;
   }
   .title-small {
     @apply text-xl font-medium leading-none;
+  }
+
+  .text-middle {
+    @apply text-base font-normal leading-none;
   }
 
   .text-small {

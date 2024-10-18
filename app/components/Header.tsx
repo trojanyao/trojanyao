@@ -65,7 +65,7 @@ export default function Nav() {
                   <Link
                     href={menu.path}
                     className={`hover:bg-gradient-link px-4 py-3 rounded-full text-primary leading-none text-nowrap ${
-                      pathname === menu.path && 'font-medium'
+                      pathname === menu.path && 'font-medium bg-gradient-link'
                     }`}
                   >
                     {menu.name}

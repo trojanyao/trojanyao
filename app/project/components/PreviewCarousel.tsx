@@ -75,7 +75,7 @@ export default function PreviewCarousel({ data }: { data: string[] }) {
         className="absolute top-1/2 -translate-y-1/2 right-[calc(100%+16px)]"
         onClick={handlePrev}
       >
-        <ChevronLeftIcon className="size-5" />
+        <ChevronLeftIcon className="size-5 text-light-gray" />
       </Button>
 
       {/* Left */}
@@ -85,7 +85,7 @@ export default function PreviewCarousel({ data }: { data: string[] }) {
         className="absolute top-1/2 -translate-y-1/2 left-[calc(100%+16px)]"
         onClick={handleNext}
       >
-        <ChevronRightIcon className="size-5" />
+        <ChevronRightIcon className="size-5 text-light-gray" />
       </Button>
     </div>
   );

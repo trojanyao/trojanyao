@@ -12,24 +12,25 @@ export default function Button({
   size = 'medium',
   shape = 'rect',
   className,
-  onClick,
+  onClick = () => {},
 }: {
   children: React.ReactNode;
   variant?: ButtonVariant;
   size?: ButtonSize;
   shape?: ButtonShape;
   className?: string;
-  onClick: () => void;
+  onClick?: () => void;
 }) {
   return (
     <button
       className={`
 			${
         variant === 'default' &&
-        'bg-middle-gray text-light-gray hover:bg-light-blue hover:text-primary'
+        'bg-middle-gray hover:bg-light-blue hover:text-primary'
       }
 			${size === 'medium' && 'size-9'}
 			${shape === 'circle' && 'rounded-full'}
+      ${shape === 'square' && 'rounded-lg'}
 			flex justify-center items-center transition-all duration-300 ease-in-out ${className}
 			`}
       onClick={onClick}

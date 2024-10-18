@@ -1,4 +1,4 @@
-type LineType = 'first' | 'second';
+type LineType = 'first' | 'secondary';
 
 export default function Line({ type = 'first' }: { type: LineType }) {
   return (

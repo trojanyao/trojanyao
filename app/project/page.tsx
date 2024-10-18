@@ -29,7 +29,7 @@ export default function DevProjects() {
       </SectionHeader>
 
       <div className="flex flex-col gap-6">
-        <Line type="second" />
+        <Line type="secondary" />
 
         {/* List */}
         {Array.from({ length: 3 }).map((item, index) => (

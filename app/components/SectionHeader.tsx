@@ -7,11 +7,13 @@ export default function SectionHeader({
   title,
   icon,
   children,
+  size = 'middle',
 }: {
   url?: string;
   title: string;
   icon: React.ReactNode;
   children?: React.ReactNode;
+  size?: 'middle' | 'small';
 }) {
   const showArrow = !!url;
 
@@ -22,7 +24,9 @@ export default function SectionHeader({
       >
         <div className="flex items-center gap-2">
           <div className="size-6">{icon}</div>
-          <span className="text-xl font-semibold">{title}</span>
+          <span className={size === 'small' ? 'title-small' : 'title-middle'}>
+            {title}
+          </span>
         </div>
 
         {showArrow && (
@@ -33,7 +37,11 @@ export default function SectionHeader({
   }
 
   return (
-    <div className="w-full px-[2px] mb-6 flex justify-between items-center">
+    <div
+      className={`w-full px-[2px] ${
+        size === 'small' ? 'mb-4' : 'mb-6'
+      } flex justify-between items-center`}
+    >
       {/* Left */}
       {showArrow ? (
         <Link href={url || '#'} className="group">
