@@ -3,10 +3,11 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import LogoText from '@/public/logo+text.svg';
+
 import { RssIcon } from '@heroicons/react/20/solid';
 import { Fragment } from 'react';
 import { usePathname } from 'next/navigation';
+import LogoText from '@/public/logo+text.svg';
 
 const menus = [
   [
