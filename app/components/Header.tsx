@@ -3,10 +3,10 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-
 import { RssIcon } from '@heroicons/react/20/solid';
 import { Fragment } from 'react';
 import { usePathname } from 'next/navigation';
+
 import LogoText from '@/public/logo+text.svg';
 
 const menus = [
@@ -48,19 +48,13 @@ export default function Nav() {
       <nav className="bg-white/75 px-4 py-3 rounded-full shadow-[0_2px_12px_rgba(0,0,0,0.05)] backdrop-blur-[6px] fixed top-4 left-1/2 -translate-x-1/2 flex items-center gap-2">
         {menus.map((menuGroup, groupIndex) => (
           <Fragment key={groupIndex}>
-            {groupIndex !== 0 && (
-              <div className="w-[1px] h-4 bg-[var(--border-secondary)]" />
-            )}
+            {groupIndex !== 0 && <div className="w-[1px] h-4 bg-[var(--border-secondary)]" />}
             <ul className="flex items-center">
               {menuGroup.map((menu, index) => (
                 <li
                   key={menu.path}
                   className={`${
-                    index === 0
-                      ? '-mr-1'
-                      : index === menuGroup?.length - 1
-                      ? '-ml-1'
-                      : '-mx-1'
+                    index === 0 ? '-mr-1' : index === menuGroup?.length - 1 ? '-ml-1' : '-mx-1'
                   } flex`}
                 >
                   <Link

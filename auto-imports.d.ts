@@ -7,11 +7,8 @@ export {}
 declare global {
   const createRef: typeof import('react')['createRef']
   const forwardRef: typeof import('react')['forwardRef']
-  const layout: typeof import('./app/layout')['default']
   const lazy: typeof import('react')['lazy']
   const memo: typeof import('react')['memo']
-  const metadata: typeof import('./app/layout')['metadata']
-  const page: typeof import('./app/page_original')['default']
   const startTransition: typeof import('react')['startTransition']
   const useCallback: typeof import('react')['useCallback']
   const useContext: typeof import('react')['useContext']

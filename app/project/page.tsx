@@ -1,13 +1,9 @@
+import { ClockIcon, RectangleGroupIcon, Squares2X2Icon } from '@heroicons/react/24/outline';
 import Breadcrumb from '@/app/components/Breadcrumb';
 import GroupBy from '@/app/components/GroupBy';
 import Line from '@/app/components/Line';
 import SectionHeader from '@/app/components/SectionHeader';
 import ProjectGrid from '@/app/project/ProjectGrid';
-import {
-  ClockIcon,
-  RectangleGroupIcon,
-  Squares2X2Icon,
-} from '@heroicons/react/24/outline';
 
 const breadcrumbMenus = [
   { text: '开发', url: '/dev' },
