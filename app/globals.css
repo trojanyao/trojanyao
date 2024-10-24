@@ -10,7 +10,7 @@ html {
 @layer base {
   :root {
     /* 品牌色、主题色 */
-    --primary: 92 144 229;
+    --primary: 98 132 180;
 
     /* 辅助色 */
     --secondary-light-blue: 248 250 252;
