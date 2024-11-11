@@ -1,40 +1,42 @@
-import { ClockIcon, RectangleGroupIcon, Squares2X2Icon } from '@heroicons/react/24/outline';
-import Breadcrumb from '@/app/components/Breadcrumb';
-import GroupBy from '@/app/components/GroupBy';
-import Line from '@/app/components/Line';
-import SectionHeader from '@/app/components/SectionHeader';
-import ProjectGrid from '@/app/project/ProjectGrid';
+import ProjectList from './components/ProjectList';
+import notion from '@/lib/notion';
 
-const breadcrumbMenus = [
-  { text: '开发', url: '/dev' },
-  { text: '开发项目', url: '/dev/projects' },
-];
+export const ProjectType = {
+  'Web App · 桌面端': 'Web App · 桌面端',
+  'Web App · 移动端': 'Web App · 移动端',
+  'Web 官网 · 桌面端': 'Web 官网 · 桌面端',
+  'Web 官网 · 移动端': 'Web 官网 · 移动端',
+  'App (iOS)': 'iOS',
+  PWA: 'PWA',
+  微信小程序: '微信小程序',
+};
 
-const groupByOptions = [
-  { icon: <ClockIcon />, text: '按时间' },
-  { icon: <RectangleGroupIcon />, text: '按形态' },
-];
+type ProjectUnionType = keyof typeof ProjectType;
+type ProjectValueType = (typeof ProjectType)[ProjectUnionType];
 
-export default function DevProjects() {
-  return (
-    <div>
-      <Breadcrumb menus={breadcrumbMenus} />
+export default async function DevProjects() {
+  const res = await notion.databases.query({
+    database_id: process.env.NOTION_DATABASE_PROJECT_DEV,
+    filter: {
+      property: '个人网站',
+      status: {
+        equals: '上线',
+      },
+    },
+  });
 
-      <SectionHeader title="开发项目" icon={<Squares2X2Icon />}>
-        <GroupBy options={groupByOptions} />
-      </SectionHeader>
+  const projects: ProjectItem[] = res.results?.map((page: any) => ({
+    id: page.id,
+    color: page.properties?.['品牌色']?.rich_text?.[0]?.text?.content,
+    logo: page.icon?.file?.url,
+    cover: page.cover?.file?.url,
+    name: page.properties?.['项目']?.title?.[0]?.text?.content,
+    slogan: page.properties?.['📌 简介']?.rich_text?.[0]?.text?.content,
+    date: page.properties?.['📌 开始 → 结束']?.date?.start?.match(/^\d{4}-\d{2}/)?.[0],
+    type: page.properties?.['📌 形态']?.multi_select?.map(
+      (typeItem: any) => ProjectType[typeItem?.name as ProjectUnionType] as ProjectValueType
+    ),
+  }));
 
-      <div className="flex flex-col gap-6">
-        <Line type="secondary" />
-
-        {/* List */}
-        {Array.from({ length: 3 }).map((item, index) => (
-          <div key={index} className="flex flex-col gap-4">
-            <div className="title-small text-secondary">2024</div>
-            <ProjectGrid />
-          </div>
-        ))}
-      </div>
-    </div>
-  );
+  return <ProjectList projects={projects} />;
 }

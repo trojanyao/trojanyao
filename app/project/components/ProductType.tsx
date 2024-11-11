@@ -1,24 +1,32 @@
 'use client';
 
-type ProductType = 'Web 官网' | '小程序'; /* 产品类型 */
-
-export default function ProductType({ type }: { type: ProductType }) {
+export default function ProductType({ type }: { type: ProjectValueType }) {
   let color = '';
 
   switch (type) {
-    case 'Web 官网':
+    case 'Web App · 桌面端':
+    case 'Web App · 移动端':
       color = 'bg-blue/10 text-blue';
       break;
-    case '小程序':
+    case 'Web 官网 · 桌面端':
+    case 'Web 官网 · 移动端':
       color = 'bg-green/10 text-green';
       break;
+    case 'PWA':
+    case '微信小程序':
+      color = 'bg-purple/10 text-purple';
+      break;
+    case 'iOS':
+      color = 'bg-orange/10 text-orange';
+      break;
     default:
+      color = 'bg-primary/10 text-primary';
       break;
   }
 
   return (
     <div
-      className={`px-2 py-1 ${color} rounded-full text-center text-[0.625rem]`}
+      className={`px-2 py-1 ${color} rounded-full text-center text-[0.625rem] whitespace-nowrap`}
     >
       {type}
     </div>
