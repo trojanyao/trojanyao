@@ -1,11 +1,17 @@
-import { CommandLineIcon, Squares2X2Icon } from '@heroicons/react/24/outline';
+import {
+  CommandLineIcon,
+  Squares2X2Icon,
+  CodeBracketSquareIcon,
+} from '@heroicons/react/24/outline';
 import SectionHeader from '../components/SectionHeader';
 import ServiceItem from '../service/ServiceItem';
-import ProjectItem from '../project/ProjectItem';
+import ProjectItem from '../project/components/ProjectItem';
 import SkillItem from '../skill/SkillItem';
-import { CodeBracketSquareIcon } from '@heroicons/react/24/outline';
+import { getProjects } from '@/lib/notion';
 
-export default function Develop() {
+export default async function Develop() {
+  const projects = await getProjects([{ property: '首页精选', checkbox: { equals: true } }]);
+
   return (
     <div className="section-list">
       {/* Develop Service */}
@@ -21,26 +27,18 @@ export default function Develop() {
 
       {/* Develop Project */}
       <section className="section-item">
-        <SectionHeader
-          title="开发项目"
-          url="/dev/projects"
-          icon={<Squares2X2Icon />}
-        />
+        <SectionHeader title="开发项目" url="/dev/projects" icon={<Squares2X2Icon />} />
 
         <div className="max-w-full flex gap-6 overflow-x-scroll">
-          {Array.from({ length: 6 }).map((item, index) => (
-            <ProjectItem key={index} />
+          {projects.map((item, index) => (
+            <ProjectItem key={index} data={item} />
           ))}
         </div>
       </section>
 
       {/* Develop Skills */}
       <section className="section-item">
-        <SectionHeader
-          url="/skill/dev"
-          icon={<CodeBracketSquareIcon />}
-          title="开发技能"
-        />
+        <SectionHeader url="/skill/dev" icon={<CodeBracketSquareIcon />} title="开发技能" />
 
         <div className="grid grid-cols-12 gap-6">
           {Array.from({ length: 10 }).map((item, index) => (
