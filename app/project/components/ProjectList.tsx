@@ -1,7 +1,7 @@
 'use client';
 
 import { ClockIcon, RectangleGroupIcon, Squares2X2Icon } from '@heroicons/react/24/outline';
-import { ProjectType } from '../page';
+import { ProjectType } from '@/lib/notion';
 import { groupBy } from '@/lib/utils/groupBy';
 
 import Breadcrumb from '@/app/components/Breadcrumb';
@@ -12,23 +12,13 @@ import ProjectGrid from '@/app/project/components/ProjectGrid';
 
 const breadcrumbMenus = [
   { text: '开发', url: '/dev' },
-  { text: '开发项目', url: '/dev/projects' },
+  { text: '开发项目', url: '/project' },
 ];
 
 const groupByOptions = [
   { icon: <ClockIcon />, text: '按时间', key: 'time' },
   { icon: <RectangleGroupIcon />, text: '按形态', key: 'type' },
 ];
-
-// export enum ProjectType {
-//   'Web App · 桌面端' = 'Web App · 桌面端',
-//   'Web App · 移动端' = 'Web App · 移动端',
-//   'Web 官网 · 桌面端' = 'Web 官网 · 桌面端',
-//   'Web 官网 · 移动端' = 'Web 官网 · 移动端',
-//   'PWA' = 'PWA',
-//   'App (iOS)' = 'iOS',
-//   '微信小程序' = '微信小程序',
-// }
 
 export default function ProjectList({ projects }: { projects: ProjectItem[] }) {
   const [groupKey, setGroupKey] = useState('time');
