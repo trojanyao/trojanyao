@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useRef } from 'react';
 import Image from 'next/image';
 
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/16/solid';
@@ -7,8 +8,30 @@ import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/16/solid';
 import Button from '@/app/components/Button';
 
 /* === Component: Preview Carousel === */
-export default function PreviewCarousel({ data }: { data: string[] }) {
-  const carousel = [data[data?.length - 1], ...data, data?.[0]];
+export default function PreviewCarousel({
+  data,
+  width,
+  height,
+}: {
+  data: string[];
+  width: number;
+  height: number;
+}) {
+  const isPortrait = height > width;
+
+  /* Split images to groups depending on the width */
+  const containerWidth = 1200;
+  const containerHeight = 800;
+  const realWidth = (width * containerHeight) / height;
+  const gap = 4 * 4; // Convert Tailwind gap-[value] to pixel
+  const itemsPerGroup = isPortrait ? Math.floor((containerWidth + gap) / (realWidth + gap)) : 1;
+
+  const groupedData = [];
+  for (let i = 0; i < data?.length; i += itemsPerGroup) {
+    groupedData.push(data?.slice(i, i + itemsPerGroup));
+  }
+
+  const carousel = [groupedData[groupedData?.length - 1], ...groupedData, groupedData?.[0]];
 
   const enableAnimation = useRef(true);
 
@@ -57,36 +80,54 @@ export default function PreviewCarousel({ data }: { data: string[] }) {
             }
           }}
         >
-          {carousel.map((item, index) => (
-            <Image
-              key={index}
-              src={item}
-              alt="Preview"
-              className="w-[1200px] min-w-[1200px] h-[800px] rounded-3xl"
-            />
+          {carousel.map((group, groupIndex) => (
+            <div
+              key={groupIndex}
+              className={`w-[1200px] ${
+                isPortrait ? 'h-[800px]' : ''
+              } flex justify-between items-center`}
+              style={{ gap: `${gap}px` }}
+            >
+              {group?.map((image, index) => (
+                <Image
+                  key={index}
+                  src={image}
+                  alt="Preview"
+                  width={width}
+                  height={height}
+                  className={`${
+                    isPortrait ? 'w-auto h-full' : 'w-full h-auto'
+                  } rounded-3xl border-[1px] border-third`}
+                />
+              ))}
+            </div>
           ))}
         </div>
       </div>
 
-      {/* Left */}
-      <Button
-        variant="default"
-        shape="circle"
-        className="absolute top-1/2 -translate-y-1/2 right-[calc(100%+16px)]"
-        onClick={handlePrev}
-      >
-        <ChevronLeftIcon className="size-5 text-light-gray" />
-      </Button>
+      {/* Previous */}
+      {groupedData?.length > 1 && (
+        <Button
+          variant="default"
+          shape="circle"
+          className="absolute top-1/2 -translate-y-1/2 right-[calc(100%+16px)]"
+          onClick={handlePrev}
+        >
+          <ChevronLeftIcon className="size-5 text-light-gray" />
+        </Button>
+      )}
 
-      {/* Left */}
-      <Button
-        variant="default"
-        shape="circle"
-        className="absolute top-1/2 -translate-y-1/2 left-[calc(100%+16px)]"
-        onClick={handleNext}
-      >
-        <ChevronRightIcon className="size-5 text-light-gray" />
-      </Button>
+      {/* Next */}
+      {groupedData?.length > 1 && (
+        <Button
+          variant="default"
+          shape="circle"
+          className="absolute top-1/2 -translate-y-1/2 left-[calc(100%+16px)]"
+          onClick={handleNext}
+        >
+          <ChevronRightIcon className="size-5 text-light-gray" />
+        </Button>
+      )}
     </div>
   );
 }

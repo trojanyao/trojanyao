@@ -6,12 +6,14 @@ export default function SectionHeader({
   url,
   title,
   icon,
+  color,
   children,
   size = 'middle',
 }: {
   url?: string;
   title: string;
   icon: React.ReactNode;
+  color?: string;
   children?: React.ReactNode;
   size?: 'middle' | 'small';
 }) {
@@ -19,14 +21,10 @@ export default function SectionHeader({
 
   function content() {
     return (
-      <div
-        className={`flex items-center gap-1 ${showArrow && 'cursor-pointer'}`}
-      >
-        <div className="flex items-center gap-2">
+      <div className={`flex items-center gap-1 ${showArrow && 'cursor-pointer'}`}>
+        <div className="flex items-center gap-2" style={{ color }}>
           <div className="size-6">{icon}</div>
-          <span className={size === 'small' ? 'title-small' : 'title-middle'}>
-            {title}
-          </span>
+          <span className={size === 'small' ? 'title-small' : 'title-middle'}>{title}</span>
         </div>
 
         {showArrow && (

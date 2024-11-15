@@ -5,6 +5,7 @@ const notion = new Client({
   auth: process.env.NOTION_TOKEN,
 });
 
+/* ========== PROJECT ========== */
 export const ProjectType = {
   'Web App · 桌面端': 'Web App · 桌面端',
   'Web App · 移动端': 'Web App · 移动端',
@@ -40,12 +41,34 @@ export async function getProjects(body?: any[]): Promise<ProjectItem[]> {
     logo: page.icon?.file?.url,
     cover: page.cover?.file?.url,
     name: page.properties?.['项目']?.title?.[0]?.text?.content,
-    slogan: page.properties?.['📌 简介']?.rich_text?.[0]?.text?.content,
-    date: page.properties?.['📌 开始 → 结束']?.date?.start?.match(/^\d{4}-\d{2}/)?.[0],
-    type: page.properties?.['📌 形态']?.multi_select?.map(
+    slogan: page.properties?.['简介']?.rich_text?.[0]?.text?.content,
+    date: page.properties?.['开始 → 结束']?.date?.start?.match(/^\d{4}-\d{2}/)?.[0],
+    type: page.properties?.['形态']?.multi_select?.map(
       (typeItem: any) => ProjectType[typeItem?.name as ProjectUnionType] as ProjectValueType
     ),
   }));
+}
+
+export async function getProject(id: string): Promise<ProjectItem> {
+  const page = await notion.pages.retrieve({ page_id: id });
+
+  return {
+    id: page.id,
+    color: page.properties?.['品牌色']?.rich_text?.[0]?.text?.content,
+    logo: page.icon?.file?.url,
+    cover: page.cover?.file?.url,
+    name: page.properties?.['项目']?.title?.[0]?.text?.content,
+    slogan: page.properties?.['简介']?.rich_text?.[0]?.text?.content,
+    date: page.properties?.['开始 → 结束']?.date?.start?.match(/^\d{4}-\d{2}/)?.[0],
+    type: page.properties?.['形态']?.multi_select?.map(
+      (typeItem: any) => ProjectType[typeItem?.name as ProjectUnionType] as ProjectValueType
+    ),
+    url: page.properties?.['预览']?.url,
+    work: page.properties?.['工作内容']?.rich_text?.map((item: any) => item?.plain_text),
+    screenshots: page.properties?.['真机截图']?.files.map((file: any) => file?.file?.url),
+    width: page.properties?.['截图宽度 px']?.number,
+    height: page.properties?.['截图高度 px']?.number,
+  };
 }
 
 export default notion;
