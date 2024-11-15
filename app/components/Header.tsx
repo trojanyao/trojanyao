@@ -74,9 +74,9 @@ export default function Nav() {
 
       {/* Tools */}
       <div>
-        <Link href="/rss">
+        {/* <Link href="/rss">
           <RssIcon className="size-5 text-orange cursor-pointer" />
-        </Link>
+        </Link> */}
       </div>
     </header>
   );

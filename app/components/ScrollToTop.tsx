@@ -1,6 +1,6 @@
 'use client';
 
-import type { ComponentProps } from 'react';
+import { useState, type ComponentProps, useEffect } from 'react';
 import { BarsArrowUpIcon } from '@heroicons/react/24/solid';
 
 export default function ScrollToTop(props: ComponentProps<'button'>) {

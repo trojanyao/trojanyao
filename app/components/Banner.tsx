@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import Image from 'next/image';
 import { Kaushan_Script } from 'next/font/google';
 import { gsap } from 'gsap';
