@@ -65,10 +65,37 @@ export async function getProject(id: string): Promise<ProjectItem> {
     ),
     url: page.properties?.['预览']?.url,
     work: page.properties?.['工作内容']?.rich_text?.map((item: any) => item?.plain_text),
+    skills: page.properties?.['技术栈']?.relation?.map((item: any) => item?.id),
     screenshots: page.properties?.['真机截图']?.files.map((file: any) => file?.file?.url),
     width: page.properties?.['截图宽度 px']?.number,
     height: page.properties?.['截图高度 px']?.number,
   };
+}
+
+/* ========== SKILL ========== */
+export async function getSkills(body?: any[]): Promise<SkillItem[]> {
+  const res = await notion.databases.query({
+    database_id: process.env.NOTION_DATABASE_SKILL_DEV,
+    filter: {
+      and: [
+        {
+          property: '个人网站',
+          select: {
+            equals: '显示',
+          },
+        },
+        ...(body ?? []),
+      ],
+    },
+  });
+
+  return res?.results.map((page: any) => ({
+    id: page.id,
+    name: page.properties?.['技能']?.title?.[0]?.text?.content,
+    logo: page.icon?.file?.url,
+    status:
+      page.properties?.['显示状态']?.select?.name || page.properties?.['📌 掌握']?.status?.name,
+  }));
 }
 
 export default notion;

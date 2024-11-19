@@ -1,10 +1,10 @@
 import SkillItem from './SkillItem';
 
-export default function SkillGrid() {
+export default function SkillGrid({ data }: { data: SkillItem[] }) {
   return (
     <div className="grid grid-cols-12 gap-6">
-      {Array.from({ length: 10 }).map((item, index) => (
-        <SkillItem key={index} />
+      {data.map((item) => (
+        <SkillItem key={item?.id} data={item} />
       ))}
     </div>
   );
