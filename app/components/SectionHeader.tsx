@@ -8,23 +8,22 @@ export default function SectionHeader({
   icon,
   color,
   children,
-  size = 'middle',
 }: {
   url?: string;
   title: string;
   icon: React.ReactNode;
   color?: string;
   children?: React.ReactNode;
-  size?: 'middle' | 'small';
 }) {
   const showArrow = !!url;
 
+  /* Title */
   function content() {
     return (
       <div className={`flex items-center gap-1 ${showArrow && 'cursor-pointer'}`}>
         <div className="flex items-center gap-2" style={{ color }}>
           <div className="size-6">{icon}</div>
-          <span className={size === 'small' ? 'title-small' : 'title-middle'}>{title}</span>
+          <span className="title-small">{title}</span>
         </div>
 
         {showArrow && (
@@ -35,11 +34,7 @@ export default function SectionHeader({
   }
 
   return (
-    <div
-      className={`w-full px-[2px] ${
-        size === 'small' ? 'mb-4' : 'mb-6'
-      } flex justify-between items-center`}
-    >
+    <div className={`w-full px-[2px] mb-4 flex justify-between items-center`}>
       {/* Left */}
       {showArrow ? (
         <Link href={url || '#'} className="group">
