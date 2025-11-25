@@ -1,6 +1,5 @@
 import Image from 'next/image';
 
-import './page.css';
 import SectionService from './components/SectionService';
 import SectionProject from './components/SectionProject';
 import SectionSkill from './components/SectionSkill';
