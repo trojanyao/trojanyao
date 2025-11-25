@@ -9,7 +9,6 @@ export default function ProjectItem({ data }: { data: ProjectItem }) {
       href={`/project/${data?.id}`}
       className="w-96 min-w-96 aspect-[4/3] bg-light-gray border-[1px] border-third rounded-[20px] overflow-hidden relative flex flex-col"
     >
-      {/* <div className="w-96 min-w-96 aspect-[4/3] bg-light-gray rounded-[20px] overflow-hidden relative flex flex-col"> */}
       {/* Cover */}
       <div className="flex-1 overflow-hidden">
         <Image
@@ -44,7 +43,7 @@ export default function ProjectItem({ data }: { data: ProjectItem }) {
         <div className="flex flex-col items-end gap-2">
           <div className="pr-[2px] text-right text-light text-[0.625rem]">{data?.date}</div>
           <div className="flex items-center gap-1">
-            {data?.type.map((t: any, i) => (
+            {data?.type?.map((t: any, i) => (
               <ProductType key={i} type={t} />
             ))}
           </div>

@@ -49,7 +49,7 @@ export default async function ProjectDetail({ params }: { params: { id: string }
                   <div className="title-middle" style={{ color: `#${project?.color}` }}>
                     {project?.name}
                   </div>
-                  {project?.type.map((t: any, i) => (
+                  {project?.type?.map((t: any, i) => (
                     <ProductType key={i} type={t} />
                   ))}
                 </div>

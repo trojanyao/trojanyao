@@ -12,7 +12,7 @@ export default async function SectionProject() {
       <SectionHeader url="/project" title="精选项目" icon={<CheckBadgeIcon />} />
 
       <div className="max-w-full flex gap-6 overflow-x-scroll">
-        {projects.map((item, index) => (
+        {projects?.map((item, index) => (
           <ProjectItem key={index} data={item} />
         ))}
       </div>
