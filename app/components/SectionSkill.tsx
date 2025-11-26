@@ -1,13 +1,15 @@
 import { CommandLineIcon } from '@heroicons/react/24/outline';
-import SectionHeader from './SectionHeader';
-import SkillItem from '../skill/SkillItem';
 import SkillGrid from '../skill/SkillGrid';
+import SectionHeader from './SectionHeader';
+import { getSkills } from '@/lib/notion';
 
-export default function SectionSkill() {
+export default async function SectionSkill() {
+  const skills = await getSkills();
+
   return (
     <section>
       <SectionHeader url="/skill" icon={<CommandLineIcon />} title="技能" />
-      <SkillGrid />
+      <SkillGrid data={skills} />
     </section>
   );
 }
