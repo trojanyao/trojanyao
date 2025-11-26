@@ -6,41 +6,15 @@ html {
   scroll-behavior: smooth;
 }
 
-/* ========== Light Mode ========== */
+/* ========== General ========== */
 @layer base {
-  :root {
-    /* 品牌色、主题色 */
-    --primary: 98 132 180;
-
-    /* 辅助色 */
-    --secondary-light-blue: 248 250 252;
-    --secondary-middle-blue: 237 244 252;
-
-    /* 背景色 */
-    --bg-light-gray: 250 250 250; /* 浅灰 */
-    --bg-light-blue: 248 250 252; /* 浅蓝 */
-    --bg-middle-gray: 245 245 245; /* 中灰 */
-
-    /* 中性色 */
-    --text-primary: 51 51 51;
-    --text-secondary: 76 76 76;
-    --text-light: 168 168 168;
-    --border-first: 215 221 228;
-    --border-secondary: rgba(215, 221, 228, 0.5);
-    --border-third: 242 242 242;
-
-    /* 功能色 */
-    --orange: 255 102 0;
-    --green: 63 214 96;
-    --blue: 71 141 255;
-    --yellow: 238 140 43;
-    --purple: 151 71 255;
-  }
-
   *::-webkit-scrollbar {
     display: none;
   }
 
+  /* ===== Corner ===== */
+
+  /* ===== Fonts ===== */
   /* 英文字体 */
   @font-face {
     font-family: 'MyFont';
@@ -88,6 +62,38 @@ html {
 
   .text-mini {
     @apply text-xs font-normal leading-none;
+  }
+}
+
+/* ========== Light Mode ========== */
+@layer base {
+  :root {
+    /* 品牌色、主题色 */
+    --primary: 98 132 180;
+
+    /* 辅助色 */
+    --secondary-light-blue: 248 250 252;
+    --secondary-middle-blue: 237 244 252;
+
+    /* 背景色 */
+    --bg-light-gray: 250 250 250; /* 浅灰 */
+    --bg-light-blue: 248 250 252; /* 浅蓝 */
+    --bg-middle-gray: 245 245 245; /* 中灰 */
+
+    /* 中性色 */
+    --text-primary: 51 51 51;
+    --text-secondary: 76 76 76;
+    --text-light: 168 168 168;
+    --border-first: 215 221 228;
+    --border-secondary: rgba(215, 221, 228, 0.5);
+    --border-third: 242 242 242;
+
+    /* 功能色 */
+    --orange: 255 102 0;
+    --green: 63 214 96;
+    --blue: 71 141 255;
+    --yellow: 238 140 43;
+    --purple: 151 71 255;
   }
 }
 
