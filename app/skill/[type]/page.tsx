@@ -1,13 +1,15 @@
-import Breadcrumb from '@/app/components/Breadcrumb';
-import GroupBy from '@/app/components/GroupBy';
-import Line from '@/app/components/Line';
-import SectionHeader from '@/app/components/SectionHeader';
 import {
   CodeBracketSquareIcon,
   FolderOpenIcon,
   RectangleStackIcon,
 } from '@heroicons/react/24/outline';
-import SkillGrid from '../SkillGrid';
+
+import Breadcrumb from '@/app/components/Breadcrumb';
+import GroupBy from '@/app/components/GroupBy';
+import Line from '@/app/components/Line';
+import SectionHeader from '@/app/components/SectionHeader';
+
+import SkillGrid from '../components/SkillGrid';
 
 const breadcrumbMenus = [
   { text: '开发', url: '/dev' },

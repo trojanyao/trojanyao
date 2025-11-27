@@ -21,7 +21,7 @@ export default function SkillItem({ data }: { data: SkillItem }) {
         alt={data?.name}
         width={40}
         height={40}
-        className={`size-10 rounded-lg ${angle} transition-all duration-300`}
+        className={`size-10 min-w-10 min-h-10 rounded-lg overflow-hidden ${angle} transition-all duration-300`}
       />
 
       <div className="flex flex-col gap-2 overflow-hidden">
