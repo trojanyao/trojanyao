@@ -5,6 +5,7 @@ import './globals.css';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
+import SmoothScroll from './smooth-scroll';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -23,11 +24,13 @@ export default function RootLayout({
       <body
         className={`min-h-screen flex flex-col items-center text-black font-normal leading-none`}
       >
-        <Header />
-        <main className="min-w-[1200px] flex-1 mt-20 pb-12">{children}</main>
-        <Footer />
+        <SmoothScroll>
+          <Header />
+          <main className="min-w-[1200px] flex-1 mt-20 pb-12">{children}</main>
+          <Footer />
 
-        <ScrollToTop className="fixed bottom-3 left-[calc(50vw+600px+16px)]" />
+          <ScrollToTop className="fixed bottom-3 left-[calc(50vw+600px+16px)]" />
+        </SmoothScroll>
       </body>
     </html>
   );
