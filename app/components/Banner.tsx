@@ -3,13 +3,12 @@
 import { useState } from 'react';
 import Image from 'next/image';
 
-import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
+import { gsap } from 'gsap';
 
 import './banner.css';
-import Memoji from '@/public/memoji.png';
-
 import { kaushan_script } from '@/lib/fonts';
+import Memoji from '@/public/memoji.png';
 
 gsap.registerPlugin(useGSAP);
 
@@ -89,7 +88,7 @@ export default function Banner() {
                   key={index}
                   className={`${
                     animStart && 'absolute'
-                  } top-0 flex justify-center items-center gap-2 text-black title-middle select-none`}
+                  } top-0 flex justify-center items-center gap-2 text-black title-middle tracking-widest select-none`}
                 >
                   <span className={`left ${index === 1 && 'text-primary'} text-2xl font-semibold`}>
                     {text?.title?.left}
@@ -114,7 +113,7 @@ export default function Banner() {
                   key={index}
                   className={`desc-item ${
                     animStart && 'absolute'
-                  } top-0 text-center text-light leading-6 whitespace-pre-wrap`}
+                  } top-0 text-center text-light tracking-widest leading-6 whitespace-pre-wrap`}
                 >
                   {text?.description}
                 </li>
