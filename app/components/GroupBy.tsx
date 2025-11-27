@@ -2,12 +2,6 @@
 
 import { useEffect } from 'react';
 
-interface GroupOptionItem {
-  icon: React.ReactNode;
-  key: string;
-  text: string;
-}
-
 export default function GroupBy({
   options,
   groupKey,

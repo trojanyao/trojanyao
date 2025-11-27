@@ -15,6 +15,12 @@ interface ProjectItem {
   height?: number;
 }
 
+interface GroupOptionItem {
+  icon: React.ReactNode;
+  key: string;
+  text: string;
+}
+
 type GroupedItem<T> = {
   groupKey: string;
   items: T[];
