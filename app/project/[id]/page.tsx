@@ -1,6 +1,7 @@
+import { Suspense } from 'react';
 import Image from 'next/image';
-
 import Link from 'next/link';
+
 import { ArrowTopRightOnSquareIcon, CheckIcon } from '@heroicons/react/16/solid';
 import {
   CodeBracketIcon,
@@ -8,19 +9,15 @@ import {
   DevicePhoneMobileIcon,
   ComputerDesktopIcon,
 } from '@heroicons/react/24/outline';
-import StatusDown from '../components/StatusDown';
-import ProductType from '../components/ProductType';
-import PreviewCarousel from '../components/PreviewCarousel';
-import DuomoLogo from '@/public/Logo_Duomo.svg';
-import Cover from '@/public/2023.11 多墨智能.png';
 
-import SectionHeader from '@/app/components/SectionHeader';
-import SkillGrid from '@/app/skill/SkillGrid';
 import Breadcrumb from '@/app/components/Breadcrumb';
-import { getProject } from '@/lib/notion';
-import { checkUrl } from '@/lib/utils/checkUrl';
+import SectionHeader from '@/app/components/SectionHeader';
+import SkillGrid from '@/app/skill/components/SkillGrid';
+import { getProject, getSkills } from '@/lib/notion';
 
-
+import PreviewCarousel from '../components/PreviewCarousel';
+import ProductType from '../components/ProductType';
+import StatusDown from '../components/StatusDown';
 
 export default async function ProjectDetail({ params }: { params: { id: string } }) {
   const project = await getProject(params?.id);
@@ -153,11 +150,28 @@ export default async function ProjectDetail({ params }: { params: { id: string }
   }
 
   /* === Component: TechStack === */
-  function TechStack() {
+  async function TechStack() {
+    const skills = await getSkills([
+      {
+        property: '相关项目',
+        relation: {
+          contains: project?.id,
+        },
+      },
+    ]);
+
+    const relationSkills = project?.skills ?? [];
+    skills.sort((a: SkillItem, b: SkillItem) => {
+      const indexA = relationSkills.indexOf(a?.id);
+      const indexB = relationSkills.indexOf(b?.id);
+
+      return (indexA === -1 ? Infinity : indexA) - (indexB === -1 ? Infinity : indexB);
+    });
+
     return (
       <div>
         <SectionHeader title="技术栈" icon={<CodeBracketIcon />} color={`#${project?.color}`} />
-        <SkillGrid />
+        <SkillGrid data={skills} />
       </div>
     );
   }
