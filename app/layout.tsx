@@ -1,11 +1,12 @@
-import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 
 import './globals.css';
-import Header from './components/Header';
 import Footer from './components/Footer';
+import Header from './components/Header';
 import ScrollToTop from './components/ScrollToTop';
 import SmoothScroll from './smooth-scroll';
+
+import type { Metadata } from 'next';
 
 const inter = Inter({ subsets: ['latin'] });
 

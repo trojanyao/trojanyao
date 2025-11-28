@@ -1,7 +1,7 @@
 // import SectionService from './components/SectionService';
+import Banner from './components/Banner';
 import SectionProject from './components/SectionProject';
 import SectionSkill from './components/SectionSkill';
-import Banner from './components/Banner';
 
 export default function Home() {
   return (
