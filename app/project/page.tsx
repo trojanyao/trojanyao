@@ -14,7 +14,7 @@ export default async function DevProjects() {
   return (
     <div>
       <Breadcrumb menus={breadcrumbMenus} />
-      <ProjectList projects={projects} />;
+      <ProjectList projects={projects} />
     </div>
   );
 }
