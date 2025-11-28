@@ -22,6 +22,20 @@ import StatusDown from '../components/StatusDown';
 export default async function ProjectDetail({ params }: { params: { id: string } }) {
   const project = await getProject(params?.id);
 
+  /**
+   * Join project?.responsibilities array into a single string,
+   * then use a regular expression to split it into an array based on ordered list markers like "1. ", "2. ", etc.
+   */
+  let orderedResponsibilities: string[] | undefined = undefined;
+  if (project?.responsibilities && Array.isArray(project.responsibilities)) {
+    const joined = project.responsibilities.join('');
+    // Split by /(?:\d+\.\s*)/ to divide on "1. ", "2. ", etc.
+    orderedResponsibilities = joined
+      .split(/(?:\d+\.\s*)/g)
+      .map((item) => item.trim())
+      .filter((item) => item.length > 0);
+  }
+
   const breadcrumbMenus = [
     { text: '开发', url: '/dev' },
     { text: '开发项目', url: '/project' },
@@ -31,9 +45,9 @@ export default async function ProjectDetail({ params }: { params: { id: string }
   /* === Component: BasicInfo === */
   function BasicInfo() {
     return (
-      <div className="flex gap-8">
+      <div className="flex gap-24">
         {/* Details */}
-        <div className="flex-1 p-8 pb-4 flex flex-col justify-between">
+        <div className="flex-1 pb-4 flex flex-col justify-between">
           {/* Top */}
           <div className="flex flex-col gap-9">
             {/* Header */}
@@ -56,13 +70,13 @@ export default async function ProjectDetail({ params }: { params: { id: string }
               </div>
             </div>
 
-            {/* Contributions */}
-            {project?.work && (
+            {/* Responsibilities */}
+            {orderedResponsibilities && (
               <div className="flex flex-col gap-4">
-                {project?.work.map((item, index) => (
-                  <div key={index} className="flex items-center gap-2">
-                    <CheckIcon className="size-4" />
-                    <span>{item?.replace('- ', '')}</span>
+                {orderedResponsibilities.map((item, index) => (
+                  <div key={index} className="flex gap-2">
+                    <CheckIcon className="size-4 min-w-4 min-h-4 mt-2" />
+                    <p className="leading-8">{item}</p>
                   </div>
                 ))}
               </div>
@@ -93,7 +107,7 @@ export default async function ProjectDetail({ params }: { params: { id: string }
         </div>
 
         {/* Cover */}
-        <div className=" relative">
+        <div className="relative">
           <Link
             href={project?.url || '#'}
             className="block w-[600px] max-w-[600px] h-[400px] rounded-3xl border border-secondary overflow-hidden"
@@ -151,6 +165,7 @@ export default async function ProjectDetail({ params }: { params: { id: string }
 
   /* === Component: TechStack === */
   async function TechStack() {
+    // Returns unsorted skills
     const skills = await getSkills([
       {
         property: '相关项目',
@@ -160,10 +175,13 @@ export default async function ProjectDetail({ params }: { params: { id: string }
       },
     ]);
 
-    const relationSkills = project?.skills ?? [];
+    // Returns skills' id manually sorted in Notion
+    const relatedSkills = project?.skills ?? [];
+
+    // Turn skills to expected order
     skills.sort((a: SkillItem, b: SkillItem) => {
-      const indexA = relationSkills.indexOf(a?.id);
-      const indexB = relationSkills.indexOf(b?.id);
+      const indexA = relatedSkills.indexOf(a?.id);
+      const indexB = relatedSkills.indexOf(b?.id);
 
       return (indexA === -1 ? Infinity : indexA) - (indexB === -1 ? Infinity : indexB);
     });
@@ -182,8 +200,8 @@ export default async function ProjectDetail({ params }: { params: { id: string }
 
       <div className="flex flex-col gap-8">
         <BasicInfo />
-        <Preview />
         <TechStack />
+        <Preview />
       </div>
     </div>
   );

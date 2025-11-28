@@ -8,7 +8,7 @@ interface ProjectItem {
   date: string;
   type: ProjectUnionType[];
   url?: string;
-  work?: string[];
+  responsibilities?: string[];
   skills?: string[];
   screenshots?: string[];
   width?: number;

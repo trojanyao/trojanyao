@@ -49,6 +49,7 @@ export async function getProjects(body?: any[]): Promise<ProjectItem[]> {
   }));
 }
 
+/* Get Project Detail */
 export async function getProject(id: string): Promise<ProjectItem> {
   const page = await notion.pages.retrieve({ page_id: id });
 
@@ -63,9 +64,11 @@ export async function getProject(id: string): Promise<ProjectItem> {
     type: page.properties?.['形态 *']?.multi_select?.map(
       (typeItem: any) => ProjectType[typeItem?.name as ProjectUnionType] as ProjectValueType
     ),
-    url: page.properties?.['预览']?.url,
-    work: page.properties?.['工作内容']?.rich_text?.map((item: any) => item?.plain_text),
-    skills: page.properties?.['技术栈']?.relation?.map((item: any) => item?.id),
+    url: page.properties?.['线上预览 *']?.url,
+    responsibilities: page.properties?.['工作内容 *']?.rich_text?.map(
+      (item: any) => item?.plain_text
+    ),
+    skills: page.properties?.['技术栈 *']?.relation?.map((item: any) => item?.id),
     screenshots: page.properties?.['真机截图']?.files.map((file: any) => file?.file?.url),
     width: page.properties?.['截图宽度 px']?.number,
     height: page.properties?.['截图高度 px']?.number,
@@ -93,8 +96,7 @@ export async function getSkills(body?: any[]): Promise<SkillItem[]> {
     id: page.id,
     name: page.properties?.['技能']?.title?.[0]?.text?.content,
     logo: page.icon?.file?.url,
-    status:
-      page.properties?.['显示状态']?.select?.name || page.properties?.['📌 掌握']?.status?.name,
+    status: page.properties?.['优先级 / 状态']?.status?.name,
   }));
 }
 

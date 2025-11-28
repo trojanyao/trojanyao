@@ -27,7 +27,7 @@ export default function RootLayout({
       >
         <SmoothScroll>
           <Header />
-          <main className="min-w-[1200px] flex-1 mt-20 pb-12">{children}</main>
+          <main className="w-[1200px] flex-1 mt-20 pb-12">{children}</main>
           <Footer />
 
           <ScrollToTop className="fixed bottom-3 left-[calc(50vw+600px+16px)]" />
