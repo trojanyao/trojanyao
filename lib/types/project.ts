@@ -1,0 +1,18 @@
+import type { ProjectUnionType } from '../notion/project';
+
+export interface ProjectItem {
+  id: string;
+  color: string;
+  logo: string;
+  cover: string;
+  name: string;
+  slogan: string;
+  date: string;
+  type: ProjectUnionType[];
+  url?: string;
+  responsibilities?: string[];
+  skills?: string[];
+  screenshots?: string[];
+  width?: number;
+  height?: number;
+}

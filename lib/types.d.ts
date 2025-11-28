@@ -1,42 +1,18 @@
-import type { ProjectUnionType } from './notion/project';
+// 从模块导入类型定义
+import type {
+  GroupOptionItem as _GroupOptionItem,
+  GroupedItem as _GroupedItem,
+} from './types/common';
+import type { ProjectItem as _ProjectItem } from './types/project';
+import type { SkillItem as _SkillItem, SkillStatusType as _SkillStatusType } from './types/skill';
 
+// 声明为全局类型，保持向后兼容
 declare global {
-  interface ProjectItem {
-    id: string;
-    color: string;
-    logo: string;
-    cover: string;
-    name: string;
-    slogan: string;
-    date: string;
-    type: ProjectUnionType[];
-    url?: string;
-    responsibilities?: string[];
-    skills?: string[];
-    screenshots?: string[];
-    width?: number;
-    height?: number;
-  }
-
-  interface GroupOptionItem {
-    icon: React.ReactNode;
-    key: string;
-    text: string;
-  }
-
-  type GroupedItem<T> = {
-    groupKey: string;
-    items: T[];
-  };
-
-  type SkillStatusType = '学习中' | '熟练' | '使用过';
-
-  interface SkillItem {
-    id: string;
-    name: string;
-    logo: string;
-    status: SkillStatusType;
-  }
+  interface ProjectItem extends _ProjectItem {}
+  interface SkillItem extends _SkillItem {}
+  interface GroupOptionItem extends _GroupOptionItem {}
+  type SkillStatusType = _SkillStatusType;
+  type GroupedItem<T> = _GroupedItem<T>;
 }
 
 export {};
