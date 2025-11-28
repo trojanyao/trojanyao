@@ -13,6 +13,9 @@ html {
   }
 
   /* ===== Corner ===== */
+  .squircle {
+    corner-shape: squircle;
+  }
 
   /* ===== Fonts ===== */
   /* 英文字体 */
