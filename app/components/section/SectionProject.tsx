@@ -1,8 +1,9 @@
 import { CheckBadgeIcon } from '@heroicons/react/24/outline';
 
-import ProjectItem from '../project/components/ProjectItem';
-import SectionHeader from './SectionHeader';
+import ProjectItem from '@/app/project/components/ProjectItem';
 import { getProjects } from '@/lib/notion';
+
+import SectionHeader from '../common/SectionHeader';
 
 export default async function SectionProject() {
   const projects = await getProjects([{ property: '首页精选', checkbox: { equals: true } }]);

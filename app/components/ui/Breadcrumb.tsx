@@ -1,7 +1,8 @@
+import { Fragment } from 'react';
+import Link from 'next/link';
+
 import { HomeIcon } from '@heroicons/react/16/solid';
 import { ChevronRightIcon } from '@heroicons/react/20/solid';
-import Link from 'next/link';
-import { Fragment } from 'react';
 
 interface MenuItem {
   text: string;
@@ -24,11 +25,7 @@ export default function Breadcrumb({ menus }: { menus: MenuItem[] }) {
                 index === menus?.length - 1 ? 'text-secondary' : 'text-light'
               } text-small hover:text-secondary`}
             >
-              {menu?.url ? (
-                <Link href={menu?.url}>{menu?.text}</Link>
-              ) : (
-                <span>{menu?.text}</span>
-              )}
+              {menu?.url ? <Link href={menu?.url}>{menu?.text}</Link> : <span>{menu?.text}</span>}
             </div>
           </Fragment>
         ))}

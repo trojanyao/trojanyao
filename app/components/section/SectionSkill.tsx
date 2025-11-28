@@ -1,10 +1,9 @@
 import { CommandLineIcon } from '@heroicons/react/24/outline';
 
+import SkillGrid from '@/app/skill/components/SkillGrid';
 import { getSkills } from '@/lib/notion';
 
-import SkillGrid from '../skill/components/SkillGrid';
-
-import SectionHeader from './SectionHeader';
+import SectionHeader from '../common/SectionHeader';
 
 export default async function SectionSkill() {
   const skills = await getSkills();

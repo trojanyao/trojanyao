@@ -1,4 +1,4 @@
-import Breadcrumb from '@/app/components/Breadcrumb';
+import Breadcrumb from '@/app/components/ui/Breadcrumb';
 import { getProjects } from '@/lib/notion';
 
 import ProjectList from './components/ProjectList';

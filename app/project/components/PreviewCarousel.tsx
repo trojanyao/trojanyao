@@ -5,7 +5,7 @@ import Image from 'next/image';
 
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/16/solid';
 
-import Button from '@/app/components/Button';
+import Button from '@/app/components/ui/Button';
 
 /* === Component: Preview Carousel === */
 export default function PreviewCarousel({

@@ -6,9 +6,9 @@ import {
 
 import { getProjects } from '@/lib/notion';
 
-import SectionHeader from '../components/SectionHeader';
+import SectionHeader from '../components/common/SectionHeader';
 import ProjectItem from '../project/components/ProjectItem';
-import ServiceItem from '../service/ServiceItem';
+import ServiceItem from '../service/components/ServiceItem';
 import SkillItem from '../skill/components/SkillItem';
 
 export default async function Develop() {

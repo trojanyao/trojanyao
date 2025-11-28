@@ -2,10 +2,10 @@
 
 import { ClockIcon, RectangleGroupIcon, Squares2X2Icon } from '@heroicons/react/24/outline';
 
-import Breadcrumb from '@/app/components/Breadcrumb';
-import GroupBy from '@/app/components/GroupBy';
-import Line from '@/app/components/Line';
-import SectionHeader from '@/app/components/SectionHeader';
+import SectionHeader from '@/app/components/common/SectionHeader';
+import Breadcrumb from '@/app/components/ui/Breadcrumb';
+import GroupBy from '@/app/components/ui/GroupBy';
+import Line from '@/app/components/ui/Line';
 import ProjectGrid from '@/app/project/components/ProjectGrid';
 import { ProjectType } from '@/lib/notion';
 import { groupBy } from '@/lib/utils/groupBy';

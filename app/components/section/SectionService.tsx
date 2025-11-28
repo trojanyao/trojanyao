@@ -1,7 +1,9 @@
 import { CurrencyYenIcon } from '@heroicons/react/24/outline';
-import SectionHeader from './SectionHeader';
-import AvailableStatus from '../service/AvailableStatus';
-import ServiceItem from '@/app/service/ServiceItem';
+
+import AvailableStatus from '@/app/service/components/AvailableStatus';
+import ServiceItem from '@/app/service/components/ServiceItem';
+
+import SectionHeader from '../common/SectionHeader';
 
 export default function SectionService() {
   return (

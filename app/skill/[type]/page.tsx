@@ -4,10 +4,10 @@ import {
   RectangleStackIcon,
 } from '@heroicons/react/24/outline';
 
-import Breadcrumb from '@/app/components/Breadcrumb';
-import GroupBy from '@/app/components/GroupBy';
-import Line from '@/app/components/Line';
-import SectionHeader from '@/app/components/SectionHeader';
+import SectionHeader from '@/app/components/common/SectionHeader';
+import Breadcrumb from '@/app/components/ui/Breadcrumb';
+import GroupBy from '@/app/components/ui/GroupBy';
+import Line from '@/app/components/ui/Line';
 
 import SkillGrid from '../components/SkillGrid';
 

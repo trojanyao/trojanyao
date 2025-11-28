@@ -1,7 +1,8 @@
 import { CommandLineIcon } from '@heroicons/react/24/outline';
 
-import SectionHeader from '../components/SectionHeader';
-import ServiceItem from './ServiceItem';
+import SectionHeader from '@/app/components/common/SectionHeader';
+
+import ServiceItem from './components/ServiceItem';
 
 export default function Service() {
   return (

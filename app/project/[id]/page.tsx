@@ -10,8 +10,8 @@ import {
   ComputerDesktopIcon,
 } from '@heroicons/react/24/outline';
 
-import Breadcrumb from '@/app/components/Breadcrumb';
-import SectionHeader from '@/app/components/SectionHeader';
+import SectionHeader from '@/app/components/common/SectionHeader';
+import Breadcrumb from '@/app/components/ui/Breadcrumb';
 import SkillGrid from '@/app/skill/components/SkillGrid';
 import { getProject, getSkills } from '@/lib/notion';
 

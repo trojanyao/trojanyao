@@ -1,9 +1,9 @@
 import { Inter } from 'next/font/google';
 
 import './globals.css';
-import Footer from './components/Footer';
-import Header from './components/Header';
-import ScrollToTop from './components/ScrollToTop';
+import Footer from './components/common/Footer';
+import Header from './components/common/Header';
+import ScrollToTop from './components/common/ScrollToTop';
 import SmoothScroll from './smooth-scroll';
 
 import type { Metadata } from 'next';

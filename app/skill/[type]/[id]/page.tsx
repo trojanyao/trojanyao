@@ -4,9 +4,9 @@ import Link from 'next/link';
 import { ArrowTopRightOnSquareIcon } from '@heroicons/react/16/solid';
 import { DocumentTextIcon, Squares2X2Icon } from '@heroicons/react/24/outline';
 
-import Breadcrumb from '@/app/components/Breadcrumb';
-import Button from '@/app/components/Button';
-import Line from '@/app/components/Line';
+import Breadcrumb from '@/app/components/ui/Breadcrumb';
+import Button from '@/app/components/ui/Button';
+import Line from '@/app/components/ui/Line';
 import ProjectList from '@/app/project/components/ProjectList';
 import { getProjects } from '@/lib/notion/project';
 import { getSkill } from '@/lib/notion/skill';
