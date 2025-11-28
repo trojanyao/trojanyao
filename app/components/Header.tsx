@@ -1,11 +1,11 @@
 'use client';
 
+import { Fragment } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 import { RssIcon } from '@heroicons/react/20/solid';
-import { Fragment } from 'react';
-import { usePathname } from 'next/navigation';
 
 import LogoText from '@/public/logo+text.svg';
 
@@ -45,7 +45,7 @@ export default function Nav() {
       </div>
 
       {/* Nav */}
-      <nav className="bg-white/75 px-4 py-3 rounded-full shadow-[0_2px_12px_rgba(0,0,0,0.05)] backdrop-blur-[6px] fixed top-4 left-1/2 -translate-x-1/2 flex items-center gap-2">
+      {/* <nav className="bg-white/75 px-4 py-3 rounded-full shadow-[0_2px_12px_rgba(0,0,0,0.05)] backdrop-blur-[6px] fixed top-4 left-1/2 -translate-x-1/2 flex items-center gap-2">
         {menus.map((menuGroup, groupIndex) => (
           <Fragment key={groupIndex}>
             {groupIndex !== 0 && <div className="w-[1px] h-4 bg-[var(--border-secondary)]" />}
@@ -70,7 +70,7 @@ export default function Nav() {
             </ul>
           </Fragment>
         ))}
-      </nav>
+      </nav> */}
 
       {/* Tools */}
       <div>

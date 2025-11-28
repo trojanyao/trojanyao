@@ -5,7 +5,7 @@ import SectionSkill from './components/SectionSkill';
 
 export default function Home() {
   return (
-    <>
+    <div className="flex flex-col items-center">
       {/* Banner */}
       <Banner />
 
@@ -15,6 +15,6 @@ export default function Home() {
         <SectionProject />
         <SectionSkill />
       </div>
-    </>
+    </div>
   );
 }
