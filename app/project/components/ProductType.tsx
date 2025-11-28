@@ -1,5 +1,7 @@
 'use client';
 
+import type { ProjectValueType } from '@/lib/notion';
+
 export default function ProductType({ type }: { type: ProjectValueType }) {
   let color = '';
 

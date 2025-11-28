@@ -1,11 +1,5 @@
-const { Client } = require('@notionhq/client');
+import notion from './client';
 
-// Initializing a client
-const notion = new Client({
-  auth: process.env.NOTION_TOKEN,
-});
-
-/* ========== PROJECT ========== */
 export const ProjectType = {
   'Web App · 桌面端': 'Web App · 桌面端',
   'Web App · 移动端': 'Web App · 移动端',
@@ -16,9 +10,10 @@ export const ProjectType = {
   微信小程序: '微信小程序',
 };
 
-type ProjectUnionType = keyof typeof ProjectType;
-type ProjectValueType = (typeof ProjectType)[ProjectUnionType];
+export type ProjectUnionType = keyof typeof ProjectType;
+export type ProjectValueType = (typeof ProjectType)[ProjectUnionType];
 
+/* Get Project List */
 export async function getProjects(body?: any[]): Promise<ProjectItem[]> {
   const res = await notion.databases.query({
     database_id: process.env.NOTION_DATABASE_PROJECT_DEV,
@@ -74,30 +69,3 @@ export async function getProject(id: string): Promise<ProjectItem> {
     height: page.properties?.['截图高度 px']?.number,
   };
 }
-
-/* ========== SKILL ========== */
-export async function getSkills(body?: any[]): Promise<SkillItem[]> {
-  const res = await notion.databases.query({
-    database_id: process.env.NOTION_DATABASE_SKILL_DEV,
-    filter: {
-      and: [
-        {
-          property: '个人网站',
-          select: {
-            equals: '显示',
-          },
-        },
-        ...(body ?? []),
-      ],
-    },
-  });
-
-  return res?.results.map((page: any) => ({
-    id: page.id,
-    name: page.properties?.['技能']?.title?.[0]?.text?.content,
-    logo: page.icon?.file?.url,
-    status: page.properties?.['优先级 / 状态']?.status?.name,
-  }));
-}
-
-export default notion;
