@@ -23,7 +23,7 @@ export default function Breadcrumb({ menus }: { menus: MenuItem[] }) {
             <div
               className={`${
                 index === menus?.length - 1 ? 'text-secondary' : 'text-light'
-              } text-small hover:text-secondary`}
+              } text-small ${menu?.url ? 'hover:text-secondary' : ''}`}
             >
               {menu?.url ? <Link href={menu?.url}>{menu?.text}</Link> : <span>{menu?.text}</span>}
             </div>

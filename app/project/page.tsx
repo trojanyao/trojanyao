@@ -5,7 +5,8 @@ import ProjectList from './components/ProjectList';
 
 export default async function DevProjects() {
   const breadcrumbMenus = [
-    { text: '开发', url: '/dev' },
+    { text: '开发' }, // TODO: open /dev url
+    // { text: '开发', url: '/dev' },
     { text: '开发项目', url: '/project' },
   ];
 
