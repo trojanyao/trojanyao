@@ -1,19 +1,14 @@
 'use client';
 
 import { ClockIcon, RectangleGroupIcon, Squares2X2Icon } from '@heroicons/react/24/outline';
-import { ProjectType } from '@/lib/notion';
-import { groupBy } from '@/lib/utils/groupBy';
 
 import Breadcrumb from '@/app/components/Breadcrumb';
 import GroupBy from '@/app/components/GroupBy';
 import Line from '@/app/components/Line';
 import SectionHeader from '@/app/components/SectionHeader';
 import ProjectGrid from '@/app/project/components/ProjectGrid';
-
-const breadcrumbMenus = [
-  { text: '开发', url: '/dev' },
-  { text: '开发项目', url: '/project' },
-];
+import { ProjectType } from '@/lib/notion';
+import { groupBy } from '@/lib/utils/groupBy';
 
 const groupByOptions = [
   { icon: <ClockIcon />, text: '按时间', key: 'time' },
@@ -42,8 +37,6 @@ export default function ProjectList({ projects }: { projects: ProjectItem[] }) {
 
   return (
     <div>
-      <Breadcrumb menus={breadcrumbMenus} />
-
       <SectionHeader title="开发项目" icon={<Squares2X2Icon />}>
         <GroupBy
           options={groupByOptions}
