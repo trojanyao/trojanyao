@@ -15,7 +15,13 @@ const groupByOptions = [
   { icon: <RectangleGroupIcon />, text: '按形态', key: 'type' },
 ];
 
-export default function ProjectList({ projects }: { projects: ProjectItem[] }) {
+export default function ProjectList({
+  projects,
+  title,
+}: {
+  projects: ProjectItem[];
+  title?: string;
+}) {
   const [groupKey, setGroupKey] = useState('time');
 
   const projectTypeValues: string[] = Object.values(ProjectType);
@@ -35,9 +41,14 @@ export default function ProjectList({ projects }: { projects: ProjectItem[] }) {
         }
   );
 
+  const totalProjects = groupedProjects.reduce(
+    (sum, group) => sum + (group?.items?.length || 0),
+    0
+  );
+
   return (
     <div>
-      <SectionHeader title="开发项目" icon={<Squares2X2Icon />}>
+      <SectionHeader title={`${title || '开发项目'}（${totalProjects}）`} icon={<Squares2X2Icon />}>
         <GroupBy
           options={groupByOptions}
           groupKey={groupKey}
@@ -51,8 +62,10 @@ export default function ProjectList({ projects }: { projects: ProjectItem[] }) {
         {/* List */}
         {groupedProjects.map((groupItem, index) => (
           <div key={index} className="flex flex-col gap-4">
-            <div className="title-small text-secondary">{groupItem?.groupKey}</div>
-            <ProjectGrid list={groupItem.items} />
+            <div className="title-small text-secondary">
+              {groupItem?.groupKey}（{groupItem?.items?.length}）
+            </div>
+            <ProjectGrid list={groupItem?.items} />
           </div>
         ))}
       </div>
