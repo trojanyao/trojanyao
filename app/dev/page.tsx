@@ -17,7 +17,7 @@ export default async function Develop() {
   return (
     <div className="section-list">
       {/* Develop Service */}
-      <section className="section-item">
+      {/* <section className="section-item">
         <SectionHeader title="开发服务" icon={<CommandLineIcon />} />
 
         <ul className="grid grid-cols-3 gap-6">
@@ -25,7 +25,7 @@ export default async function Develop() {
             <ServiceItem key={index} />
           ))}
         </ul>
-      </section>
+      </section> */}
 
       {/* Develop Project */}
       <section className="section-item">
