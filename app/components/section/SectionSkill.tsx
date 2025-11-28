@@ -6,7 +6,12 @@ import { getSkills } from '@/lib/notion';
 import SectionHeader from '../common/SectionHeader';
 
 export default async function SectionSkill() {
-  const skills = await getSkills();
+  const skills = await getSkills([
+    {
+      property: '首页精选',
+      checkbox: { equals: true }
+    },
+  ]);
 
   return (
     <section>

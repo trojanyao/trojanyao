@@ -15,6 +15,12 @@ export async function getSkills(body?: any[]): Promise<SkillItem[]> {
         ...(body ?? []),
       ],
     },
+    sorts: [
+      {
+        property: '排序',
+        direction: 'ascending',
+      },
+    ],
   });
 
   return res?.results.map((page: any) => ({
