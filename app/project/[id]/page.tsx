@@ -87,27 +87,35 @@ export default async function ProjectDetail({ params }: { params: { id: string }
           <div className="flex flex-col gap-8">
             {/* Link */}
             {project?.url && (
-              <Link
-                href={project?.url}
-                target="_blank"
-                className=" w-fit p-2 rounded-lg flex items-center gap-1"
-                style={{
-                  background: `#${project?.color}1A`, // '1A' stand for 10% transparency in HEX
-                  color: `#${project?.color}`,
-                }}
-              >
-                <ArrowTopRightOnSquareIcon className="size-4" />
-                <span className="text-small">{project?.url}</span>
-              </Link>
+              <div className="flex items-center gap-2">
+                <Link
+                  href={project?.url}
+                  target="_blank"
+                  className=" w-fit p-2 rounded-lg flex items-center gap-1"
+                  style={{
+                    background: `#${project?.color}1A`, // '1A' stand for 10% transparency in HEX
+                    color: `#${project?.color}`,
+                  }}
+                >
+                  <ArrowTopRightOnSquareIcon className="size-4" />
+                  <span className="text-small">{project?.url}</span>
+                </Link>
+
+                <StatusDown url={project?.url} />
+              </div>
             )}
 
             {/* Date */}
-            <span className="text-light text-mini">{project?.date}</span>
+            <span className="text-light text-mini">
+              {project?.dateStart != project?.dateEnd
+                ? `${project?.dateStart} - ${project?.dateEnd}`
+                : project?.dateStart}
+            </span>
           </div>
         </div>
 
         {/* Cover */}
-        <div className="relative">
+        <div className="relative h-fit">
           <Link
             href={project?.url || '#'}
             className="block w-[600px] max-w-[600px] h-[400px] rounded-3xl border border-secondary overflow-hidden"
@@ -120,10 +128,6 @@ export default async function ProjectDetail({ params }: { params: { id: string }
               className="hover:scale-110 transition-all duration-300 ease-out"
             />
           </Link>
-
-          <div className="absolute left-0 bottom-0">
-            {project?.url && <StatusDown url={project?.url} />}
-          </div>
         </div>
       </div>
     );
