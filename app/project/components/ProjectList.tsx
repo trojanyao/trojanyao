@@ -26,6 +26,7 @@ export default function ProjectList({
 
   const projectTypeValues: string[] = Object.values(ProjectType);
 
+  /* Group the data */
   const groupedProjects = groupBy(
     projects,
     groupKey === 'type' ? 'type' : (item: ProjectItem) => item?.date?.split('-')?.[0],
@@ -41,10 +42,12 @@ export default function ProjectList({
         }
   );
 
-  const totalProjects = groupedProjects.reduce(
-    (sum, group) => sum + (group?.items?.length || 0),
-    0
+  /* Count total number of projects and remove duplicates */
+  const allProjects = groupedProjects.flatMap((group) => group?.items || []);
+  const uniqueProjects = Array.from(new Set(allProjects.map((item) => item.id))).map((id) =>
+    allProjects.find((item) => item.id === id)
   );
+  const totalProjects = uniqueProjects.length;
 
   return (
     <div>
