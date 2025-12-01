@@ -29,7 +29,7 @@ export default function ProjectList({
   /* Group the data */
   const groupedProjects = groupBy(
     projects,
-    groupKey === 'type' ? 'type' : (item: ProjectItem) => item?.date?.split('-')?.[0],
+    groupKey === 'type' ? 'type' : (item: ProjectItem) => item?.dateStart?.split('.')?.[0],
     groupKey === 'type'
       ? (a: GroupedItem<(typeof projects)[number]>, b: GroupedItem<(typeof projects)[number]>) => {
           const indexA = projectTypeValues.indexOf(a.groupKey);
@@ -38,7 +38,9 @@ export default function ProjectList({
           return (indexA === -1 ? Infinity : indexA) - (indexB === -1 ? Infinity : indexB);
         }
       : (a: GroupedItem<(typeof projects)[number]>, b: GroupedItem<(typeof projects)[number]>) => {
-          return new Date(b.items[0].date).getTime() - new Date(a.items[0].date).getTime();
+          return (
+            new Date(b.items[0].dateStart).getTime() - new Date(a.items[0].dateStart).getTime()
+          );
         }
   );
 

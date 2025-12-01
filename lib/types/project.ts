@@ -7,7 +7,8 @@ export interface ProjectItem {
   cover: string;
   name: string;
   slogan: string;
-  date: string;
+  dateStart: string;
+  dateEnd: string;
   type: ProjectUnionType[];
   url?: string;
   responsibilities?: string[];

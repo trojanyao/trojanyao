@@ -1,6 +1,6 @@
 import Image from 'next/image';
-
 import Link from 'next/link';
+
 import ProductType from './ProductType';
 
 export default function ProjectItem({ data }: { data: ProjectItem }) {
@@ -41,7 +41,11 @@ export default function ProjectItem({ data }: { data: ProjectItem }) {
 
         {/* Time + Type */}
         <div className="flex flex-col items-end gap-2">
-          <div className="pr-[2px] text-right text-light text-[0.625rem]">{data?.date}</div>
+          <div className="pr-[2px] text-right text-light text-[0.625rem]">
+            {data?.dateStart != data?.dateEnd
+              ? `${data?.dateStart} - ${data?.dateEnd}`
+              : data?.dateStart}
+          </div>
           <div className="flex items-center gap-1">
             {data?.type?.map((t: any, i) => (
               <ProductType key={i} type={t} />
