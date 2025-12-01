@@ -12,6 +12,7 @@ export default function ProductType({ type }: { type: ProjectValueType }) {
       break;
     case 'Web 官网 · 桌面端':
     case 'Web 官网 · 移动端':
+    case 'Android':
       color = 'bg-green/10 text-green';
       break;
     case 'PWA':

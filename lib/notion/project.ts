@@ -6,6 +6,7 @@ export const ProjectType = {
   'Web 官网 · 桌面端': 'Web 官网 · 桌面端',
   'Web 官网 · 移动端': 'Web 官网 · 移动端',
   'App (iOS)': 'iOS',
+  'App (Android)': 'Android',
   PWA: 'PWA',
   微信小程序: '微信小程序',
 };
