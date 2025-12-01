@@ -9,13 +9,13 @@ export default async function SectionSkill() {
   const skills = await getSkills([
     {
       property: '首页精选',
-      checkbox: { equals: true }
+      checkbox: { equals: true },
     },
   ]);
 
   return (
     <section>
-      <SectionHeader url="/skill" icon={<CommandLineIcon />} title="技能" />
+      <SectionHeader url="/skill/dev" icon={<CommandLineIcon />} title="技能" />
       <SkillGrid data={skills} />
     </section>
   );

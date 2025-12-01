@@ -189,7 +189,7 @@ export default async function ProjectDetail({ params }: { params: { id: string }
     return (
       <div>
         <SectionHeader title="技术栈" icon={<CodeBracketIcon />} color={`#${project?.color}`} />
-        <SkillGrid data={skills} />
+        <SkillGrid skills={skills} />
       </div>
     );
   }
