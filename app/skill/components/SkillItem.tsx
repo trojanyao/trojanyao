@@ -7,8 +7,17 @@ function getRandomAngle() {
   return Math.random() < 0.5 ? `group-hover:rotate-[-15deg]` : `group-hover:rotate-[15deg]`;
 }
 
+function getAngleFromId(id: string) {
+  let hash = 0;
+  for (const ch of id) {
+    hash = (hash << 5) - hash + ch.charCodeAt(0);
+    hash |= 0; // 转成 32 位有符号
+  }
+  return hash % 2 === 0 ? 'group-hover:rotate-[-10deg]' : 'group-hover:rotate-[10deg]';
+}
+
 export default function SkillItem({ data }: { data: SkillItem }) {
-  const angle = getRandomAngle();
+  const angle = getAngleFromId(data?.id);
 
   return (
     <Link
