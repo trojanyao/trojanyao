@@ -103,7 +103,7 @@ export default async function ProjectDetail({ params }: { params: { id: string }
                   <span className="text-small">{project?.url}</span>
                 </Link>
 
-                {project?.status?.includes('下线') && <StatusDown url={project?.url} />}
+                {project?.status?.includes('下线') && <StatusDown />}
               </div>
             )}
 
