@@ -12,10 +12,12 @@ export default function PreviewCarousel({
   data,
   width,
   height,
+  showBorder,
 }: {
   data: string[];
   width: number;
   height: number;
+  showBorder: boolean;
 }) {
   const isPortrait = height > width;
 
@@ -95,9 +97,7 @@ export default function PreviewCarousel({
                   alt="Preview"
                   width={width}
                   height={height}
-                  className={`${
-                    isPortrait ? 'w-auto h-full' : 'w-full h-auto'
-                  } rounded-3xl border-[1px] border-third`}
+                  className={`max-h-[800px] rounded-2xl ${showBorder ? 'border border-third' : ''}`}
                 />
               ))}
             </div>

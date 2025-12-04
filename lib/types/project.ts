@@ -16,6 +16,7 @@ export interface ProjectItem {
   responsibilities?: string[];
   skills?: string[];
   screenshots?: string[];
+  screenshotBorder: boolean;
   width?: number;
   height?: number;
 }

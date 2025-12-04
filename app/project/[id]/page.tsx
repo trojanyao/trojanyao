@@ -160,6 +160,7 @@ export default async function ProjectDetail({ params }: { params: { id: string }
           data={project?.screenshots ?? []}
           width={project?.width ?? 1200}
           height={project?.height ?? 800}
+          showBorder={project?.screenshotBorder}
         />
       </div>
     );

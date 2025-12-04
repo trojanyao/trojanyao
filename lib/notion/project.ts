@@ -80,5 +80,6 @@ export async function getProject(id: string): Promise<ProjectItem> {
     screenshots: page.properties?.['真机截图']?.files.map((file: any) => file?.file?.url),
     width: page.properties?.['截图宽度 px']?.number,
     height: page.properties?.['截图高度 px']?.number,
+    screenshotBorder: page.properties?.['截图边框']?.checkbox,
   };
 }
