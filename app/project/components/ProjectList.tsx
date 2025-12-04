@@ -8,7 +8,7 @@ import GroupBy from '@/app/components/ui/GroupBy';
 import Line from '@/app/components/ui/Line';
 import ProjectGrid from '@/app/project/components/ProjectGrid';
 import { ProjectType } from '@/lib/notion';
-import { groupBy } from '@/lib/utils/groupBy';
+import { groupBy } from '@/lib/utils/group-by';
 
 const groupByOptions = [
   { icon: <ClockIcon />, text: '按时间', key: 'time' },

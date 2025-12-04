@@ -8,7 +8,7 @@ import {
 
 import SectionHeader from '@/app/components/common/SectionHeader';
 import Line from '@/app/components/ui/Line';
-import { groupBy } from '@/lib/utils/groupBy';
+import { groupBy } from '@/lib/utils/group-by';
 
 import SkillGrid from './SkillGrid';
 

@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/16/solid';
 
 import Button from '@/app/components/ui/Button';
-import { checkIsPortrait } from '@/lib/utils/checkIsPortrait';
+import { checkIsPortrait } from '@/lib/utils/check-portrait';
 
 /* === Component: Preview Carousel === */
 export default function PreviewCarousel({

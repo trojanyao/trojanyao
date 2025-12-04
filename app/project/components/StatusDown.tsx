@@ -1,6 +1,6 @@
 import { NoSymbolIcon } from '@heroicons/react/16/solid';
 
-import { checkUrl } from '@/lib/utils/checkUrl';
+import { checkUrl } from '@/lib/utils/check-url';
 
 export default async function StatusDown({ url }: { url: string }) {
   const isAvailable = await checkUrl(url);

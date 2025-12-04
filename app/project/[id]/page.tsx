@@ -14,7 +14,7 @@ import SectionHeader from '@/app/components/common/SectionHeader';
 import Breadcrumb from '@/app/components/ui/Breadcrumb';
 import SkillGrid from '@/app/skill/components/SkillGrid';
 import { getProject, getSkills } from '@/lib/notion';
-import { checkIsPortrait } from '@/lib/utils/checkIsPortrait';
+import { checkIsPortrait } from '@/lib/utils/check-portrait';
 
 import PreviewCarousel from '../components/PreviewCarousel';
 import ProductType from '../components/ProductType';

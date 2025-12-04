@@ -5,7 +5,7 @@ import Breadcrumb from '@/app/components/ui/Breadcrumb';
 import GroupBy from '@/app/components/ui/GroupBy';
 import Line from '@/app/components/ui/Line';
 import { getSkill, getSkills } from '@/lib/notion/skill';
-import { groupBy } from '@/lib/utils/groupBy';
+import { groupBy } from '@/lib/utils/group-by';
 
 import SkillGroup from '../components/SkillGroup';
 
