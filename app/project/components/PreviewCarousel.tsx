@@ -23,11 +23,7 @@ export default function PreviewCarousel({
   const isPortrait = checkIsPortrait(width, height);
 
   /* Split images to groups depending on the width */
-  const containerWidth = 1200;
-  const containerHeight = 800;
-  const realWidth = (width * containerHeight) / height;
-  const gap = 4 * 4; // Convert Tailwind gap-[value] to pixel
-  const itemsPerGroup = isPortrait ? Math.floor((containerWidth + gap) / (realWidth + gap)) : 1;
+  const itemsPerGroup = isPortrait ? 3 : 1;
 
   const groupedData = [];
   for (let i = 0; i < data?.length; i += itemsPerGroup) {
@@ -83,21 +79,18 @@ export default function PreviewCarousel({
             }
           }}
         >
-          {carousel.map((group, groupIndex) => (
+          {carousel.map((groupItem, groupIndex) => (
             <div
               key={groupIndex}
-              className={`w-[1200px] ${
-                isPortrait ? 'h-[800px]' : ''
-              } flex justify-between items-center`}
-              style={{ gap: `${gap}px` }}
+              className={`w-[1200px] ${isPortrait ? 'h-[800px] grid grid-cols-3 gap-4' : ''} `}
             >
-              {group?.map((image, index) => (
+              {groupItem?.map((image, index) => (
                 <Image
                   key={index}
                   src={image}
                   alt="Preview"
-                  width={width}
-                  height={height}
+                  width={isPortrait ? 390 : 1200}
+                  height={800}
                   className={`max-h-[800px] rounded-2xl ${showBorder ? 'border border-third' : ''}`}
                 />
               ))}
@@ -106,7 +99,7 @@ export default function PreviewCarousel({
         </div>
       </div>
 
-      {/* Previous */}
+      {/* Previous Button */}
       {groupedData?.length > 1 && (
         <Button
           variant="default"
@@ -118,7 +111,7 @@ export default function PreviewCarousel({
         </Button>
       )}
 
-      {/* Next */}
+      {/* Next Button */}
       {groupedData?.length > 1 && (
         <Button
           variant="default"
