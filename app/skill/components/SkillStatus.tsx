@@ -31,12 +31,9 @@ export default function SkillStatus({
 
   return (
     <div className="flex items-center gap-1">
-      <span className={`${size === 'large' ? 'size-3' : 'size-2'} ${bg} rounded-full`}></span>
-      <span
-        className={`${color} ${size === 'large' ? 'text-small' : 'text-[0.625rem]'} leading-none`}
-      >
-        {status}
-      </span>
+      <div className={`size-2 ${bg} rounded-full`}></div>
+
+      <span className={`text-mini leading-none ${color}`}>{status}</span>
     </div>
   );
 }
