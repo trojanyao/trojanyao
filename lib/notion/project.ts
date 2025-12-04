@@ -33,7 +33,6 @@ export async function getProjects(body?: any[]): Promise<ProjectItem[]> {
 
   return res?.results.map((page: any) => ({
     id: page.id,
-    color: page.properties?.['品牌色']?.rich_text?.[0]?.text?.content,
     logo: page.icon?.file?.url,
     cover: page.cover?.file?.url,
     name: page.properties?.['项目']?.title?.[0]?.text?.content,
@@ -47,6 +46,7 @@ export async function getProjects(body?: any[]): Promise<ProjectItem[]> {
     type: page.properties?.['形态 *']?.multi_select?.map(
       (typeItem: any) => ProjectType[typeItem?.name as ProjectUnionType] as ProjectValueType
     ),
+    color: page.properties?.['品牌色 *']?.rich_text?.[0]?.text?.content,
   }));
 }
 
@@ -56,7 +56,7 @@ export async function getProject(id: string): Promise<ProjectItem> {
 
   return {
     id: page.id,
-    color: page.properties?.['品牌色']?.rich_text?.[0]?.text?.content,
+    // 基础
     logo: page.icon?.file?.url,
     cover: page.cover?.file?.url,
     name: page.properties?.['项目']?.title?.[0]?.text?.content,
@@ -73,13 +73,16 @@ export async function getProject(id: string): Promise<ProjectItem> {
     url: page.properties?.['线上预览 *']?.url,
     qrcode: page.properties?.['二维码 / 小程序码']?.files?.map((file: any) => file?.file?.url),
     status: page.properties?.['在线状态']?.status?.name,
+    // 开发
     responsibilities: page.properties?.['工作内容 *']?.rich_text?.map(
       (item: any) => item?.plain_text
     ),
     skills: page.properties?.['技术栈 *']?.relation?.map((item: any) => item?.id),
-    screenshots: page.properties?.['真机截图']?.files.map((file: any) => file?.file?.url),
-    width: page.properties?.['截图宽度 px']?.number,
-    height: page.properties?.['截图高度 px']?.number,
+    // 个人网站
+    color: page.properties?.['品牌色 *']?.rich_text?.[0]?.text?.content,
+    screenshots: page.properties?.['真机截图 *']?.files.map((file: any) => file?.file?.url),
     screenshotBorder: page.properties?.['截图边框']?.checkbox,
+    width: page.properties?.['截图宽度 px *']?.number,
+    height: page.properties?.['截图高度 px *']?.number,
   };
 }
