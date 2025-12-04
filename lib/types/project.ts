@@ -2,6 +2,7 @@ import type { ProjectUnionType } from '../notion/project';
 
 export interface ProjectItem {
   id: string;
+  status: string;
   color: string;
   logo: string;
   cover: string;
