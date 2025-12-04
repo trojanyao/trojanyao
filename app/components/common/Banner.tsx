@@ -58,15 +58,15 @@ export default function Banner() {
       const desc = descList[index];
 
       if (index > 0) {
-        tl.from(left, { y: OFFSET }, '<')
+        tl.from(left, { y: OFFSET, opacity: 0 }, '<')
           .from(desc, { opacity: 0 }, '<')
-          .from(right, { y: OFFSET }, '<0.1');
+          .from(right, { y: OFFSET, opacity: 0 }, '<0.1');
       }
 
       if (index < textGroups.length - 1) {
-        tl.to(left, { y: -OFFSET, delay: DELAY })
+        tl.to(left, { y: -OFFSET, opacity: 0, delay: DELAY })
           .to(desc, { opacity: 0 }, '<')
-          .to(right, { y: -OFFSET }, '<0.1');
+          .to(right, { y: -OFFSET, opacity: 0 }, '<0.1');
       }
     });
   });
@@ -75,51 +75,52 @@ export default function Banner() {
     <div className="banner-wrap w-screen h-[80vh] min-h-[600px] -mt-20 box-content border-b border-secondary flex flex-col items-center">
       <div className="w-[1200px] h-full min-h-[600px] relative flex flex-col justify-center items-center">
         {/* Header */}
-        <div className="pb-[200px] flex flex-col items-center gap-8">
+        <div className="pb-[200px]  flex flex-col items-center">
+          {/* Name */}
           <div className="trojan text-secondary text-xl leading-none">TROJAN</div>
-          <div className="flex flex-col items-center gap-4">
-            {/* Title */}
-            <ul
-              id="titleEffects"
-              className="w-96 h-8 overflow-hidden list-none relative flex flex-col items-center"
-            >
-              {textGroups.map((text, index) => (
-                <li
-                  key={index}
-                  className={`${
-                    animStart && 'absolute'
-                  } top-0 flex justify-center items-center gap-2 text-black title-middle tracking-widest select-none`}
-                >
-                  <span className={`left ${index === 1 && 'text-primary'} text-2xl font-semibold`}>
-                    {text?.title?.left}
-                  </span>
-                  <span
-                    className={`right ${(index === 0 || index === 3) && 'text-green'} ${
-                      index === 2 && 'text-orange'
-                    } text-[1.625rem] title-middle ${
-                      (index === 0 || index === 3) && kaushan_script.className
-                    }`}
-                  >
-                    {text?.title?.right}
-                  </span>
-                </li>
-              ))}
-            </ul>
 
-            {/* Description */}
-            <ul className="w-96 h-12 overflow-hidden list-none relative flex flex-col items-center">
-              {textGroups.map((text, index) => (
-                <li
-                  key={index}
-                  className={`desc-item ${
-                    animStart && 'absolute'
-                  } top-0 text-center text-light tracking-widest leading-6 whitespace-pre-wrap`}
+          {/* Title */}
+          <ul
+            id="titleEffects"
+            // h = 22(5.5rem) = 8 + mt-8 + pb-8
+            className="w-96 h-20 overflow-hidden list-none relative flex flex-col items-center"
+          >
+            {textGroups.map((text, index) => (
+              <li
+                key={index}
+                className={`mt-8 pb-4 ${
+                  animStart && 'absolute'
+                } top-0 flex justify-center items-center gap-2 text-black title-middle tracking-widest select-none`}
+              >
+                <span className={`left ${index === 1 && 'text-primary'} text-2xl font-semibold`}>
+                  {text?.title?.left}
+                </span>
+                <span
+                  className={`right ${(index === 0 || index === 3) && 'text-green'} ${
+                    index === 2 && 'text-orange'
+                  } text-[1.625rem] title-middle ${
+                    (index === 0 || index === 3) && kaushan_script.className
+                  }`}
                 >
-                  {text?.description}
-                </li>
-              ))}
-            </ul>
-          </div>
+                  {text?.title?.right}
+                </span>
+              </li>
+            ))}
+          </ul>
+
+          {/* Description */}
+          <ul className="w-96 h-12 overflow-hidden list-none relative flex flex-col items-center">
+            {textGroups.map((text, index) => (
+              <li
+                key={index}
+                className={`desc-item ${
+                  animStart && 'absolute'
+                } top-0 text-center text-light tracking-widest leading-6 whitespace-pre-wrap`}
+              >
+                {text?.description}
+              </li>
+            ))}
+          </ul>
         </div>
 
         {/* Memoji */}
