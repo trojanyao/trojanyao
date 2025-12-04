@@ -32,10 +32,11 @@ export default function SkillItem({ data }: { data: SkillItem }) {
         className={`size-10 min-w-10 min-h-10 rounded-xl squircle overflow-hidden ${angle} transition-all duration-300`}
       />
 
-      <div className="flex flex-col gap-2 overflow-hidden">
+      <div className="h-full py-[2px] flex flex-col justify-between overflow-hidden">
         <div className="font-medium leading-tight overflow-x-hidden whitespace-nowrap text-ellipsis">
           {data?.name}
         </div>
+
         <SkillStatus status={data?.status} />
       </div>
     </Link>
