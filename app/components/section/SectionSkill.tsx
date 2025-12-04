@@ -13,10 +13,17 @@ export default async function SectionSkill() {
     },
   ]);
 
+  const order = ['学习中', '熟练', '使用过'];
+  skills.sort((a, b) => {
+    const indexA = order.indexOf(a.status);
+    const indexB = order.indexOf(b.status);
+    return indexA - indexB;
+  });
+
   return (
     <section>
       <SectionHeader url="/skill/dev" icon={<CommandLineIcon />} title="技能" />
-      <SkillGrid data={skills} />
+      <SkillGrid skills={skills} />
     </section>
   );
 }
