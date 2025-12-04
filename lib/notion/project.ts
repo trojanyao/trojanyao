@@ -71,6 +71,7 @@ export async function getProject(id: string): Promise<ProjectItem> {
       (typeItem: any) => ProjectType[typeItem?.name as ProjectUnionType] as ProjectValueType
     ),
     url: page.properties?.['线上预览 *']?.url,
+    qrcode: page.properties?.['二维码 / 小程序码']?.files?.map((file: any) => file?.file?.url),
     responsibilities: page.properties?.['工作内容 *']?.rich_text?.map(
       (item: any) => item?.plain_text
     ),

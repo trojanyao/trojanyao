@@ -106,6 +106,10 @@ export default async function ProjectDetail({ params }: { params: { id: string }
               </div>
             )}
 
+            {project?.qrcode && project?.qrcode?.length > 0 && (
+              <Image src={project?.qrcode[0]} alt={project?.name} width={100} height={100} />
+            )}
+
             {/* Date */}
             <span className="text-light text-mini">
               {project?.dateStart != project?.dateEnd
