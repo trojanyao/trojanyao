@@ -33,7 +33,7 @@ export default function SkillItem({ data }: { data: SkillItem }) {
       />
 
       <div className="flex flex-col gap-2 overflow-hidden">
-        <div className="font-medium overflow-hidden whitespace-nowrap text-ellipsis">
+        <div className="font-medium leading-tight overflow-x-hidden whitespace-nowrap text-ellipsis">
           {data?.name}
         </div>
         <SkillStatus status={data?.status} />
