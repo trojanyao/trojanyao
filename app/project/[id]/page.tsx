@@ -89,7 +89,7 @@ export default async function ProjectDetail({ params }: { params: { id: string }
           {/* Bottom */}
           <div className="flex flex-col gap-8">
             {/* Link */}
-            {project?.url && (
+            {project?.preview && (
               <div className="flex items-center gap-2">
                 <div
                   className="w-fit rounded-lg group"
@@ -98,23 +98,23 @@ export default async function ProjectDetail({ params }: { params: { id: string }
                     color: `#${project?.color}`, // '99' stand for 60% transparency in HEX
                   }}
                 >
-                  {checkUrlValid(project?.url) ? (
+                  {checkUrlValid(project?.preview) ? (
                     <Link
-                      href={project?.url}
+                      href={project?.preview}
                       target="_blank"
                       className="px-3 py-2 flex items-center gap-1 opacity-80 group-hover:opacity-100"
                     >
                       <ArrowTopRightOnSquareIcon className="size-4" />
-                      <span className="text-small">{project?.url}</span>
+                      <span className="text-small">{project?.preview}</span>
                     </Link>
                   ) : (
                     <div className="px-3 py-2">
-                      <span className="text-small">{project?.url}</span>
+                      <span className="text-small">{project?.preview}</span>
                     </div>
                   )}
                 </div>
 
-                <StatusDown preview={project?.url} status={project?.status}/>
+                <StatusDown preview={project?.preview} status={project?.status} />
               </div>
             )}
 

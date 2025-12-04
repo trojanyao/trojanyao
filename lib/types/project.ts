@@ -11,7 +11,7 @@ export interface ProjectItem {
   dateStart: string;
   dateEnd: string;
   type: ProjectUnionType[];
-  url?: string;
+  preview?: string;
   qrcode?: string;
   responsibilities?: string[];
   skills?: string[];

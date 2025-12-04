@@ -70,7 +70,7 @@ export async function getProject(id: string): Promise<ProjectItem> {
     type: page.properties?.['形态 *']?.multi_select?.map(
       (typeItem: any) => ProjectType[typeItem?.name as ProjectUnionType] as ProjectValueType
     ),
-    url: page.properties?.['线上预览 *']?.url,
+    preview: page.properties?.['线上预览 *']?.url,
     qrcode: page.properties?.['二维码 / 小程序码']?.files?.map((file: any) => file?.file?.url),
     status: page.properties?.['在线状态']?.status?.name,
     // 开发
