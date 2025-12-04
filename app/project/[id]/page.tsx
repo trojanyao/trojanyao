@@ -29,9 +29,10 @@ export default async function ProjectDetail({ params }: { params: { id: string }
   let orderedResponsibilities: string[] | undefined = undefined;
   if (project?.responsibilities && Array.isArray(project.responsibilities)) {
     const joined = project.responsibilities.join('');
-    // Split by /(?:\d+\.\s*)/ to divide on "1. ", "2. ", etc.
+    // Only split the beginning or end numbered markers like "1. ", "2. ", etc.,
+    // not the ones in the middle like "V1.0", "V2.0", etc.
     orderedResponsibilities = joined
-      .split(/(?:\d+\.\s*)/g)
+      .split(/^(?:\d+\.\s*)|(?:\d+\.\s*)$/gm)
       .map((item) => item.trim())
       .filter((item) => item.length > 0);
   }
