@@ -36,24 +36,25 @@ export default async function SkillDetail({ params }: { params: { id: string } }
     return (
       <div className="pt-8 flex justify-between items-center">
         {/* Left */}
-        <div className="flex items-center gap-6">
+        <div className="w-2/3 flex gap-6">
           <Image src={skill?.logo} alt={skill?.name} width={96} height={96} className="size-24" />
 
-          <div className="flex flex-col gap-3">
+          <div className="py-1 flex flex-col justify-center gap-2">
             {/* Name & Link */}
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-3">
               <h1 className="title-large">{skill?.name}</h1>
+
               {skill?.site && (
-                <Link href={skill?.site} target="_blank">
-                  <Button variant="default" shape="square" className="size-8">
-                    <ArrowTopRightOnSquareIcon className="size-4 text-light hover:text-primary" />
-                  </Button>
+                <Link href={skill?.site} target="_blank" className="p-1 group">
+                  <ArrowTopRightOnSquareIcon className="size-4 text-light group-hover:text-primary" />
                 </Link>
               )}
             </div>
 
             {/* Desc */}
-            <div className="text-small text-light">{skill?.description}</div>
+            {skill?.description && (
+              <div className="text-small text-light leading-normal">{skill?.description}</div>
+            )}
 
             {/* Status */}
             <SkillStatus status={skill?.status} size="large" />
