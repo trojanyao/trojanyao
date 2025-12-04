@@ -7,7 +7,7 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
     <ReactLenis
       root
       options={{
-        duration: 1,
+        duration: 0.75,
         easing: (t) => 1 - Math.pow(1 - t, 3), // 自定义缓动，丝滑
       }}
     >
