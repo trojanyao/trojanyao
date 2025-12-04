@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/16/solid';
 
 import Button from '@/app/components/ui/Button';
+import { checkIsPortrait } from '@/lib/utils/checkIsPortrait';
 
 /* === Component: Preview Carousel === */
 export default function PreviewCarousel({
@@ -19,7 +20,7 @@ export default function PreviewCarousel({
   height: number;
   showBorder: boolean;
 }) {
-  const isPortrait = height > width;
+  const isPortrait = checkIsPortrait(width, height);
 
   /* Split images to groups depending on the width */
   const containerWidth = 1200;

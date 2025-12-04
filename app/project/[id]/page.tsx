@@ -14,6 +14,7 @@ import SectionHeader from '@/app/components/common/SectionHeader';
 import Breadcrumb from '@/app/components/ui/Breadcrumb';
 import SkillGrid from '@/app/skill/components/SkillGrid';
 import { getProject, getSkills } from '@/lib/notion';
+import { checkIsPortrait } from '@/lib/utils/checkIsPortrait';
 
 import PreviewCarousel from '../components/PreviewCarousel';
 import ProductType from '../components/ProductType';
@@ -133,27 +134,13 @@ export default async function ProjectDetail({ params }: { params: { id: string }
 
   /* === Component: Preview === */
   function Preview() {
-    let device: 'Desktop' | 'Phone' | 'Tablet' = 'Desktop';
-
-    if (project?.type?.some((item) => ['iOS', 'Android'].includes(item))) {
-      device = 'Phone';
-    } else if (project?.type?.some((item) => ['iPad'].includes(item))) {
-      device = 'Tablet';
-    }
+    const isPortrait = checkIsPortrait(project?.width ?? 0, project?.height ?? 0);
 
     return (
       <div>
         <SectionHeader
           title="真机截图"
-          icon={
-            device === 'Phone' ? (
-              <DevicePhoneMobileIcon />
-            ) : device === 'Tablet' ? (
-              <DeviceTabletIcon />
-            ) : (
-              <ComputerDesktopIcon />
-            )
-          }
+          icon={isPortrait ? <DevicePhoneMobileIcon /> : <ComputerDesktopIcon />}
           color={`#${project?.color}`}
         />
         <PreviewCarousel
