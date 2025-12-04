@@ -39,7 +39,10 @@ export async function getSkill(id: string): Promise<SkillItem> {
     id: page.id,
     logo: page.icon?.file?.url,
     name: page.properties?.['技能']?.title?.[0]?.text?.content,
-    description: page.properties?.['简介 *']?.rich_text?.[0]?.text?.content,
+    // TODO: support bold and other annotations
+    description: page.properties?.['简介 *']?.rich_text
+      ?.map((item: any) => item?.plain_text)
+      ?.join(''),
     status: page.properties?.['优先级 / 状态']?.status?.name,
     site: page.properties?.['链接 *']?.url,
     relatedProjectIds: page.properties?.['相关项目']?.relation?.map((item: any) => item?.id) ?? [],
