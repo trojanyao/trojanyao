@@ -114,7 +114,7 @@ export default async function ProjectDetail({ params }: { params: { id: string }
                   )}
                 </div>
 
-                {project?.status?.includes('下线') && <StatusDown />}
+                <StatusDown preview={project?.url} status={project?.status}/>
               </div>
             )}
 
