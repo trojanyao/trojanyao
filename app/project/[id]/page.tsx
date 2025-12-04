@@ -15,6 +15,7 @@ import Breadcrumb from '@/app/components/ui/Breadcrumb';
 import SkillGrid from '@/app/skill/components/SkillGrid';
 import { getProject, getSkills } from '@/lib/notion';
 import { checkIsPortrait } from '@/lib/utils/check-portrait';
+import { checkUrlValid } from '@/lib/utils/check-url';
 
 import PreviewCarousel from '../components/PreviewCarousel';
 import ProductType from '../components/ProductType';
@@ -90,18 +91,28 @@ export default async function ProjectDetail({ params }: { params: { id: string }
             {/* Link */}
             {project?.url && (
               <div className="flex items-center gap-2">
-                <Link
-                  href={project?.url}
-                  target="_blank"
-                  className=" w-fit p-2 rounded-lg flex items-center gap-1"
+                <div
+                  className="w-fit rounded-lg group"
                   style={{
                     background: `#${project?.color}1A`, // '1A' stand for 10% transparency in HEX
-                    color: `#${project?.color}`,
+                    color: `#${project?.color}`, // '99' stand for 60% transparency in HEX
                   }}
                 >
-                  <ArrowTopRightOnSquareIcon className="size-4" />
-                  <span className="text-small">{project?.url}</span>
-                </Link>
+                  {checkUrlValid(project?.url) ? (
+                    <Link
+                      href={project?.url}
+                      target="_blank"
+                      className="px-3 py-2 flex items-center gap-1 opacity-80 group-hover:opacity-100"
+                    >
+                      <ArrowTopRightOnSquareIcon className="size-4" />
+                      <span className="text-small">{project?.url}</span>
+                    </Link>
+                  ) : (
+                    <div className="px-3 py-2">
+                      <span className="text-small">{project?.url}</span>
+                    </div>
+                  )}
+                </div>
 
                 {project?.status?.includes('下线') && <StatusDown />}
               </div>
