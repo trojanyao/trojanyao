@@ -48,17 +48,17 @@ export default async function ProjectDetail({ params }: { params: { id: string }
     return (
       <div className="flex gap-24">
         {/* Details */}
-        <div className="flex-1 pb-4 flex flex-col justify-between">
+        <div className="flex-1 pb-4 flex flex-col justify-between gap-4">
           {/* Top */}
-          <div className="flex flex-col gap-9">
+          <div className="flex flex-col gap-4">
             {/* Header */}
             <div className="flex items-center gap-3">
               <Image src={project?.logo} alt={`${project?.name} Logo`} width={64} height={64} />
 
-              <div className="flex flex-col gap-2">
+              <div className="flex flex-col gap-3">
                 {/* Title + Label */}
                 <div className="flex items-center gap-2">
-                  <div className="title-middle" style={{ color: `#${project?.color}` }}>
+                  <div className="title-small" style={{ color: `#${project?.color}` }}>
                     {project?.name}
                   </div>
                   {project?.type?.map((t: any, i) => (
@@ -73,7 +73,7 @@ export default async function ProjectDetail({ params }: { params: { id: string }
 
             {/* Responsibilities */}
             {orderedResponsibilities && (
-              <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-2">
                 {orderedResponsibilities.map((item, index) => (
                   <div key={index} className="flex gap-2">
                     <CheckIcon className="size-4 min-w-4 min-h-4 mt-2" />
@@ -116,20 +116,13 @@ export default async function ProjectDetail({ params }: { params: { id: string }
         </div>
 
         {/* Cover */}
-        <div className="relative h-fit">
-          <Link
-            href={project?.url || '#'}
-            className="block w-[600px] max-w-[600px] h-[400px] rounded-3xl border border-secondary overflow-hidden"
-          >
-            <Image
-              src={project?.cover}
-              alt={project?.name}
-              width={600}
-              height={400}
-              className="hover:scale-110 transition-all duration-300 ease-out"
-            />
-          </Link>
-        </div>
+        <Image
+          src={project?.cover}
+          alt={project?.name}
+          width={600}
+          height={450}
+          className="self-start rounded-2xl border border-secondary overflow-hidden"
+        />
       </div>
     );
   }
