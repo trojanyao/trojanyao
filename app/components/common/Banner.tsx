@@ -8,7 +8,7 @@ import { gsap } from 'gsap';
 
 import './banner.css';
 import { kaushan_script } from '@/lib/fonts';
-import Memoji from '@/public/memoji.png';
+import Memoji from '@/public/memoji.webp';
 
 gsap.registerPlugin(useGSAP);
 
@@ -129,6 +129,8 @@ export default function Banner() {
           width={240}
           alt="Memoji"
           className="absolute bottom-0 left-1/2 -translate-x-1/2"
+          preload={true}
+          loading="eager"
         />
       </div>
     </div>
