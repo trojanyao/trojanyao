@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { ArrowTopRightOnSquareIcon, CheckIcon } from '@heroicons/react/16/solid';
 import {
   CodeBracketIcon,
-  DeviceTabletIcon,
   DevicePhoneMobileIcon,
   ComputerDesktopIcon,
 } from '@heroicons/react/24/outline';
@@ -21,9 +20,40 @@ import PreviewCarousel from '../components/PreviewCarousel';
 import ProductType from '../components/ProductType';
 import StatusDown from '../components/StatusDown';
 
-export default async function ProjectDetail({ params }: { params: { id: string } }) {
-  const project = await getProject(params?.id);
+export default async function ProjectDetail({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
 
+  return (
+    <Suspense fallback={<ProjectDetailSkeleton />}>
+      <ProjectContent id={id} />
+    </Suspense>
+  );
+}
+
+async function ProjectContent({ id }: { id: string }) {
+  const project = await getProject(id);
+
+  const breadcrumbMenus = [
+    { text: '开发', url: '/dev' },
+    { text: '开发项目', url: '/project' },
+    { text: project?.name },
+  ];
+
+  return (
+    <div>
+      <Breadcrumb menus={breadcrumbMenus} />
+
+      <div className="flex flex-col gap-8">
+        <BasicInfo project={project} />
+        <TechStack project={project} />
+        <Preview project={project} />
+      </div>
+    </div>
+  );
+}
+
+/* === Component: BasicInfo === */
+function BasicInfo({ project }: { project: ProjectItem }) {
   /**
    * Join project?.responsibilities array into a single string,
    * then use a regular expression to split it into an array based on ordered list markers like "1. ", "2. ", etc.
@@ -39,171 +69,165 @@ export default async function ProjectDetail({ params }: { params: { id: string }
       .filter((item) => item.length > 0);
   }
 
-  const breadcrumbMenus = [
-    { text: '开发', url: '/dev' },
-    { text: '开发项目', url: '/project' },
-    { text: project?.name },
-  ];
+  return (
+    <div className="flex gap-24">
+      {/* Details */}
+      <div className="flex-1 pb-4 flex flex-col justify-between gap-4">
+        {/* Top */}
+        <div className="flex flex-col gap-4">
+          {/* Header */}
+          <div className="flex items-center gap-3">
+            <Image src={project?.logo} alt={`${project?.name} Logo`} width={64} height={64} />
 
-  /* === Component: BasicInfo === */
-  function BasicInfo() {
-    return (
-      <div className="flex gap-24">
-        {/* Details */}
-        <div className="flex-1 pb-4 flex flex-col justify-between gap-4">
-          {/* Top */}
-          <div className="flex flex-col gap-4">
-            {/* Header */}
-            <div className="flex items-center gap-3">
-              <Image src={project?.logo} alt={`${project?.name} Logo`} width={64} height={64} />
-
-              <div className="flex flex-col gap-3">
-                {/* Title + Label */}
-                <div className="flex items-center gap-2">
-                  <div className="title-small" style={{ color: `#${project?.color}` }}>
-                    {project?.name}
-                  </div>
-                  {project?.type?.map((t: any, i) => (
-                    <ProductType key={i} type={t} />
-                  ))}
+            <div className="flex flex-col gap-3">
+              {/* Title + Label */}
+              <div className="flex items-center gap-2">
+                <div className="title-small" style={{ color: `#${project?.color}` }}>
+                  {project?.name}
                 </div>
-
-                {/* Description */}
-                <span className="text-small text-light">{project?.slogan}</span>
-              </div>
-            </div>
-
-            {/* Responsibilities */}
-            {orderedResponsibilities && (
-              <div className="flex flex-col gap-2">
-                {orderedResponsibilities.map((item, index) => (
-                  <div key={index} className="flex gap-2">
-                    <CheckIcon className="size-4 min-w-4 min-h-4 mt-2" />
-                    <p className="leading-8">{item}</p>
-                  </div>
+                {project?.type?.map((t: ProjectValueType, i) => (
+                  <ProductType key={i} type={t} />
                 ))}
               </div>
-            )}
+
+              {/* Description */}
+              <span className="text-small text-light">{project?.slogan}</span>
+            </div>
           </div>
 
-          {/* Bottom */}
-          <div className="flex flex-col gap-8">
-            {/* Link */}
-            {project?.preview && (
-              <div className="flex items-center gap-2">
-                <div
-                  className="w-fit rounded-lg group"
-                  style={{
-                    background: `#${project?.color}1A`, // '1A' stand for 10% transparency in HEX
-                    color: `#${project?.color}`, // '99' stand for 60% transparency in HEX
-                  }}
-                >
-                  {checkUrlValid(project?.preview) ? (
-                    <Link
-                      href={project?.preview}
-                      target="_blank"
-                      className="px-3 py-2 flex items-center gap-1 opacity-80 group-hover:opacity-100"
-                    >
-                      <ArrowTopRightOnSquareIcon className="size-4" />
-                      <span className="text-small">{project?.preview}</span>
-                    </Link>
-                  ) : (
-                    <div className="px-3 py-2">
-                      <span className="text-small">{project?.preview}</span>
-                    </div>
-                  )}
+          {/* Responsibilities */}
+          {orderedResponsibilities && (
+            <div className="flex flex-col gap-2">
+              {orderedResponsibilities.map((item, index) => (
+                <div key={index} className="flex gap-2">
+                  <CheckIcon className="size-4 min-w-4 min-h-4 mt-2" />
+                  <p className="leading-8">{item}</p>
                 </div>
-
-                <StatusDown preview={project?.preview} status={project?.status} />
-              </div>
-            )}
-
-            {project?.qrcode && project?.qrcode?.length > 0 && (
-              <Image src={project?.qrcode[0]} alt={project?.name} width={100} height={100} />
-            )}
-
-            {/* Date */}
-            <span className="text-light text-mini">
-              {project?.dateStart != project?.dateEnd
-                ? `${project?.dateStart} - ${project?.dateEnd}`
-                : project?.dateStart}
-            </span>
-          </div>
+              ))}
+            </div>
+          )}
         </div>
 
-        {/* Cover */}
-        <Image
-          src={project?.cover}
-          alt={project?.name}
-          width={600}
-          height={450}
-          className="self-start rounded-2xl border border-secondary overflow-hidden"
-        />
+        {/* Bottom */}
+        <div className="flex flex-col gap-8">
+          {/* Link */}
+          {project?.preview && (
+            <div className="flex items-center gap-2">
+              <div
+                className="w-fit rounded-lg group"
+                style={{
+                  background: `#${project?.color}1A`, // '1A' stand for 10% transparency in HEX
+                  color: `#${project?.color}`, // '99' stand for 60% transparency in HEX
+                }}
+              >
+                {checkUrlValid(project?.preview) ? (
+                  <Link
+                    href={project?.preview}
+                    target="_blank"
+                    className="px-3 py-2 flex items-center gap-1 opacity-80 group-hover:opacity-100"
+                  >
+                    <ArrowTopRightOnSquareIcon className="size-4" />
+                    <span className="text-small">{project?.preview}</span>
+                  </Link>
+                ) : (
+                  <div className="px-3 py-2">
+                    <span className="text-small">{project?.preview}</span>
+                  </div>
+                )}
+              </div>
+
+              <StatusDown preview={project?.preview} status={project?.status} />
+            </div>
+          )}
+
+          {project?.qrcode && project?.qrcode?.length > 0 && (
+            <Image src={project?.qrcode[0]} alt={project?.name} width={100} height={100} />
+          )}
+
+          {/* Date */}
+          <span className="text-light text-mini">
+            {project?.dateStart != project?.dateEnd
+              ? `${project?.dateStart} - ${project?.dateEnd}`
+              : project?.dateStart}
+          </span>
+        </div>
       </div>
-    );
-  }
 
-  /* === Component: Preview === */
-  function Preview() {
-    const isPortrait = checkIsPortrait(project?.width ?? 0, project?.height ?? 0);
+      {/* Cover (LCP) */}
+      <Image
+        src={project?.cover}
+        alt={project?.name}
+        width={600}
+        height={450}
+        className="self-start rounded-2xl border border-secondary overflow-hidden"
+        loading="eager"
+        fetchPriority="high"
+      />
+    </div>
+  );
+}
 
-    return (
-      <div>
-        <SectionHeader
-          title="真机截图"
-          icon={isPortrait ? <DevicePhoneMobileIcon /> : <ComputerDesktopIcon />}
-          color={`#${project?.color}`}
-        />
-        <PreviewCarousel
-          data={project?.screenshots ?? []}
-          width={project?.width ?? 1200}
-          height={project?.height ?? 800}
-          showBorder={project?.screenshotBorder}
-        />
-      </div>
-    );
-  }
-
-  /* === Component: TechStack === */
-  async function TechStack() {
-    // Returns unsorted skills
-    const skills = await getSkills([
-      {
-        property: '相关项目',
-        relation: {
-          contains: project?.id,
-        },
+/* === Component: TechStack === */
+async function TechStack({ project }: { project: ProjectItem }) {
+  // Returns unsorted skills
+  const skills = await getSkills([
+    {
+      property: '相关项目',
+      relation: {
+        contains: project?.id,
       },
-    ]);
+    },
+  ]);
 
-    // Returns skills' id manually sorted in Notion
-    const relatedSkills = project?.skills ?? [];
+  // Returns skills' id manually sorted in Notion
+  const relatedSkills = project?.skills ?? [];
 
-    // Turn skills to expected order
-    skills.sort((a: SkillItem, b: SkillItem) => {
-      const indexA = relatedSkills.indexOf(a?.id);
-      const indexB = relatedSkills.indexOf(b?.id);
+  // Turn skills to expected order
+  skills.sort((a: SkillItem, b: SkillItem) => {
+    const indexA = relatedSkills.indexOf(a?.id);
+    const indexB = relatedSkills.indexOf(b?.id);
 
-      return (indexA === -1 ? Infinity : indexA) - (indexB === -1 ? Infinity : indexB);
-    });
-
-    return (
-      <div>
-        <SectionHeader title="技术栈" icon={<CodeBracketIcon />} color={`#${project?.color}`} />
-        <SkillGrid skills={skills} />
-      </div>
-    );
-  }
+    return (indexA === -1 ? Infinity : indexA) - (indexB === -1 ? Infinity : indexB);
+  });
 
   return (
     <div>
-      <Breadcrumb menus={breadcrumbMenus} />
+      <SectionHeader title="技术栈" icon={<CodeBracketIcon />} color={`#${project?.color}`} />
+      <SkillGrid skills={skills} />
+    </div>
+  );
+}
 
-      <div className="flex flex-col gap-8">
-        <BasicInfo />
-        <TechStack />
-        <Preview />
-      </div>
+/* === Component: Preview === */
+function Preview({ project }: { project: ProjectItem }) {
+  const isPortrait = checkIsPortrait(project?.width ?? 0, project?.height ?? 0);
+
+  return (
+    <div>
+      <SectionHeader
+        title="真机截图"
+        icon={isPortrait ? <DevicePhoneMobileIcon /> : <ComputerDesktopIcon />}
+        color={`#${project?.color}`}
+      />
+      <PreviewCarousel
+        data={project?.screenshots ?? []}
+        width={project?.width ?? 1200}
+        height={project?.height ?? 800}
+        showBorder={project?.screenshotBorder}
+      />
+    </div>
+  );
+}
+
+// TODO: Replace with refined skeleton
+function ProjectDetailSkeleton() {
+  return (
+    <div className="animate-pulse flex flex-col gap-8">
+      <div className="h-8 w-1/4 bg-middle-gray rounded-lg"></div>
+      <div className="h-6 w-1/3 bg-middle-gray rounded-lg"></div>
+      <div className="h-48 w-full bg-middle-gray rounded-lg"></div>
+      <div className="h-6 w-1/3 bg-middle-gray rounded-lg"></div>
+      <div className="h-48 w-full bg-middle-gray rounded-lg"></div>
     </div>
   );
 }

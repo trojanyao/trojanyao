@@ -1,6 +1,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
+import { ProjectValueType } from '@/lib/notion';
+
 import ProductType from './ProductType';
 
 export default function ProjectItem({ data }: { data: ProjectItem }) {
@@ -17,6 +19,8 @@ export default function ProjectItem({ data }: { data: ProjectItem }) {
           width={1472}
           height={1104}
           className="hover:scale-110 transition-all duration-300 ease-out"
+          loading="eager"
+          fetchPriority="high"
         />
       </div>
 
@@ -47,7 +51,7 @@ export default function ProjectItem({ data }: { data: ProjectItem }) {
               : data?.dateStart}
           </div>
           <div className="flex items-center gap-1">
-            {data?.type?.map((t: any, i) => (
+            {data?.type?.map((t: ProjectValueType, i) => (
               <ProductType key={i} type={t} />
             ))}
           </div>
