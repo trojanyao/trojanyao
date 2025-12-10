@@ -1,18 +1,10 @@
-import {
-  CommandLineIcon,
-  Squares2X2Icon,
-  CodeBracketSquareIcon,
-} from '@heroicons/react/24/outline';
+import { Squares2X2Icon, CodeBracketSquareIcon } from '@heroicons/react/24/outline';
 
 import { getProjects, getSkills } from '@/lib/notion';
 
 import SectionHeader from '../components/common/SectionHeader';
-import SectionProject from '../components/section/SectionProject';
-import SectionSkill from '../components/section/SectionSkill';
 import ProjectItem from '../project/components/ProjectItem';
-import ServiceItem from '../service/components/ServiceItem';
 import SkillGrid from '../skill/components/SkillGrid';
-import SkillItem from '../skill/components/SkillItem';
 
 export default async function Develop() {
   const projects = await getProjects([{ property: '首页精选', checkbox: { equals: true } }]);
@@ -50,7 +42,7 @@ export default async function Develop() {
       {/* Develop Skills */}
       <section className="section-item">
         <SectionHeader url="/skill/dev" icon={<CodeBracketSquareIcon />} title="开发技能" />
-        <SkillGrid data={skills} />
+        <SkillGrid skills={skills} />
       </section>
     </div>
   );
