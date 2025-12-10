@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
 
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/16/solid';
@@ -32,8 +32,7 @@ export default function PreviewCarousel({
 
   const carousel = [groupedData[groupedData?.length - 1], ...groupedData, groupedData?.[0]];
 
-  const enableAnimation = useRef(true);
-
+  const [enableAnimation, setEnableAnimation] = useState(true);
   const [currentIndex, setCurrentIndex] = useState<number>(1);
 
   function handleNext() {
@@ -59,23 +58,23 @@ export default function PreviewCarousel({
         <div
           style={{ translate: `-${1232 * currentIndex}px` }}
           className={`w-fit flex gap-8 ${
-            enableAnimation.current ? 'transition-all' : 'transition-none'
+            enableAnimation ? 'transition-all' : 'transition-none'
           } duration-1000 ease-in-out`}
           onTransitionEnd={() => {
             if (currentIndex === carousel.length - 1) {
-              enableAnimation.current = false;
+              setEnableAnimation(false);
               setCurrentIndex(1);
               setTimeout(() => {
-                enableAnimation.current = true;
+                setEnableAnimation(true);
               }, 10);
             } else if (currentIndex === 0) {
-              enableAnimation.current = false;
+              setEnableAnimation(false);
               setCurrentIndex(carousel?.length - 2);
               setTimeout(() => {
-                enableAnimation.current = true;
+                setEnableAnimation(true);
               }, 10);
             } else {
-              enableAnimation.current = true;
+              setEnableAnimation(true);
             }
           }}
         >
@@ -92,6 +91,7 @@ export default function PreviewCarousel({
                   width={isPortrait ? 390 : 1200}
                   height={800}
                   className={`max-h-[800px] rounded-2xl ${showBorder ? 'border border-third' : ''}`}
+                  fetchPriority="low"
                 />
               ))}
             </div>
