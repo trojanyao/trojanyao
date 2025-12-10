@@ -12,13 +12,23 @@ import {
 import SectionHeader from '@/app/components/common/SectionHeader';
 import Breadcrumb from '@/app/components/ui/Breadcrumb';
 import SkillGrid from '@/app/skill/components/SkillGrid';
-import { getProject, getSkills } from '@/lib/notion';
+import { getProject, getProjects, getSkills, ProjectValueType } from '@/lib/notion';
 import { checkIsPortrait } from '@/lib/utils/check-portrait';
 import { checkUrlValid } from '@/lib/utils/check-url';
 
 import PreviewCarousel from '../components/PreviewCarousel';
 import ProductType from '../components/ProductType';
 import StatusDown from '../components/StatusDown';
+
+export const revalidate = 60 * 60 * 24; // Update every day
+
+export async function generateStaticParams() {
+  const projects: ProjectItem[] = await getProjects();
+
+  return projects?.map((p) => ({
+    id: p?.id,
+  }));
+}
 
 export default async function ProjectDetail({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
