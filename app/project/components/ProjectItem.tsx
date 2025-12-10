@@ -53,7 +53,6 @@ export default function ProjectItem({ data }: { data: ProjectItem }) {
           </div>
         </div>
       </div>
-      {/* </div> */}
     </Link>
   );
 }
