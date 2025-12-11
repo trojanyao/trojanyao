@@ -7,7 +7,7 @@ export async function getSkills(body?: any[]): Promise<Skill[]> {
     filter: {
       and: [
         {
-          property: '个人网站',
+          property: '上线 *',
           select: {
             equals: '显示',
           },
@@ -28,6 +28,7 @@ export async function getSkills(body?: any[]): Promise<Skill[]> {
     name: page.properties?.['技能']?.title?.[0]?.text?.content,
     logo: page.icon?.file?.url,
     status: page.properties?.['优先级 / 状态']?.status?.name,
+    category: page.properties?.['分类 *']?.select?.name,
   }));
 }
 

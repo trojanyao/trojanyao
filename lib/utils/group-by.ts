@@ -1,4 +1,3 @@
-
 export function groupBy<T extends Record<string, any>>(
   list: T[],
   key: keyof T | ((item: T) => string),
@@ -9,7 +8,7 @@ export function groupBy<T extends Record<string, any>>(
   for (const item of list) {
     let groupKeys: string[] = [];
 
-    // 判断传入的 key 类型
+    /* 判断传入的 key 类型 */
     if (typeof key === 'function') {
       // 如果是函数，则调用该函数来获取分组的键
       groupKeys = [key(item)];
@@ -30,9 +29,9 @@ export function groupBy<T extends Record<string, any>>(
     });
   }
 
-  const groupedArray = Object.keys(groups).map((groupKey) => ({
-    groupKey,
-    items: groups[groupKey],
+  const groupedArray = Object.keys(groups).map((key) => ({
+    groupName: key,
+    items: groups[key],
   }));
 
   if (sortFn) {
