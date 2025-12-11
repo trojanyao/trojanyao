@@ -1,11 +1,9 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { ProjectValueType } from '@/lib/notion';
-
 import ProductType from './ProductType';
 
-export default function ProjectItem({ data }: { data: ProjectItem }) {
+export default function ProjectItem({ data }: { data: Project }) {
   return (
     <Link
       href={`/project/${data?.id}`}
@@ -51,8 +49,8 @@ export default function ProjectItem({ data }: { data: ProjectItem }) {
               : data?.dateStart}
           </div>
           <div className="flex items-center gap-1">
-            {data?.type?.map((t: ProjectValueType, i) => (
-              <ProductType key={i} type={t} />
+            {data?.platform?.map((t: ProjectPlatformVisible, i) => (
+              <ProductType key={i} platform={t} />
             ))}
           </div>
         </div>

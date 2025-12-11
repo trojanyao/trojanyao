@@ -1,6 +1,6 @@
 import ProjectItem from './ProjectItem';
 
-export default function ProjectGrid({ list }: { list: ProjectItem[] }) {
+export default function ProjectGrid({ list }: { list: Project[] }) {
   list.sort((a, b) => new Date(b.dateEnd)?.getTime() - new Date(a?.dateEnd)?.getTime());
 
   return (

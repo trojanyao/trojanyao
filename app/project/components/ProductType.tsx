@@ -1,11 +1,9 @@
 'use client';
 
-import type { ProjectValueType } from '@/lib/notion';
-
-export default function ProductType({ type }: { type: ProjectValueType }) {
+export default function ProductType({ platform }: { platform: ProjectPlatformVisible }) {
   let color = '';
 
-  switch (type) {
+  switch (platform) {
     case 'Web App · 桌面端':
     case 'Web App · 移动端':
       color = 'bg-blue/10 text-blue';
@@ -31,7 +29,7 @@ export default function ProductType({ type }: { type: ProjectValueType }) {
     <div
       className={`px-2 py-1 ${color} rounded-full text-center text-[0.625rem] whitespace-nowrap`}
     >
-      {type}
+      {platform}
     </div>
   );
 }

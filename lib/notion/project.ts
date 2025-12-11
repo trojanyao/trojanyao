@@ -1,21 +1,9 @@
+import { ProjectPlatform, type ProjectPlatformOriginType } from '../constants/project.constants';
+
 import notion from './client';
 
-export const ProjectType = {
-  'Web App · 桌面端': 'Web App · 桌面端',
-  'Web App · 移动端': 'Web App · 移动端',
-  'Web 官网 · 桌面端': 'Web 官网 · 桌面端',
-  'Web 官网 · 移动端': 'Web 官网 · 移动端',
-  'App (iOS)': 'iOS',
-  'App (Android)': 'Android',
-  PWA: 'PWA',
-  微信小程序: '微信小程序',
-};
-
-export type ProjectUnionType = keyof typeof ProjectType;
-export type ProjectValueType = (typeof ProjectType)[ProjectUnionType];
-
 /* Get Project List */
-export async function getProjects(body?: any[]): Promise<ProjectItem[]> {
+export async function getProjects(body?: any[]): Promise<Project[]> {
   const res = await notion.databases.query({
     database_id: process.env.NOTION_DATABASE_PROJECT_DEV,
     filter: {
@@ -43,15 +31,15 @@ export async function getProjects(body?: any[]): Promise<ProjectItem[]> {
     dateEnd: page.properties?.['开始 * → 结束']?.date?.end
       ?.match(/^\d{4}-\d{2}/)?.[0]
       ?.replaceAll('-', '.'),
-    type: page.properties?.['形态 *']?.multi_select?.map(
-      (typeItem: any) => ProjectType[typeItem?.name as ProjectUnionType] as ProjectValueType
+    platform: page.properties?.['形态 *']?.multi_select?.map(
+      (item: any) => ProjectPlatform[item?.name as ProjectPlatformOriginType]
     ),
     color: page.properties?.['品牌色 *']?.rich_text?.[0]?.text?.content,
   }));
 }
 
 /* Get Project Detail */
-export async function getProject(id: string): Promise<ProjectItem> {
+export async function getProject(id: string): Promise<Project> {
   const page = await notion.pages.retrieve({ page_id: id });
 
   return {
@@ -67,8 +55,8 @@ export async function getProject(id: string): Promise<ProjectItem> {
     dateEnd: page.properties?.['开始 * → 结束']?.date?.end
       ?.match(/^\d{4}-\d{2}/)?.[0]
       ?.replaceAll('-', '.'),
-    type: page.properties?.['形态 *']?.multi_select?.map(
-      (typeItem: any) => ProjectType[typeItem?.name as ProjectUnionType] as ProjectValueType
+    platform: page.properties?.['形态 *']?.multi_select?.map(
+      (item: any) => ProjectPlatform[item?.name as ProjectPlatformOriginType]
     ),
     preview: page.properties?.['线上预览 *']?.url,
     qrcode: page.properties?.['二维码 / 小程序码']?.files?.map((file: any) => file?.file?.url),

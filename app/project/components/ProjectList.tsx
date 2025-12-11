@@ -8,33 +8,27 @@ import SectionHeader from '@/app/components/common/SectionHeader';
 import GroupBy from '@/app/components/ui/GroupBy';
 import Line from '@/app/components/ui/Line';
 import ProjectGrid from '@/app/project/components/ProjectGrid';
-import { ProjectType } from '@/lib/notion';
+import { ProjectPlatform } from '@/lib/constants/project.constants';
 import { groupBy } from '@/lib/utils/group-by';
 
 const groupByOptions = [
-  { icon: <ClockIcon />, text: '按时间', key: 'time' },
-  { icon: <RectangleGroupIcon />, text: '按形态', key: 'type' },
+  { icon: <ClockIcon />, text: '按时间', key: 'dateStart' },
+  { icon: <RectangleGroupIcon />, text: '按形态', key: 'platform' },
 ];
 
-export default function ProjectList({
-  projects,
-  title,
-}: {
-  projects: ProjectItem[];
-  title?: string;
-}) {
-  const [groupKey, setGroupKey] = useState('time');
+export default function ProjectList({ projects, title }: { projects: Project[]; title?: string }) {
+  const [groupKey, setGroupKey] = useState<keyof Project>('dateStart');
 
-  const projectTypeValues: string[] = Object.values(ProjectType);
+  const projectPlatformValues: string[] = Object.values(ProjectPlatform);
 
   /* Group the data */
-  const groupedProjects = groupBy(
+  const groupedProjects = groupBy<Project>(
     projects,
-    groupKey === 'type' ? 'type' : (item: ProjectItem) => item?.dateStart?.split('.')?.[0],
-    groupKey === 'type'
+    groupKey === 'platform' ? 'platform' : (item: Project) => item?.dateStart?.split('.')?.[0],
+    groupKey === 'platform'
       ? (a: GroupedItem<(typeof projects)[number]>, b: GroupedItem<(typeof projects)[number]>) => {
-          const indexA = projectTypeValues.indexOf(a.groupKey);
-          const indexB = projectTypeValues.indexOf(b.groupKey);
+          const indexA = projectPlatformValues.indexOf(a.groupName);
+          const indexB = projectPlatformValues.indexOf(b.groupName);
 
           return (indexA === -1 ? Infinity : indexA) - (indexB === -1 ? Infinity : indexB);
         }
@@ -58,7 +52,7 @@ export default function ProjectList({
         <GroupBy
           options={groupByOptions}
           groupKey={groupKey}
-          onChange={(key: string) => setGroupKey(key)}
+          onChange={(key: string) => setGroupKey(key as keyof Project)}
         />
       </SectionHeader>
 
@@ -69,7 +63,7 @@ export default function ProjectList({
         {groupedProjects.map((groupItem, index) => (
           <div key={index} className="flex flex-col gap-4">
             <div className="title-small text-secondary">
-              {groupItem?.groupKey}（{groupItem?.items?.length}）
+              {groupItem?.groupName}（{groupItem?.items?.length}）
             </div>
             <ProjectGrid list={groupItem?.items} />
           </div>

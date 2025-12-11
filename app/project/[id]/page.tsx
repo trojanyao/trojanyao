@@ -12,7 +12,7 @@ import {
 import SectionHeader from '@/app/components/common/SectionHeader';
 import Breadcrumb from '@/app/components/ui/Breadcrumb';
 import SkillGrid from '@/app/skill/components/SkillGrid';
-import { getProject, getProjects, getSkills, ProjectValueType } from '@/lib/notion';
+import { getProject, getProjects, getSkills } from '@/lib/notion';
 import { checkIsPortrait } from '@/lib/utils/check-portrait';
 import { checkUrlValid } from '@/lib/utils/check-url';
 
@@ -23,7 +23,7 @@ import StatusDown from '../components/StatusDown';
 export const revalidate = 60 * 60 * 24; // Update every day
 
 export async function generateStaticParams() {
-  const projects: ProjectItem[] = await getProjects();
+  const projects: Project[] = await getProjects();
 
   return projects?.map((p) => ({
     id: p?.id,
@@ -63,7 +63,7 @@ async function ProjectContent({ id }: { id: string }) {
 }
 
 /* === Component: BasicInfo === */
-function BasicInfo({ project }: { project: ProjectItem }) {
+function BasicInfo({ project }: { project: Project }) {
   /**
    * Join project?.responsibilities array into a single string,
    * then use a regular expression to split it into an array based on ordered list markers like "1. ", "2. ", etc.
@@ -95,8 +95,8 @@ function BasicInfo({ project }: { project: ProjectItem }) {
                 <div className="title-small" style={{ color: `#${project?.color}` }}>
                   {project?.name}
                 </div>
-                {project?.type?.map((t: ProjectValueType, i) => (
-                  <ProductType key={i} type={t} />
+                {project?.platform?.map((t: ProjectPlatformVisible, i) => (
+                  <ProductType key={i} platform={t} />
                 ))}
               </div>
 
@@ -178,7 +178,7 @@ function BasicInfo({ project }: { project: ProjectItem }) {
 }
 
 /* === Component: TechStack === */
-async function TechStack({ project }: { project: ProjectItem }) {
+async function TechStack({ project }: { project: Project }) {
   // Returns unsorted skills
   const skills = await getSkills([
     {
@@ -193,7 +193,7 @@ async function TechStack({ project }: { project: ProjectItem }) {
   const relatedSkills = project?.skills ?? [];
 
   // Turn skills to expected order
-  skills.sort((a: SkillItem, b: SkillItem) => {
+  skills.sort((a: Skill, b: Skill) => {
     const indexA = relatedSkills.indexOf(a?.id);
     const indexB = relatedSkills.indexOf(b?.id);
 
@@ -209,7 +209,7 @@ async function TechStack({ project }: { project: ProjectItem }) {
 }
 
 /* === Component: Preview === */
-function Preview({ project }: { project: ProjectItem }) {
+function Preview({ project }: { project: Project }) {
   const isPortrait = checkIsPortrait(project?.width ?? 0, project?.height ?? 0);
 
   return (
