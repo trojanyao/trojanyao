@@ -17,8 +17,8 @@ const groupByOptions: GroupOptionItem[] = [
   { icon: <FolderOpenIcon />, key: 'category', text: '按类别' },
 ];
 
-export default function SkillGroup({ skills }: { skills: SkillItem[] }) {
-  const [groupKey, setGroupKey] = useState('status');
+export default function SkillGroup({ skills }: { skills: Skill[] }) {
+  const [groupKey, setGroupKey] = useState<keyof Skill>('status');
 
   /* Pass a function to groupBy to fix type error */
   const statusOrder = ['学习中', '熟练', '使用过'];
