@@ -1,27 +1,34 @@
 import { defineConfig, globalIgnores } from 'eslint/config';
 import nextVitals from 'eslint-config-next/core-web-vitals';
-// import tseslint from 'typescript-eslint';
+import js from '@eslint/js';
+import tseslint from 'typescript-eslint';
 // import importPlugin from 'eslint-plugin-import';
 
 const eslintConfig = defineConfig([
   ...nextVitals,
+  js.configs.recommended,
+  tseslint.configs.recommended,
   /**
-   * 按照官方文档，启用这个后会报错
-   * 提示 Key "plugins": Cannot redefine plugin "import".
+   * 按照官方文档，启用 importPlugin
+   * 但是会报错 Key "plugins": Cannot redefine plugin "import".
    * 注释掉反而排序可以正常使用
    */
   // importPlugin.flatConfigs.recommended,
-  // tseslint.configs.recommended,
 
   {
     files: ['**/*.{ts,tsx}'],
-    // extends: [importPlugin.flatConfigs.recommended, importPlugin.flatConfigs.typescript],
+    // 同上，虽是官方推荐，但开启会报错
+    extends: [
+      // importPlugin.flatConfigs.recommended,
+      // importPlugin.flatConfigs.typescript,
+    ],
     languageOptions: {
       ecmaVersion: 'latest',
       sourceType: 'module',
     },
     rules: {
       'no-console': 'warn',
+      '@typescript-eslint/no-explicit-any': 'off',
       'import/order': [
         'error',
         {
