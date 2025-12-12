@@ -3,22 +3,25 @@ declare global {
   type ProjectPlatformVisible = import('../constants/project.constants').ProjectPlatformVisibleType;
 
   interface Project {
+    /* 基础 */
     id: string;
-    status: string;
-    color: string;
+    name: string;
     logo: string;
     cover: string;
-    name: string;
     slogan: string;
     dateStart: string;
     dateEnd: string;
     platform: ProjectPlatformVisibleType[];
+    status?: string;
     preview?: string;
     qrcode?: string;
+    /* 开发 */
     responsibilities?: string[];
     skills?: string[];
+    /* 个人网站 */
+    color: string;
     screenshots?: string[];
-    screenshotBorder: boolean;
+    screenshotBorder?: boolean;
     width?: number;
     height?: number;
   }

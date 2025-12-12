@@ -20,7 +20,7 @@ import PreviewCarousel from '../components/PreviewCarousel';
 import ProductType from '../components/ProductType';
 import StatusDown from '../components/StatusDown';
 
-export const revalidate = 60 * 60 * 24; // Update every day
+export const revalidate = 86400; // 60 * 60 * 24, Update every day
 
 export async function generateStaticParams() {
   const projects: Project[] = await getProjects();
@@ -146,7 +146,9 @@ function BasicInfo({ project }: { project: Project }) {
                 )}
               </div>
 
-              <StatusDown preview={project?.preview} status={project?.status} />
+              {project?.status && (
+                <StatusDown preview={project?.preview} status={project?.status} />
+              )}
             </div>
           )}
 
@@ -223,7 +225,7 @@ function Preview({ project }: { project: Project }) {
         data={project?.screenshots ?? []}
         width={project?.width ?? 1200}
         height={project?.height ?? 800}
-        showBorder={project?.screenshotBorder}
+        showBorder={project?.screenshotBorder ?? false}
       />
     </div>
   );

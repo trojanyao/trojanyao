@@ -5,7 +5,7 @@ import notion from './client';
 /* Get Project List */
 export async function getProjects(body?: any[]): Promise<Project[]> {
   const res = await notion.databases.query({
-    database_id: process.env.NOTION_DATABASE_PROJECT_DEV,
+    database_id: process.env.NOTION_DATABASE_PROJECT_DEV!,
     filter: {
       and: [
         {
@@ -20,10 +20,11 @@ export async function getProjects(body?: any[]): Promise<Project[]> {
   });
 
   return res?.results.map((page: any) => ({
+    // 基础
     id: page.id,
+    name: page.properties?.['项目']?.title?.[0]?.text?.content,
     logo: page.icon?.file?.url,
     cover: page.cover?.file?.url,
-    name: page.properties?.['项目']?.title?.[0]?.text?.content,
     slogan: page.properties?.['简介 *']?.rich_text?.[0]?.text?.content,
     dateStart: page.properties?.['开始 * → 结束']?.date?.start
       ?.match(/^\d{4}-\d{2}/)?.[0]
@@ -34,20 +35,21 @@ export async function getProjects(body?: any[]): Promise<Project[]> {
     platform: page.properties?.['形态 *']?.multi_select?.map(
       (item: any) => ProjectPlatform[item?.name as ProjectPlatformOriginType]
     ),
+    // 个人网站
     color: page.properties?.['品牌色 *']?.rich_text?.[0]?.text?.content,
   }));
 }
 
 /* Get Project Detail */
 export async function getProject(id: string): Promise<Project> {
-  const page = await notion.pages.retrieve({ page_id: id });
+  const page: any = await notion.pages.retrieve({ page_id: id });
 
   return {
-    id: page.id,
     // 基础
+    id: page.id,
+    name: page.properties?.['项目']?.title?.[0]?.text?.content,
     logo: page.icon?.file?.url,
     cover: page.cover?.file?.url,
-    name: page.properties?.['项目']?.title?.[0]?.text?.content,
     slogan: page.properties?.['简介 *']?.rich_text?.[0]?.text?.content,
     dateStart: page.properties?.['开始 * → 结束']?.date?.start
       ?.match(/^\d{4}-\d{2}/)?.[0]

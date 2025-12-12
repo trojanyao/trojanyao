@@ -22,7 +22,7 @@ export default async function SkillDetail({ params }: { params: Promise<{ id: st
 }
 
 async function SkillContent({ id }: { id: string }) {
-  const skill: SkillItem = await getSkill(id);
+  const skill: Skill = await getSkill(id);
 
   const breadcrumbMenus = [
     { text: '开发', url: '/dev' },
@@ -53,7 +53,7 @@ async function SkillContent({ id }: { id: string }) {
   );
 }
 
-function BasicInfo({ skill }: { skill: SkillItem }) {
+function BasicInfo({ skill }: { skill: Skill }) {
   return (
     <div className="pt-8 flex justify-between items-center">
       {/* Left */}
@@ -78,7 +78,7 @@ function BasicInfo({ skill }: { skill: SkillItem }) {
           )}
 
           {/* Status */}
-          <SkillStatus status={skill?.status} size="large" />
+          <SkillStatus status={skill?.status} />
         </div>
       </div>
     </div>
