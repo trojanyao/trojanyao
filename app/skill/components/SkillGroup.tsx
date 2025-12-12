@@ -56,9 +56,7 @@ export default function SkillGroup({ skills }: { skills: Skill[] }) {
         {/* List */}
         {groupedSkills?.map((groupItem, index) => (
           <div key={index} className="flex flex-col gap-4">
-            <div className="title-small text-secondary">
-              {groupItem?.groupName}（{groupItem?.items?.length}）
-            </div>
+            <div className="title-small text-secondary">{groupItem?.groupName}</div>
             <SkillGrid skills={groupItem?.items} />
           </div>
         ))}
