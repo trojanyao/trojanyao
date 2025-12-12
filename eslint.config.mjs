@@ -3,6 +3,7 @@ import nextVitals from 'eslint-config-next/core-web-vitals';
 import js from '@eslint/js';
 import tseslint from 'typescript-eslint';
 // import importPlugin from 'eslint-plugin-import';
+import unusedImports from 'eslint-plugin-unused-imports';
 
 const eslintConfig = defineConfig([
   ...nextVitals,
@@ -17,6 +18,9 @@ const eslintConfig = defineConfig([
 
   {
     files: ['**/*.{ts,tsx}'],
+    plugins: {
+      'unused-imports': unusedImports,
+    },
     // 同上，虽是官方推荐，但开启会报错
     extends: [
       // importPlugin.flatConfigs.recommended,
@@ -29,6 +33,16 @@ const eslintConfig = defineConfig([
     rules: {
       'no-console': 'warn',
       '@typescript-eslint/no-explicit-any': 'off',
+      'unused-imports/no-unused-imports': 'error',
+      'unused-imports/no-unused-vars': [
+        'error',
+        {
+          vars: 'all',
+          varsIgnorePattern: '^_',
+          args: 'after-used',
+          argsIgnorePattern: '^_',
+        },
+      ],
       'import/order': [
         'error',
         {

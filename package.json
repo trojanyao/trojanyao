@@ -4,7 +4,7 @@
   "private": true,
   "packageManager": "pnpm@10.25.0",
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
     "preview": "next build --turbopack && next start",
@@ -31,6 +31,7 @@
     "eslint-config-next": "16.0.8",
     "eslint-import-resolver-typescript": "^4.4.4",
     "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-unused-imports": "^4.3.0",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
     "typescript": "^5.9.3",
