@@ -1,5 +1,3 @@
-import { Inter } from 'next/font/google';
-
 import './globals.css';
 import Footer from './components/common/Footer';
 import Header from './components/common/Header';
@@ -7,8 +5,6 @@ import ScrollToTop from './components/common/ScrollToTop';
 import SmoothScroll from './smooth-scroll';
 
 import type { Metadata } from 'next';
-
-const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: '极简一生 | TROJAN 的个人网站',

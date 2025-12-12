@@ -9,7 +9,11 @@ export default function ScrollToTop(props: ComponentProps<'button'>) {
 
   useEffect(() => {
     const toggleVisibility = () => {
-      window.scrollY > 50 ? setIsVisible(true) : setIsVisible(false);
+      if (window.scrollY > 50) {
+        setIsVisible(true);
+      } else {
+        setIsVisible(false);
+      }
     };
 
     window.addEventListener('scroll', toggleVisibility);
@@ -20,7 +24,9 @@ export default function ScrollToTop(props: ComponentProps<'button'>) {
   }, []);
 
   const scrollToTop = () => {
-    isVisible && window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (isVisible) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   };
 
   return (

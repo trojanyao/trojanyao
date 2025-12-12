@@ -3,10 +3,6 @@ import Link from 'next/link';
 
 import SkillStatus from './SkillStatus';
 
-function getRandomAngle() {
-  return Math.random() < 0.5 ? `group-hover:rotate-[-15deg]` : `group-hover:rotate-[15deg]`;
-}
-
 function getAngleFromId(id: string) {
   let hash = 0;
   for (const ch of id) {
@@ -16,7 +12,7 @@ function getAngleFromId(id: string) {
   return hash % 2 === 0 ? 'group-hover:rotate-[-10deg]' : 'group-hover:rotate-[10deg]';
 }
 
-export default function SkillItem({ data }: { data: SkillItem }) {
+export default function SkillItem({ data }: { data: Skill }) {
   const angle = getAngleFromId(data?.id);
 
   return (

@@ -1,12 +1,4 @@
-type SkillStatusSize = 'middle' | 'large';
-
-export default function SkillStatus({
-  status,
-  size = 'middle',
-}: {
-  status: SkillStatusType;
-  size?: SkillStatusSize;
-}) {
+export default function SkillStatus({ status }: { status: SkillStatus }) {
   let bg = '';
   let color = '';
 

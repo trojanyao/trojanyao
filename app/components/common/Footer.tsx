@@ -1,6 +1,7 @@
 export default function Footer() {
   return (
     <footer className="w-[1200px] mx-auto py-8 border-t border-secondary flex justify-center items-center text-sm leading-none">
+      {/* eslint-disable-next-line no-irregular-whitespace */}
       <div className="text-light">© 2024 极简一生 All Rights Reserved.</div>
       {/* <div>
         你是第<span className="mx-1 text-primary font-medium">12</span>位访客

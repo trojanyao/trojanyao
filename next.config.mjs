@@ -2,7 +2,7 @@
 import AutoImport from 'unplugin-auto-import/webpack';
 
 const nextConfig = {
-  webpack: (config, { dev, isServer }) => {
+  webpack: (config) => {
     config.plugins.push(
       AutoImport({
         imports: ['react'], // 可根据需要添加其他需要自动导入的模块

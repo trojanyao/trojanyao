@@ -1,39 +1,35 @@
 'use client';
 
-import { Fragment } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-
-import { RssIcon } from '@heroicons/react/20/solid';
 
 import LogoText from '@/public/logo+text.svg';
 
-const menus = [
-  [
-    {
-      name: '服务',
-      path: '/service',
-    },
-    {
-      name: '开发',
-      path: '/dev',
-    },
-  ],
-  [
-    {
-      name: '关于',
-      path: '/about',
-    },
-    {
-      name: '留言板',
-      path: 'guestbook',
-    },
-  ],
-];
+// const menus = [
+//   [
+//     {
+//       name: '服务',
+//       path: '/service',
+//     },
+//     {
+//       name: '开发',
+//       path: '/dev',
+//     },
+//   ],
+//   [
+//     {
+//       name: '关于',
+//       path: '/about',
+//     },
+//     {
+//       name: '留言板',
+//       path: 'guestbook',
+//     },
+//   ],
+// ];
 
 export default function Nav() {
-  const pathname = usePathname();
+  // const pathname = usePathname();
 
   return (
     <header className="w-[1200px] h-24 mx-auto absolute z-10 flex justify-between items-center">

@@ -9,7 +9,7 @@ export async function checkUrlAvailable(url: string) {
     const response = await fetch(url, { method: 'HEAD' }); // Use HEAD requests to minimize data transfer
 
     return response?.ok;
-  } catch (error) {
+  } catch {
     return false;
   }
 }

@@ -1,11 +1,5 @@
-import { CodeBracketSquareIcon } from '@heroicons/react/24/outline';
-
-import SectionHeader from '@/app/components/common/SectionHeader';
 import Breadcrumb from '@/app/components/ui/Breadcrumb';
-import GroupBy from '@/app/components/ui/GroupBy';
-import Line from '@/app/components/ui/Line';
-import { getSkill, getSkills } from '@/lib/notion/skill';
-import { groupBy } from '@/lib/utils/group-by';
+import { getSkills } from '@/lib/notion/skill';
 
 import SkillGroup from '../components/SkillGroup';
 
@@ -16,7 +10,7 @@ const breadcrumbMenus = [
 
 export default async function DevProjects() {
   /* Get All Skills */
-  const skills: SkillItem[] = await getSkills();
+  const skills: Skill[] = await getSkills();
 
   return (
     <div>
