@@ -4,7 +4,7 @@ declare global {
 
   interface Project {
     id: string;
-    status: string;
+    status?: string;
     color: string;
     logo: string;
     cover: string;
@@ -18,7 +18,7 @@ declare global {
     responsibilities?: string[];
     skills?: string[];
     screenshots?: string[];
-    screenshotBorder: boolean;
+    screenshotBorder?: boolean;
     width?: number;
     height?: number;
   }

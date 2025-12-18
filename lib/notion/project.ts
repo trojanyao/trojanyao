@@ -5,7 +5,7 @@ import notion from './client';
 /* Get Project List */
 export async function getProjects(body?: any[]): Promise<Project[]> {
   const res = await notion.databases.query({
-    database_id: process.env.NOTION_DATABASE_PROJECT_DEV,
+    database_id: process.env.NOTION_DATABASE_PROJECT_DEV!,
     filter: {
       and: [
         {
@@ -40,7 +40,7 @@ export async function getProjects(body?: any[]): Promise<Project[]> {
 
 /* Get Project Detail */
 export async function getProject(id: string): Promise<Project> {
-  const page = await notion.pages.retrieve({ page_id: id });
+  const page: any = await notion.pages.retrieve({ page_id: id });
 
   return {
     id: page.id,
