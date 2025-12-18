@@ -5,6 +5,8 @@ import Link from 'next/link';
 
 import LogoText from '@/public/logo+text.svg';
 
+import GitHubLink from './GitHubLink';
+
 // const menus = [
 //   [
 //     {
@@ -68,11 +70,12 @@ export default function Nav() {
         ))}
       </nav> */}
 
-      {/* Tools */}
       <div>
+      {/* Right: Tools */}
         {/* <Link href="/rss">
           <RssIcon className="size-5 text-orange cursor-pointer" />
         </Link> */}
+        <GitHubLink />
       </div>
     </header>
   );
