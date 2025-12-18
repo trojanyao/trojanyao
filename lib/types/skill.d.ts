@@ -3,12 +3,14 @@ declare global {
   type SkillCategory = import('../constants/skill.constants').SkillCategoryType;
 
   interface Skill {
+    // Base
     id: string;
-    logo: string;
     name: string;
-    description: string;
+    logo: string;
     status: SkillStatus;
+    // Others
     category?: SkillCategory;
+    description?: string;
     site?: string;
     relatedProjectIds?: string[];
   }

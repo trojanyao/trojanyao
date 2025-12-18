@@ -12,23 +12,13 @@ import {
 import SectionHeader from '@/app/components/common/SectionHeader';
 import Breadcrumb from '@/app/components/ui/Breadcrumb';
 import SkillGrid from '@/app/skill/components/SkillGrid';
-import { getProject, getProjects, getSkills } from '@/lib/notion';
+import { getProject, getSkills } from '@/lib/notion';
 import { checkIsPortrait } from '@/lib/utils/check-portrait';
 import { checkUrlValid } from '@/lib/utils/check-url';
 
 import PreviewCarousel from '../components/PreviewCarousel';
 import ProductType from '../components/ProductType';
 import StatusDown from '../components/StatusDown';
-
-export const revalidate = 60 * 60 * 24; // Update every day
-
-export async function generateStaticParams() {
-  const projects: Project[] = await getProjects();
-
-  return projects?.map((p) => ({
-    id: p?.id,
-  }));
-}
 
 export default async function ProjectDetail({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -146,7 +136,9 @@ function BasicInfo({ project }: { project: Project }) {
                 )}
               </div>
 
-              <StatusDown preview={project?.preview} status={project?.status} />
+              {project?.status && (
+                <StatusDown preview={project?.preview} status={project?.status} />
+              )}
             </div>
           )}
 
@@ -223,7 +215,7 @@ function Preview({ project }: { project: Project }) {
         data={project?.screenshots ?? []}
         width={project?.width ?? 1200}
         height={project?.height ?? 800}
-        showBorder={project?.screenshotBorder}
+        showBorder={project?.screenshotBorder ?? false}
       />
     </div>
   );
