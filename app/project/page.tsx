@@ -3,6 +3,8 @@ import { getProjects } from '@/lib/notion';
 
 import ProjectList from './components/ProjectList';
 
+export const revalidate = 600; // use ISR, revalidate every 10 minutes to avoid Notion's 1hr expiry
+
 export default async function DevProjects() {
   const breadcrumbMenus = [
     { text: '开发' }, // TODO: open /dev url

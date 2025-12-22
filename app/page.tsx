@@ -3,6 +3,8 @@ import Banner from './components/common/Banner';
 import SectionProject from './components/section/SectionProject';
 import SectionSkill from './components/section/SectionSkill';
 
+export const revalidate = 600; // use ISR, revalidate every 10 minutes to avoid Notion's 1hr expiry
+
 export default function Home() {
   return (
     <div className="flex flex-col items-center">
