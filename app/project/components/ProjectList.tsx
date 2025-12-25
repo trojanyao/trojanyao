@@ -7,6 +7,7 @@ import { ClockIcon, RectangleGroupIcon, Squares2X2Icon } from '@heroicons/react/
 import SectionHeader from '@/app/components/common/SectionHeader';
 import GroupBy from '@/app/components/ui/GroupBy';
 import Line from '@/app/components/ui/Line';
+import ProjectCount from '@/app/components/ui/ProjectCount';
 import ProjectGrid from '@/app/project/components/ProjectGrid';
 import { ProjectPlatform } from '@/lib/constants/project.constants';
 import { groupBy } from '@/lib/utils/group-by';
@@ -48,7 +49,11 @@ export default function ProjectList({ projects, title }: { projects: Project[]; 
 
   return (
     <div>
-      <SectionHeader title={`${title || '开发项目'}（${totalProjects}）`} icon={<Squares2X2Icon />}>
+      <SectionHeader
+        title={`${title || '开发项目'}`}
+        count={totalProjects}
+        icon={<Squares2X2Icon />}
+      >
         <GroupBy
           options={groupByOptions}
           groupKey={groupKey}
@@ -62,8 +67,9 @@ export default function ProjectList({ projects, title }: { projects: Project[]; 
         {/* List */}
         {groupedProjects.map((groupItem, index) => (
           <div key={index} className="flex flex-col gap-4">
-            <div className="title-small text-secondary">
-              {groupItem?.groupName}（{groupItem?.items?.length}）
+            <div className="flex items-center gap-1 title-small text-secondary">
+              <div>{groupItem?.groupName}</div>
+              <ProjectCount count={groupItem?.items?.length} />
             </div>
             <ProjectGrid list={groupItem?.items} />
           </div>

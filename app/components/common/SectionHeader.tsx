@@ -2,17 +2,21 @@ import Link from 'next/link';
 
 import { ChevronDoubleRightIcon } from '@heroicons/react/20/solid';
 
+import ProjectCount from '../ui/ProjectCount';
+
 export default function SectionHeader({
   url,
   title,
   icon,
   color,
+  count,
   children,
 }: {
   url?: string;
   title: string;
   icon: React.ReactNode;
   color?: string;
+  count?: number;
   children?: React.ReactNode;
 }) {
   const showArrow = !!url;
@@ -24,6 +28,7 @@ export default function SectionHeader({
         <div className="flex items-center gap-2" style={{ color }}>
           <div className="size-6">{icon}</div>
           <span className="title-small">{title}</span>
+          {count && <ProjectCount count={count} />}
         </div>
 
         {showArrow && (
