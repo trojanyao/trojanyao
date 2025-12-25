@@ -2,7 +2,12 @@
 
 import { useState } from 'react';
 
-import { ClockIcon, RectangleGroupIcon, Squares2X2Icon } from '@heroicons/react/24/outline';
+import {
+  ArchiveBoxIcon,
+  ClockIcon,
+  RectangleGroupIcon,
+  Squares2X2Icon,
+} from '@heroicons/react/24/outline';
 
 import SectionHeader from '@/app/components/common/SectionHeader';
 import GroupBy from '@/app/components/ui/GroupBy';
@@ -54,27 +59,42 @@ export default function ProjectList({ projects, title }: { projects: Project[]; 
         count={totalProjects}
         icon={<Squares2X2Icon />}
       >
-        <GroupBy
-          options={groupByOptions}
-          groupKey={groupKey}
-          onChange={(key: string) => setGroupKey(key as keyof Project)}
-        />
+        {totalProjects > 0 && (
+          <GroupBy
+            options={groupByOptions}
+            groupKey={groupKey}
+            onChange={(key: string) => setGroupKey(key as keyof Project)}
+          />
+        )}
       </SectionHeader>
 
       <div className="flex flex-col gap-6">
         <Line type="secondary" />
 
         {/* List */}
-        {groupedProjects.map((groupItem, index) => (
-          <div key={index} className="flex flex-col gap-4">
-            <div className="flex items-center gap-1 title-small text-secondary">
-              <div>{groupItem?.groupName}</div>
-              <ProjectCount count={groupItem?.items?.length} />
+        {totalProjects > 0 ? (
+          groupedProjects.map((groupItem, index) => (
+            <div key={index} className="flex flex-col gap-4">
+              <div className="flex items-center gap-1 title-small text-secondary">
+                <div>{groupItem?.groupName}</div>
+                <ProjectCount count={groupItem?.items?.length} />
+              </div>
+              <ProjectGrid list={groupItem?.items} />
             </div>
-            <ProjectGrid list={groupItem?.items} />
-          </div>
-        ))}
+          ))
+        ) : (
+          <ProjectEmpty />
+        )}
       </div>
+    </div>
+  );
+}
+
+function ProjectEmpty() {
+  return (
+    <div className="py-24 flex flex-col items-center gap-4">
+      <ArchiveBoxIcon className="size-6 text-light" />
+      <span className="text-light text-small">暂无项目</span>
     </div>
   );
 }
