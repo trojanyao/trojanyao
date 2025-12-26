@@ -17,7 +17,7 @@ import { getProject, getSkills } from '@/lib/notion';
 import { checkIsPortrait } from '@/lib/utils/check-portrait';
 import { checkUrlValid } from '@/lib/utils/check-url';
 
-import PreviewCarousel from '../components/PreviewCarousel';
+import PreviewGrid from '../components/PreviewGrid';
 import ProductType from '../components/ProductType';
 import StatusDown from '../components/StatusDown';
 
@@ -218,8 +218,8 @@ function Preview({ project }: { project: Project }) {
         icon={isPortrait ? <DevicePhoneMobileIcon /> : <ComputerDesktopIcon />}
         color={`#${project?.color}`}
       />
-      <PreviewCarousel
-        data={project?.screenshots ?? []}
+      <PreviewGrid
+        list={project?.screenshots ?? []}
         width={project?.width ?? 1200}
         height={project?.height ?? 800}
         showBorder={project?.screenshotBorder ?? false}
