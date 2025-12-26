@@ -7,6 +7,7 @@ import {
   CodeBracketIcon,
   DevicePhoneMobileIcon,
   ComputerDesktopIcon,
+  ArrowDownCircleIcon,
 } from '@heroicons/react/24/outline';
 
 import SectionHeader from '@/app/components/common/SectionHeader';
@@ -24,35 +25,41 @@ export default async function ProjectDetail({ params }: { params: Promise<{ id: 
   const { id } = await params;
 
   return (
-    <Suspense fallback={<ProjectDetailSkeleton />}>
-      <ProjectContent id={id} />
-    </Suspense>
+    <div>
+      <ProjectBreadCrumb dataPromise={getProject(id)} />
+
+      <Suspense fallback={<ProjectBasicSkeleton />}>
+        <ProjectContent dataPromise={getProject(id)} />
+      </Suspense>
+    </div>
   );
 }
 
-async function ProjectContent({ id }: { id: string }) {
-  const project = await getProject(id);
+async function ProjectBreadCrumb({ dataPromise }: { dataPromise: Promise<Project> }) {
+  const project = await dataPromise;
 
-  const breadcrumbMenus = [
+  const menus = [
     { text: '开发', url: '/dev' },
     { text: '开发项目', url: '/project' },
     { text: project?.name },
   ];
 
-  return (
-    <div>
-      <Breadcrumb menus={breadcrumbMenus} />
+  return <Breadcrumb menus={menus} />;
+}
 
-      <div className="flex flex-col gap-8">
-        <BasicInfo project={project} />
-        <TechStack project={project} />
-        <Preview project={project} />
-      </div>
+async function ProjectContent({ dataPromise }: { dataPromise: Promise<Project> }) {
+  const project = await dataPromise;
+
+  return (
+    <div className="flex flex-col gap-8">
+      <BasicInfo project={project} />
+      <TechStack project={project} />
+      <Preview project={project} />
     </div>
   );
 }
 
-/* === Component: BasicInfo === */
+/* Component: BasicInfo */
 function BasicInfo({ project }: { project: Project }) {
   /**
    * Join project?.responsibilities array into a single string,
@@ -147,11 +154,11 @@ function BasicInfo({ project }: { project: Project }) {
           )}
 
           {/* Date */}
-          <span className="text-light text-mini">
+          <div className="ml-1 text-light text-mini">
             {project?.dateStart != project?.dateEnd
               ? `${project?.dateStart} - ${project?.dateEnd}`
               : project?.dateStart}
-          </span>
+          </div>
         </div>
       </div>
 
@@ -169,7 +176,7 @@ function BasicInfo({ project }: { project: Project }) {
   );
 }
 
-/* === Component: TechStack === */
+/* Component: TechStack */
 async function TechStack({ project }: { project: Project }) {
   // Returns unsorted skills
   const skills = await getSkills([
@@ -200,7 +207,7 @@ async function TechStack({ project }: { project: Project }) {
   );
 }
 
-/* === Component: Preview === */
+/* Component: Preview */
 function Preview({ project }: { project: Project }) {
   const isPortrait = checkIsPortrait(project?.width ?? 0, project?.height ?? 0);
 
@@ -221,15 +228,45 @@ function Preview({ project }: { project: Project }) {
   );
 }
 
-// TODO: Replace with refined skeleton
-function ProjectDetailSkeleton() {
+/* Component: Skeleton */
+function ProjectBasicSkeleton() {
   return (
-    <div className="animate-pulse flex flex-col gap-8">
-      <div className="h-8 w-1/4 bg-middle-gray rounded-lg"></div>
-      <div className="h-6 w-1/3 bg-middle-gray rounded-lg"></div>
-      <div className="h-48 w-full bg-middle-gray rounded-lg"></div>
-      <div className="h-6 w-1/3 bg-middle-gray rounded-lg"></div>
-      <div className="h-48 w-full bg-middle-gray rounded-lg"></div>
+    <div className="flex gap-24 animate-pulse">
+      {/* Details */}
+      <div className="flex-1 pb-4 flex flex-col justify-between gap-4">
+        {/* Top */}
+        <div className="flex flex-col gap-4">
+          {/* Header */}
+          <div className="flex items-center gap-3">
+            <div className="size-16 bg-middle-gray rounded-md"></div>
+
+            <div className="flex flex-col gap-3">
+              {/* Title + Label */}
+              <div className="flex items-center gap-2">
+                <div className="w-20 h-6 bg-middle-gray rounded"></div>
+                <div className={`w-8 h-4 bg-middle-gray rounded-full`}></div>
+              </div>
+
+              {/* Description */}
+              <div className="w-48 h-4 bg-middle-gray rounded"></div>
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom */}
+        <div className="flex flex-col gap-8">
+          {/* Link */}
+          <div className="w-44 h-8 bg-middle-gray rounded-lg"></div>
+
+          {/* Date */}
+          <div className="w-24 h-4 bg-middle-gray rounded"></div>
+        </div>
+      </div>
+
+      {/* Cover */}
+      <div className="w-[600px] h-[450px] bg-middle-gray self-start rounded-2xl flex justify-center items-center">
+        <ArrowDownCircleIcon className="size-8 text-gray-200 animate-bounce [animation-duration:1s]" />
+      </div>
     </div>
   );
 }
