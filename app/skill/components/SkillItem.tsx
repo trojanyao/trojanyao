@@ -29,7 +29,7 @@ export default function SkillItem({ data }: { data: Skill }) {
       />
 
       <div className="h-full py-[2px] flex flex-col justify-between overflow-hidden">
-        <div className="font-medium leading-tight overflow-x-hidden whitespace-nowrap text-ellipsis">
+        <div className="font-medium leading-tight overflow-hidden whitespace-nowrap text-ellipsis">
           {data?.name}
         </div>
 

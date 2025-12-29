@@ -27,7 +27,7 @@ async function ProjectList() {
   });
 
   return (
-    <div className="max-w-full flex gap-6 overflow-x-scroll">
+    <div className="max-w-full flex gap-6">
       {projects?.map((item, index) => (
         <ProjectItem key={index} data={item} />
       ))}
