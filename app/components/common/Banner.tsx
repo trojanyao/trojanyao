@@ -129,7 +129,7 @@ export default function Banner() {
           width={240}
           alt="Memoji"
           className="absolute bottom-0 left-1/2 -translate-x-1/2"
-          preload={true}
+          preload
           loading="eager"
         />
       </div>
