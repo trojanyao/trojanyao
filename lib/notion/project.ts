@@ -67,6 +67,7 @@ export async function getProject(id: string): Promise<Project> {
     responsibilities: page.properties?.['工作内容 *']?.rich_text?.map(
       (item: any) => item?.plain_text
     ),
+    achievements: page.properties?.['工作成果 *']?.rich_text?.map((item: any) => item?.plain_text),
     skills: page.properties?.['技术栈 *']?.relation?.map((item: any) => item?.id),
     // 个人网站
     color: page.properties?.['品牌色 *']?.rich_text?.[0]?.text?.content,

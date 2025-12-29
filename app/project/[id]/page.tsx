@@ -2,7 +2,7 @@ import { Suspense } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { ArrowTopRightOnSquareIcon, CheckIcon } from '@heroicons/react/16/solid';
+import { ArrowTopRightOnSquareIcon } from '@heroicons/react/16/solid';
 import {
   CodeBracketIcon,
   DevicePhoneMobileIcon,
@@ -19,6 +19,7 @@ import { checkUrlValid } from '@/lib/utils/check-url';
 
 import PreviewGrid from '../components/PreviewGrid';
 import ProductType from '../components/ProductType';
+import Responsibilities from '../components/Responsibilities';
 import StatusDown from '../components/StatusDown';
 
 export default async function ProjectDetail({ params }: { params: Promise<{ id: string }> }) {
@@ -53,6 +54,22 @@ async function ProjectContent({ dataPromise }: { dataPromise: Promise<Project> }
   return (
     <div className="flex flex-col gap-8">
       <BasicInfo project={project} />
+
+      {/* Responsibilities & Achievements */}
+      <div className="flex gap-6">
+        <Responsibilities
+          color={project?.color}
+          responsibilities={project?.responsibilities || []}
+          key="responsibilities"
+        />
+        <div className="w-[1px] border-r border-dashed border-secondary"></div>
+        <Responsibilities
+          color={project?.color}
+          achievements={project?.achievements || []}
+          key="achievements"
+        />
+      </div>
+
       <TechStack project={project} />
       <Preview project={project} />
     </div>
@@ -61,21 +78,6 @@ async function ProjectContent({ dataPromise }: { dataPromise: Promise<Project> }
 
 /* Component: BasicInfo */
 function BasicInfo({ project }: { project: Project }) {
-  /**
-   * Join project?.responsibilities array into a single string,
-   * then use a regular expression to split it into an array based on ordered list markers like "1. ", "2. ", etc.
-   */
-  let orderedResponsibilities: string[] | undefined = undefined;
-  if (project?.responsibilities && Array.isArray(project.responsibilities)) {
-    const joined = project.responsibilities.join('');
-    // Only split the beginning or end numbered markers like "1. ", "2. ", etc.,
-    // not the ones in the middle like "V1.0", "V2.0", etc.
-    orderedResponsibilities = joined
-      .split(/^(?:\d+\.\s*)|(?:\d+\.\s*)$/gm)
-      .map((item) => item.trim())
-      .filter((item) => item.length > 0);
-  }
-
   return (
     <div className="flex gap-24">
       {/* Details */}
@@ -101,18 +103,6 @@ function BasicInfo({ project }: { project: Project }) {
               <span className="text-small text-light">{project?.slogan}</span>
             </div>
           </div>
-
-          {/* Responsibilities */}
-          {orderedResponsibilities && (
-            <div className="flex flex-col gap-2">
-              {orderedResponsibilities.map((item, index) => (
-                <div key={index} className="flex gap-2">
-                  <CheckIcon className="size-4 min-w-4 min-h-4 mt-2" />
-                  <p className="leading-8">{item}</p>
-                </div>
-              ))}
-            </div>
-          )}
         </div>
 
         {/* Bottom */}

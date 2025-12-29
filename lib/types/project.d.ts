@@ -16,8 +16,9 @@ declare global {
     preview?: string;
     qrcode?: string;
     /* 开发 */
-    responsibilities?: string[];
     skills?: string[];
+    responsibilities?: string[];
+    achievements?: string[];
     /* 个人网站 */
     color: string;
     screenshots?: string[];
