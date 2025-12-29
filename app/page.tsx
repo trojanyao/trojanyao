@@ -7,7 +7,7 @@ export const dynamic = 'force-dynamic'; // use SSR to avoid Notion's image expir
 
 export default function Home() {
   return (
-    <div className="home overflow-x-hidden flex flex-col items-center">
+    <div className="home flex flex-col items-center">
       {/* Banner */}
       <Banner />
 
