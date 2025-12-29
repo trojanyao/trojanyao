@@ -7,7 +7,7 @@ export const revalidate = 600; // use ISR, revalidate every 10 minutes to avoid 
 
 export default function Home() {
   return (
-    <div className="flex flex-col items-center">
+    <div className="home overflow-x-hidden flex flex-col items-center">
       {/* Banner */}
       <Banner />
 

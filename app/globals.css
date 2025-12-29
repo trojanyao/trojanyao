@@ -8,7 +8,7 @@ html {
 
 /* ========== General ========== */
 @layer base {
-  *::-webkit-scrollbar {
+  body:has(.home)::-webkit-scrollbar {
     display: none;
   }
 
