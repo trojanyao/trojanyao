@@ -1,7 +1,7 @@
 import { CalendarDaysIcon } from '@heroicons/react/20/solid';
 
 export default function AvailableStatus() {
-  const availableNow = false;
+  const availableNow = true;
 
   return (
     <div className="flex items-center gap-3">
@@ -25,8 +25,7 @@ export default function AvailableStatus() {
           </>
         ) : (
           <>
-            服务中 · 预计可于{' '}
-            <span className="mx-1 text-primary font-medium">2024.06.01</span>{' '}
+            服务中 · 预计可于 <span className="mx-1 text-primary font-medium">2024.06.01</span>{' '}
             开始服务 · 11 天后
             <CalendarDaysIcon className="size-5 ml-2" />
           </>

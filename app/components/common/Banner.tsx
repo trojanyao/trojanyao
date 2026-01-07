@@ -2,11 +2,15 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 import { useGSAP } from '@gsap/react';
+import { ChevronDoubleRightIcon } from '@heroicons/react/20/solid';
 import { gsap } from 'gsap';
 
 import './banner.css';
+
+import AvailableStatus from '@/app/service/components/AvailableStatus';
 import { kaushan_script } from '@/lib/fonts';
 import Memoji from '@/public/memoji.webp';
 
@@ -72,8 +76,8 @@ export default function Banner() {
   });
 
   return (
-    <div className="banner-wrap w-screen h-[80vh] min-h-[600px] -mt-20 box-content border-b border-secondary flex flex-col items-center">
-      <div className="w-[1200px] h-full min-h-[600px] relative flex flex-col justify-center items-center">
+    <div className="banner-wrap w-screen h-[80vh] min-h-[700px] -mt-20 box-content border-b border-secondary flex flex-col items-center">
+      <div className="w-[1200px] h-full min-h-[700px] relative flex flex-col justify-center items-center">
         {/* Header */}
         <div className="pb-[200px]  flex flex-col items-center">
           {/* Name */}
@@ -121,6 +125,19 @@ export default function Banner() {
               </li>
             ))}
           </ul>
+
+          {/* Status & CTA */}
+          <div className="mt-12 flex flex-col items-center gap-4">
+            <Link
+              href="/resume"
+              className="bg-middle-blue w-fit pl-4 pr-3 py-2 rounded-full flex items-center gap-1 text-primary group"
+            >
+              <div className="text-small font-medium">立即预约</div>
+              <ChevronDoubleRightIcon className="size-5 group-hover:animate-bounce-right" />
+            </Link>
+
+            <AvailableStatus />
+          </div>
         </div>
 
         {/* Memoji */}

@@ -36,6 +36,7 @@ const config: Config = {
         'light-gray': 'rgb(var(--bg-light-gray) / <alpha-value>)',
         'light-blue': 'rgb(var(--bg-light-blue) / <alpha-value>)',
         'middle-gray': 'rgb(var(--bg-middle-gray) / <alpha-value>)',
+        'middle-blue': 'rgb(var(--secondary-middle-blue) / <alpha-value>)',
       },
       backgroundImage: {
         'gradient-link':
@@ -47,7 +48,7 @@ const config: Config = {
         normal: '350',
       },
       animation: {
-        'bounce-right': 'bounce-right 600ms ease-out 2',
+        'bounce-right': 'bounce-right 600ms ease-out infinite',
       },
       keyframes: {
         'bounce-right': {
