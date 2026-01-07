@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body className="min-h-screen flex flex-col items-center text-black font-normal leading-none">
+      <body className="bg-white min-h-screen flex flex-col items-center text-black font-normal leading-none">
         <SmoothScroll>
           <Header />
           <main className="w-[1200px] flex-1 mt-20 pb-12">{children}</main>
