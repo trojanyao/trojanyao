@@ -37,6 +37,7 @@ const config: Config = {
         'light-blue': 'rgb(var(--bg-light-blue) / <alpha-value>)',
         'middle-gray': 'rgb(var(--bg-middle-gray) / <alpha-value>)',
         'middle-blue': 'rgb(var(--secondary-middle-blue) / <alpha-value>)',
+        'cover-black': '#0E0E0E',
       },
       backgroundImage: {
         'gradient-link':
