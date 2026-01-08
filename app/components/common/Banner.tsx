@@ -2,15 +2,12 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
 
 import { useGSAP } from '@gsap/react';
-import { ChevronDoubleRightIcon } from '@heroicons/react/20/solid';
 import { gsap } from 'gsap';
 
 import './banner.css';
 
-import AvailableStatus from '@/app/service/components/AvailableStatus';
 import { kaushan_script } from '@/lib/fonts';
 import Memoji from '@/public/memoji.webp';
 
@@ -127,7 +124,7 @@ export default function Banner() {
           </ul>
 
           {/* Status & CTA */}
-          <div className="mt-12 flex flex-col items-center gap-4">
+          {/* <div className="mt-12 flex flex-col items-center gap-4">
             <Link
               href="/resume"
               className="bg-middle-blue w-fit pl-4 pr-3 py-2 rounded-full flex items-center gap-1 text-primary group"
@@ -137,7 +134,7 @@ export default function Banner() {
             </Link>
 
             <AvailableStatus />
-          </div>
+          </div> */}
         </div>
 
         {/* Memoji */}
