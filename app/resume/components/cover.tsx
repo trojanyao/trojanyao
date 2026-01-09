@@ -11,8 +11,7 @@ import { GithubIcon } from 'lucide-react';
 
 import Portrait from '@/public/imgs/portrait.webp';
 
-import CopyableEmail from './copyable-email';
-
+import CopyableText from '../../components/ui/copyable-text';
 
 const info = {
   email: 'ytj1996@gmail.com',
@@ -95,7 +94,7 @@ export default function Cover() {
 
           <li className={listItemClass}>
             <EnvelopeIcon className="size-4" />
-            <CopyableEmail />
+            <CopyableText text="ytj1996@gmail.com" />
           </li>
 
           <li className={listItemClass}>
