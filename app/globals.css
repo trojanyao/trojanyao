@@ -17,6 +17,11 @@ html {
     corner-shape: squircle;
   }
 
+  /* ===== Shadow & Blur ===== */
+  .shadow-blur {
+    @apply shadow-[0_2px_8px_rgba(0,0,0,0.03)] backdrop-blur-[6px];
+  }
+
   /* ===== Fonts ===== */
   /* 英文字体 */
   @font-face {

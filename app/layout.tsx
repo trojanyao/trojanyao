@@ -17,7 +17,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body className="bg-white min-h-screen flex flex-col items-center text-black font-normal leading-none">
         <SmoothScroll>
           <Header />
-          <main className="w-[1200px] flex-1 mt-20 pb-12">{children}</main>
+          <main className="w-[1200px] flex-1 mt-20 pb-12 flex flex-col">{children}</main>
           <Footer />
 
           <ScrollToTop className="fixed bottom-3 left-[calc(50vw+600px+16px)]" />
