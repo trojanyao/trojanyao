@@ -11,7 +11,7 @@ import WeChatQRCode from '@/public/imgs/wechat-qrcode.webp';
 import CopyableText from '../../components/ui/copyable-text';
 
 const buttonClass =
-  'bg-light-blue hover:bg-primary/10 px-3 py-2 rounded-full relative flex items-center gap-1 text-secondary text-small cursor-pointer';
+  'bg-middle-blue hover:bg-primary/20 px-3 py-2 rounded-full relative flex items-center gap-1 text-secondary text-small cursor-pointer';
 
 export default function ActionBar() {
   const [isBouncing, setIsBouncing] = useState(false);
@@ -24,7 +24,7 @@ export default function ActionBar() {
   };
 
   return (
-    <div className="bg-white/80 p-3 rounded-full shadow-blur z-50 flex justify-between items-center">
+    <div className="bg-white/50 p-3 rounded-full shadow-blur z-50 flex justify-between items-center">
       {/* Left */}
       <div className="flex items-center gap-2">
         {/* Send Email */}
