@@ -7,7 +7,7 @@ export default function ProjectItem({ data }: { data: Project }) {
   return (
     <Link
       href={`/project/${data?.id}`}
-      className="w-96 min-w-96 aspect-[4/3] bg-light-gray border-[1px] border-third rounded-[20px] overflow-hidden relative flex flex-col"
+      className="aspect-[4/3] bg-light-gray border-[1px] border-third rounded-[20px] overflow-hidden relative flex flex-col"
     >
       {/* Cover */}
       <div className="flex-1 overflow-hidden">
