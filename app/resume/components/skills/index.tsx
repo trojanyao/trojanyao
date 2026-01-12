@@ -68,7 +68,7 @@ const data = [
 
 export default function Skills() {
   return (
-    <div className="p-6">
+    <div>
       <SectionHeader title="职业技能" icon={<CodeBracketIcon />} />
 
       <div className="flex flex-col gap-12">

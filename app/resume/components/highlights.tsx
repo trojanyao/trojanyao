@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { SparklesIcon } from '@heroicons/react/24/solid';
+import { SparklesIcon } from '@heroicons/react/24/outline';
 
 import SectionHeader from '@/app/components/common/SectionHeader';
 import Image01 from '@/public/imgs/resume/highlights/01.webp';
@@ -75,8 +75,8 @@ const data = [
 
 export default function Highlights() {
   return (
-    <div className="p-6">
-      <SectionHeader title="职业技能" icon={<SparklesIcon />} />
+    <div>
+      <SectionHeader title="个人亮点" icon={<SparklesIcon />} />
 
       <div className="flex flex-col gap-12">
         {data.map((item, index) => (
