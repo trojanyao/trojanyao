@@ -27,24 +27,6 @@ export default function ActionBar() {
     <div className="bg-white/50 p-3 rounded-full shadow-blur z-50 flex justify-between items-center">
       {/* Left */}
       <div className="flex items-center gap-2">
-        {/* Send Email */}
-        <div
-          className={`${buttonClass} grid grid-cols-[auto_auto] transition-all duration-500 group`}
-        >
-          <EnvelopeIcon className="size-4 flex-shrink-0" />
-          <span className="flex-shrink-0">发送邮件</span>
-          <div
-            className={`
-              ml-1 overflow-hidden
-              transition-[max-width,opacity,margin] duration-500
-              max-w-0 opacity-0 group-hover:max-w-[200px] group-hover:opacity-100
-            `}
-            style={{ gridColumn: 3 }}
-          >
-            <CopyableText text="ytj1996@gmail.com" />
-          </div>
-        </div>
-
         {/* Add WeChat */}
         <div className="relative group">
           <button className={buttonClass}>
@@ -78,6 +60,24 @@ export default function ActionBar() {
               />
               <CopyableText text="trojanyao" ariaLabel="复制微信号" />
             </div>
+          </div>
+        </div>
+
+        {/* Send Email */}
+        <div
+          className={`${buttonClass} grid grid-cols-[auto_auto] transition-all duration-500 group`}
+        >
+          <EnvelopeIcon className="size-4 flex-shrink-0" />
+          <span className="flex-shrink-0">发送邮件</span>
+          <div
+            className={`
+              ml-1 overflow-hidden
+              transition-[max-width,opacity,margin] duration-500
+              max-w-0 opacity-0 group-hover:max-w-[200px] group-hover:opacity-100
+            `}
+            style={{ gridColumn: 3 }}
+          >
+            <CopyableText text="ytj1996@gmail.com" />
           </div>
         </div>
       </div>
