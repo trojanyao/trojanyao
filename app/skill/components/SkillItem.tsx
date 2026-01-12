@@ -25,11 +25,13 @@ export default function SkillItem({ data, className }: { data: Skill; className?
         alt={data?.name}
         width={40}
         height={40}
-        className={`size-10 min-w-10 min-h-10 rounded-xl squircle overflow-hidden ${angle} transition-all duration-300`}
+        className={`size-10 aspect-square rounded-xl squircle overflow-hidden ${angle} transition-all duration-300`}
       />
 
-      <div className="h-full py-[2px] flex flex-col justify-between overflow-hidden">
-        <div className="font-medium leading-tight overflow-hidden whitespace-nowrap text-ellipsis">
+      <div className="flex-1 h-full py-[2px] flex flex-col justify-between overflow-hidden">
+        <div
+          className={`text-secondary text-small font-medium leading-tight overflow-hidden whitespace-nowrap text-ellipsis`}
+        >
           {data?.name}
         </div>
 
