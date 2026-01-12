@@ -44,6 +44,19 @@ export default function Cover() {
     return age;
   }
 
+  /* Get the experience year according to the start date like "2018.06" */
+  function getYearsExperience(startDateStr: string) {
+    const [yearStr, monthStr] = startDateStr.split('.');
+    const year = parseInt(yearStr, 10);
+    const month = monthStr ? parseInt(monthStr, 10) : 1;
+    const today = new Date();
+    let years = today.getFullYear() - year;
+    if (today.getMonth() + 1 < month || (today.getMonth() + 1 === month && today.getDate() < 1)) {
+      years--;
+    }
+    return years;
+  }
+
   return (
     <div className="bg-cover-black w-full aspect-[4/3] pr-6 relative overflow-hidden flex flex-row-reverse items-center">
       <Image
@@ -79,7 +92,9 @@ export default function Cover() {
 
           <li className={listItemClass}>
             <BriefcaseIcon className="size-4" />
-            <span>{info.startDate}</span>
+            <span>
+              {info.startDate} 参加工作（{getYearsExperience(info.startDate)} 年经验）
+            </span>
           </li>
 
           <li className={listItemClass}>
