@@ -2,6 +2,7 @@ import ActionBar from './components/action-bar';
 import Cover from './components/cover';
 import Highlights from './components/highlights';
 import CooperationModes from './components/modes';
+import Payments from './components/payments';
 import Projects from './components/projects';
 import Skills from './components/skills';
 
@@ -16,6 +17,7 @@ export default function Resume() {
           <Projects />
           <Highlights />
           <CooperationModes />
+          <Payments />
         </div>
       </div>
 
