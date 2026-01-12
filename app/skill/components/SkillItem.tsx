@@ -12,13 +12,13 @@ function getAngleFromId(id: string) {
   return hash % 2 === 0 ? 'group-hover:rotate-[-10deg]' : 'group-hover:rotate-[10deg]';
 }
 
-export default function SkillItem({ data }: { data: Skill }) {
+export default function SkillItem({ data, className }: { data: Skill; className?: string }) {
   const angle = getAngleFromId(data?.id);
 
   return (
     <Link
       href={`/skill/dev/${data?.id}`}
-      className="bg-light-gray p-4 rounded-2xl flex items-center gap-3 group"
+      className={`bg-light-gray p-4 rounded-2xl flex items-center gap-3 group ${className}`}
     >
       <Image
         src={data?.logo}

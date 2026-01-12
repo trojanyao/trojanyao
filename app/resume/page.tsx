@@ -1,12 +1,19 @@
 import ActionBar from './components/action-bar';
 import Cover from './components/cover';
+import Skills from './components/skills';
 
 export default function Resume() {
   return (
-    <div className="w-[576px] relative flex-1 bg-light-blue m-auto">
-      <Cover />
+    <div className="-mb-12 flex flex-col items-center">
+      <div className="w-[576px] pb-[88px] -mb-[88px] relative flex-1 bg-light-blue">
+        <Cover />
 
-      <div className="w-full p-4 absolute bottom-0">
+        <div>
+          <Skills />
+        </div>
+      </div>
+
+      <div className="w-[576px] p-4 mx-auto sticky bottom-0">
         <ActionBar />
       </div>
     </div>
