@@ -1,5 +1,6 @@
 import ActionBar from './components/action-bar';
 import Cover from './components/cover';
+import Highlights from './components/highlights';
 import Skills from './components/skills';
 
 export default function Resume() {
@@ -10,6 +11,7 @@ export default function Resume() {
 
         <div>
           <Skills />
+          <Highlights />
         </div>
       </div>
 

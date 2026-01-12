@@ -49,8 +49,12 @@ html {
   }
 
   /* ===== Text ===== */
+  .title-extra-large {
+    @apply text-[2rem] font-semibold leading-none;
+  }
+
   .title-large {
-    @apply text-[1.875rem] font-semibold leading-none;
+    @apply text-[1.75rem] font-semibold leading-none;
   }
 
   .title-middle {
