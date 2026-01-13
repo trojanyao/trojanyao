@@ -1,5 +1,5 @@
 // import SectionService from './components/SectionService';
-import Banner from './components/common/Banner';
+import Banner from './components/section/Banner';
 import SectionProject from './components/section/SectionProject';
 import SectionSkill from './components/section/SectionSkill';
 

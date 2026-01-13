@@ -93,18 +93,31 @@ export default function Banner() {
                   animStart && 'absolute'
                 } top-0 flex justify-center items-center gap-2 text-black title-middle tracking-widest select-none`}
               >
-                <span className={`left ${index === 1 && 'text-primary'} text-2xl font-semibold`}>
-                  {text?.title?.left}
-                </span>
-                <span
-                  className={`right ${(index === 0 || index === 3) && 'text-green'} ${
-                    index === 2 && 'text-orange'
-                  } text-[1.625rem] title-middle ${
-                    (index === 0 || index === 3) && kaushan_script.className
-                  }`}
-                >
-                  {text?.title?.right}
-                </span>
+                {index === 1 ? (
+                  <h1 className="flex justify-center items-center gap-2">
+                    <span className="left text-primary text-2xl font-semibold">
+                      {text?.title?.left}
+                    </span>
+                    <span className="right text-[1.625rem] title-middle">{text?.title?.right}</span>
+                  </h1>
+                ) : (
+                  <>
+                    <span
+                      className={`left ${index === 1 && 'text-primary'} text-2xl font-semibold`}
+                    >
+                      {text?.title?.left}
+                    </span>
+                    <span
+                      className={`right ${(index === 0 || index === 3) && 'text-green'} ${
+                        index === 2 && 'text-orange'
+                      } text-[1.625rem] title-middle ${
+                        (index === 0 || index === 3) && kaushan_script.className
+                      }`}
+                    >
+                      {text?.title?.right}
+                    </span>
+                  </>
+                )}
               </li>
             ))}
           </ul>
