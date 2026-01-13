@@ -1,4 +1,6 @@
 import './globals.css';
+import { Analytics } from '@vercel/analytics/next';
+
 import Footer from './components/common/Footer';
 import Header from './components/common/Header';
 import ScrollToTop from './components/common/ScrollToTop';
@@ -21,6 +23,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           <Footer />
 
           <ScrollToTop className="fixed bottom-3 left-[calc(50vw+600px+16px)]" />
+          <Analytics />
         </SmoothScroll>
       </body>
     </html>
