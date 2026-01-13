@@ -52,7 +52,7 @@ async function ProjectContent({ dataPromise }: { dataPromise: Promise<Project> }
   const project = await dataPromise;
 
   return (
-    <div className="flex flex-col gap-8">
+    <div className="flex flex-col gap-10">
       <BasicInfo project={project} />
 
       {/* Responsibilities & Achievements */}

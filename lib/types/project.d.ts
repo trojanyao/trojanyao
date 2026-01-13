@@ -25,6 +25,7 @@ declare global {
     screenshotBorder?: boolean;
     width?: number;
     height?: number;
+    resumeOrder?: number;
   }
 }
 

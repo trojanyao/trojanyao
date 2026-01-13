@@ -37,6 +37,7 @@ export async function getProjects(body?: any[]): Promise<Project[]> {
     ),
     // 个人网站
     color: page.properties?.['品牌色 *']?.rich_text?.[0]?.text?.content,
+    resumeOrder: page.properties?.['简历排序']?.number,
   }));
 }
 

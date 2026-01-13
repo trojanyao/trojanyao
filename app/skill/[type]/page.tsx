@@ -8,7 +8,7 @@ const breadcrumbMenus = [
   { text: '开发技能', url: '/dev/projects' },
 ];
 
-export default async function DevProjects() {
+export default async function Skills() {
   /* Get All Skills */
   const skills: Skill[] = await getSkills();
 
