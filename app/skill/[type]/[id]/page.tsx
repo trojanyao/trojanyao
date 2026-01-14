@@ -30,20 +30,30 @@ export default async function SkillDetail({ params }: { params: Promise<{ id: st
   const { id } = await params;
 
   return (
-    <Suspense>
-      <SkillContent id={id} />
-    </Suspense>
+    <div>
+      <SkillBreadcrumb dataPromise={getSkill(id)} />
+
+      <Suspense fallback={<BasicInfoSkeleton />}>
+        <SkillContent dataPromise={getSkill(id)} />
+      </Suspense>
+    </div>
   );
 }
 
-async function SkillContent({ id }: { id: string }) {
-  const skill: Skill = await getSkill(id);
+async function SkillBreadcrumb({ dataPromise }: { dataPromise: Promise<Skill> }) {
+  const skill = await dataPromise;
 
   const breadcrumbMenus = [
     { text: '开发', url: '/dev' },
     { text: '开发技能', url: '/skill/dev' },
     { text: skill?.name },
   ];
+
+  return <Breadcrumb menus={breadcrumbMenus} />;
+}
+
+async function SkillContent({ dataPromise }: { dataPromise: Promise<Skill> }) {
+  const skill = await dataPromise;
 
   /* <RelatedProjects> must be a client component, so we need to fetch the projects here */
   const projects = await getProjects([
@@ -56,14 +66,10 @@ async function SkillContent({ id }: { id: string }) {
   ]);
 
   return (
-    <div>
-      <Breadcrumb menus={breadcrumbMenus} />
+    <div className="flex flex-col gap-8">
+      <BasicInfo skill={skill} />
 
-      <div className="flex flex-col gap-8">
-        <BasicInfo skill={skill} />
-
-        <ProjectList projects={projects} title="相关项目" />
-      </div>
+      <ProjectList projects={projects} title="相关项目" />
     </div>
   );
 }
@@ -94,6 +100,30 @@ function BasicInfo({ skill }: { skill: Skill }) {
 
           {/* Status */}
           <SkillStatus status={skill?.status} />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function BasicInfoSkeleton() {
+  return (
+    <div className="pt-8 flex justify-between items-center animate-pulse">
+      {/* Left */}
+      <div className="w-2/3 flex gap-6">
+        <div className="bg-middle-gray size-24 aspect-square rounded-full" />
+
+        <div className="py-1 flex flex-col justify-center gap-1 w-full">
+          {/* Name & Link */}
+          <div className="flex items-center gap-3">
+            <div className="bg-middle-gray h-6 w-32 rounded-md" />
+          </div>
+
+          {/* Desc */}
+          <div className="bg-middle-gray h-4 w-full rounded-md mt-2" />
+
+          {/* Status */}
+          <div className="bg-middle-gray h-4 w-24 rounded-md mt-4" />
         </div>
       </div>
     </div>
