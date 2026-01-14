@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import { ArrowTopRightOnSquareIcon } from '@heroicons/react/16/solid';
+import { Metadata } from 'next';
 
 import Breadcrumb from '@/app/components/ui/Breadcrumb';
 import ProjectList from '@/app/project/components/ProjectList';
@@ -10,6 +11,20 @@ import { getProjects } from '@/lib/notion/project';
 import { getSkill } from '@/lib/notion/skill';
 
 import SkillStatus from '../../components/SkillStatus';
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
+  const { id } = await params;
+  const skill = await getSkill(id);
+
+  return {
+    title: skill?.name,
+    description: skill?.description,
+  };
+}
 
 export default async function SkillDetail({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;

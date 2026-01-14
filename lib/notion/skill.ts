@@ -1,3 +1,5 @@
+import { cache } from 'react';
+
 import notion from './client';
 
 /* Get Skill List */
@@ -33,7 +35,8 @@ export async function getSkills(body?: any[]): Promise<Skill[]> {
 }
 
 /* Get Skill Detail */
-export async function getSkill(id: string): Promise<Skill> {
+export async function _getSkill(id: string): Promise<Skill> {
+  // console.log(`[getSkill] 实际执行 API 调用，id: ${id}`, new Date().toISOString());
   const page: any = await notion.pages.retrieve({ page_id: id });
 
   return {
@@ -49,3 +52,5 @@ export async function getSkill(id: string): Promise<Skill> {
     relatedProjectIds: page.properties?.['相关项目']?.relation?.map((item: any) => item?.id) ?? [],
   };
 }
+
+export const getSkill = cache(_getSkill);
