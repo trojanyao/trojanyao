@@ -1,9 +1,16 @@
+import { Metadata } from 'next';
+
 import Breadcrumb from '@/app/components/ui/Breadcrumb';
 import { getProjects } from '@/lib/notion';
 
 import ProjectList from './components/ProjectList';
 
 export const dynamic = 'force-dynamic'; // use SSR to avoid Notion's image expiry
+
+export const metadata: Metadata = {
+  title: '开发项目',
+  description: '参与和主导的历史开发项目案例，包括 Web、App、小程序等。',
+};
 
 export default async function DevProjects() {
   const breadcrumbMenus = [

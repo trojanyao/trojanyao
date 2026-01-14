@@ -1,3 +1,5 @@
+import { cache } from 'react';
+
 import { ProjectPlatform, type ProjectPlatformOriginType } from '../constants/project.constants';
 
 import notion from './client';
@@ -42,7 +44,9 @@ export async function getProjects(body?: any[]): Promise<Project[]> {
 }
 
 /* Get Project Detail */
-export async function getProject(id: string): Promise<Project> {
+export async function _getProject(id: string): Promise<Project> {
+  // console.log(`[getProject] 实际执行 API 调用，id: ${id}`, new Date().toISOString());
+
   const page: any = await notion.pages.retrieve({ page_id: id });
 
   return {
@@ -78,3 +82,5 @@ export async function getProject(id: string): Promise<Project> {
     height: page.properties?.['截图高度 px *']?.number,
   };
 }
+
+export const getProject = cache(_getProject);

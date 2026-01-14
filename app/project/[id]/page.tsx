@@ -9,6 +9,7 @@ import {
   ComputerDesktopIcon,
   ArrowDownCircleIcon,
 } from '@heroicons/react/24/outline';
+import { Metadata } from 'next';
 
 import SectionHeader from '@/app/components/common/SectionHeader';
 import Breadcrumb from '@/app/components/ui/Breadcrumb';
@@ -21,6 +22,20 @@ import PreviewGrid from '../components/PreviewGrid';
 import ProductType from '../components/ProductType';
 import Responsibilities from '../components/Responsibilities';
 import StatusDown from '../components/StatusDown';
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
+  const { id } = await params;
+  const project = await getProject(id);
+
+  return {
+    title: `项目案例 - ${project?.name}`,
+    description: project?.slogan,
+  };
+}
 
 export default async function ProjectDetail({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -91,9 +106,9 @@ function BasicInfo({ project }: { project: Project }) {
             <div className="flex flex-col gap-3">
               {/* Title + Label */}
               <div className="flex items-center gap-2">
-                <div className="title-small" style={{ color: `#${project?.color}` }}>
+                <h1 className="title-small" style={{ color: `#${project?.color}` }}>
                   {project?.name}
-                </div>
+                </h1>
                 {project?.platform?.map((t: ProjectPlatformVisible, i) => (
                   <ProductType key={i} platform={t} />
                 ))}

@@ -65,6 +65,8 @@ export default function Cover() {
         width={288}
         height={432}
         className="absolute top-0 left-0 bottom-0"
+        loading="eager"
+        fetchPriority="high"
       />
 
       <div className="flex flex-col gap-6 z-10">
@@ -73,9 +75,9 @@ export default function Cover() {
           <div className="text-[#AFBAC6] title-middle font-medium tracking-widest">
             {info.zh.name}
           </div>
-          <div className="my-3 text-primary title-large font-bold tracking-widest">
+          <h1 className="my-3 text-primary title-large font-bold tracking-widest">
             {info.zh.slogan}
-          </div>
+          </h1>
           <div className="w-fit px-3 py-3 border border-primary/50 rounded-xl text-primary text-small">
             {info.zh.title}
           </div>

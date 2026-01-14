@@ -2,12 +2,15 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 import { useGSAP } from '@gsap/react';
+import { ChevronDoubleRightIcon } from '@heroicons/react/20/solid';
 import { gsap } from 'gsap';
 
 import './banner.css';
 
+import AvailableStatus from '@/app/service/components/AvailableStatus';
 import { kaushan_script } from '@/lib/fonts';
 import Memoji from '@/public/memoji.webp';
 
@@ -93,18 +96,31 @@ export default function Banner() {
                   animStart && 'absolute'
                 } top-0 flex justify-center items-center gap-2 text-black title-middle tracking-widest select-none`}
               >
-                <span className={`left ${index === 1 && 'text-primary'} text-2xl font-semibold`}>
-                  {text?.title?.left}
-                </span>
-                <span
-                  className={`right ${(index === 0 || index === 3) && 'text-green'} ${
-                    index === 2 && 'text-orange'
-                  } text-[1.625rem] title-middle ${
-                    (index === 0 || index === 3) && kaushan_script.className
-                  }`}
-                >
-                  {text?.title?.right}
-                </span>
+                {index === 1 ? (
+                  <h1 className="flex justify-center items-center gap-2">
+                    <span className="left text-primary text-2xl font-semibold">
+                      {text?.title?.left}
+                    </span>
+                    <span className="right text-[1.625rem] title-middle">{text?.title?.right}</span>
+                  </h1>
+                ) : (
+                  <>
+                    <span
+                      className={`left ${index === 1 && 'text-primary'} text-2xl font-semibold`}
+                    >
+                      {text?.title?.left}
+                    </span>
+                    <span
+                      className={`right ${(index === 0 || index === 3) && 'text-green'} ${
+                        index === 2 && 'text-orange'
+                      } text-[1.625rem] title-middle ${
+                        (index === 0 || index === 3) && kaushan_script.className
+                      }`}
+                    >
+                      {text?.title?.right}
+                    </span>
+                  </>
+                )}
               </li>
             ))}
           </ul>
@@ -124,17 +140,17 @@ export default function Banner() {
           </ul>
 
           {/* Status & CTA */}
-          {/* <div className="mt-12 flex flex-col items-center gap-4">
+          <div className="mt-12 flex flex-col items-center gap-4">
             <Link
               href="/resume"
-              className="bg-middle-blue w-fit pl-4 pr-3 py-2 rounded-full flex items-center gap-1 text-primary group"
+              className="bg-middle-blue w-fit pl-4 pr-3 py-2 rounded-full flex items-center gap-0 text-primary group"
             >
               <div className="text-small font-medium">立即预约</div>
               <ChevronDoubleRightIcon className="size-5 group-hover:animate-bounce-right" />
             </Link>
 
             <AvailableStatus />
-          </div> */}
+          </div>
         </div>
 
         {/* Memoji */}
@@ -143,8 +159,8 @@ export default function Banner() {
           width={240}
           alt="Memoji"
           className="absolute bottom-0 left-1/2 -translate-x-1/2"
-          preload
           loading="eager"
+          fetchPriority="high"
         />
       </div>
     </div>

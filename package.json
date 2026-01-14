@@ -23,6 +23,7 @@
     "next": "16.0.8",
     "react": "19.2.1",
     "react-dom": "19.2.1",
+    "react-error-boundary": "^6.0.3",
     "react-github-calendar": "^5.0.4"
   },
   "devDependencies": {
