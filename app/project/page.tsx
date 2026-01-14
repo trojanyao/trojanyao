@@ -8,7 +8,7 @@ import ProjectList from './components/ProjectList';
 export const dynamic = 'force-dynamic'; // use SSR to avoid Notion's image expiry
 
 export const metadata: Metadata = {
-  title: '开发项目案例',
+  title: '开发项目',
   description: '参与和主导的历史开发项目案例，包括 Web、App、小程序等。',
 };
 
