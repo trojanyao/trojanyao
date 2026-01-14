@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { ErrorBoundary } from 'react-error-boundary';
 import { GitHubCalendar } from 'react-github-calendar';
 
-import GitHubHeatmap from '@/public/imgs/resume/github-heatmap.png';
+import GitHubHeatmap from '@/public/imgs/resume/github-heatmap.webp';
 
 export default function Experiences() {
   return (
