@@ -84,8 +84,8 @@ export default function ActionBar() {
 
       {/* Right: Download Resume */}
       <a
-        href="/files/resume.pdf"
-        download="姚陶钧-七年前端-三年远程-有设计审美-专注打造优秀产品.pdf"
+        href="/files/姚陶钧-七年前端-三年远程-有设计审美-专注打造优秀产品.pdf"
+        download
         className={buttonClass}
         onClick={handleDownloadClick}
       >
