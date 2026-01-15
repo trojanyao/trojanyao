@@ -8,6 +8,8 @@ import Payments from './components/payments';
 import Projects from './components/projects';
 import Skills from './components/skills';
 
+export const dynamic = 'force-dynamic'; // use SSR to avoid Notion's image expiry
+
 export const metadata: Metadata = {
   title: '姚陶钧的个人简历',
   description: '有设计审美的前端工程师，七年前端经验，三年远程 Freelancer 经验',
