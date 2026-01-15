@@ -7,7 +7,7 @@ export default function ProjectItem({ data }: { data: Project }) {
   return (
     <Link
       href={`/project/${data?.id}`}
-      className="aspect-[4/3] bg-light-gray border-[1px] border-third rounded-[20px] overflow-hidden relative flex flex-col"
+      className="flex-1 aspect-[4/3] bg-light-gray border-[1px] border-third rounded-[20px] overflow-hidden relative flex flex-col"
     >
       {/* Cover */}
       <div className="flex-1 overflow-hidden">
@@ -16,7 +16,7 @@ export default function ProjectItem({ data }: { data: Project }) {
           alt={data?.name}
           width={1472}
           height={1104}
-          className="hover:scale-110 transition-all duration-300 ease-out"
+          className="[@media(hover:hover)]:hover:scale-110 transition-all duration-300 ease-out"
           loading="eager"
           fetchPriority="high"
         />

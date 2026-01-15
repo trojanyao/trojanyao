@@ -12,7 +12,7 @@ export default function Home() {
       <Banner />
 
       {/* Content */}
-      <div className="w-[1200px] pt-12 mx-auto flex flex-col gap-8">
+      <div className="lg:w-[1200px] pt-12 mx-auto flex flex-col gap-8">
         {/* <SectionService /> */}
         <SectionProject />
         <SectionSkill />
