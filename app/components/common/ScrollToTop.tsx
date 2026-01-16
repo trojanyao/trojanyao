@@ -33,7 +33,7 @@ export default function ScrollToTop(props: ComponentProps<'button'>) {
     <button
       {...props}
       title="回到顶部"
-      className={`px-2 py-4 bg-secondary-middle-blue rounded-full ${
+      className={`w-fit px-2 py-4 bg-secondary-middle-blue/80 rounded-full shadow-blur ${
         isVisible ? 'translate-y-0' : 'translate-y-[calc(100%+12px)]'
       } transition-transform duration-700 ${props?.className}`}
       onClick={scrollToTop}

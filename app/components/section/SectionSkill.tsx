@@ -21,7 +21,7 @@ export default async function SectionSkill() {
   });
 
   return (
-    <section className="px-4 lg:px-0">
+    <section>
       <SectionHeader url="/skill/dev" icon={<CommandLineIcon />} title="技能" />
       <SkillGrid skills={skills} />
     </section>

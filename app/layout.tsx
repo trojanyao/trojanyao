@@ -47,15 +47,13 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body className="bg-white min-h-screen flex flex-col items-center text-black font-normal leading-none">
+      <body className="max-w-[1200px] min-h-screen bg-white m-auto overflow-x-hidden flex flex-col items-center text-black font-normal leading-none">
         <SmoothScroll>
           <Header />
-          <main className="w-full lg:w-[1200px] flex-1 mt-20 pb-6 lg:pb-12 flex flex-col">
-            {children}
-          </main>
+          <main className="w-full flex-1 mt-20 flex flex-col">{children}</main>
           <Footer />
 
-          <ScrollToTop className="fixed bottom-3 left-[calc(50vw+600px+16px)]" />
+          <ScrollToTop className="fixed bottom-3 right-3 xl:left-[calc(50vw+600px+16px)]" />
           <Analytics />
         </SmoothScroll>
       </body>

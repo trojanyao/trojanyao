@@ -12,7 +12,7 @@ export default function Home() {
       <Banner />
 
       {/* Content */}
-      <div className="lg:w-[1200px] pt-12 mx-auto flex flex-col gap-8">
+      <div className="max-w-[1200px] mx-auto px-4 py-6 md:px-6 md:py-8 lg:p-8 xl:px-0 box-border flex flex-col gap-6">
         {/* <SectionService /> */}
         <SectionProject />
         <SectionSkill />

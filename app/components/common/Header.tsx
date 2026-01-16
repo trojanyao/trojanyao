@@ -35,11 +35,11 @@ export default function Nav() {
   // const pathname = usePathname();
 
   return (
-    <header className="w-full lg:w-[1200px] px-4 lg:px-0 h-24 mx-auto absolute z-10 flex justify-between items-center">
+    <header className="w-full max-w-[1200px] h-24 mx-auto px-4 md:px-6 xl:px-0 box-border absolute z-10 flex justify-between items-center">
       {/* Logo */}
       <div>
         <Link href="/">
-          <Image src={LogoText} alt="Logo" className="h-10 lg:h-12 object-left" priority />
+          <Image src={LogoText} alt="Logo" className="w-auto h-10 lg:h-12 object-left" priority />
         </Link>
       </div>
 
