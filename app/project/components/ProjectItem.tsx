@@ -27,10 +27,11 @@ export default function ProjectItem({ data }: { data: Project }) {
         <div className="flex items-center gap-2 overflow-hidden">
           {/* Logo */}
           <Image src={data?.logo} alt={data?.name} width={40} height={40} />
+
           {/* Title + Text */}
           <div className="flex-1 flex flex-col gap-2 overflow-hidden">
             <div
-              className="font-medium"
+              className="font-medium whitespace-nowrap text-ellipsis overflow-hidden"
               style={{ color: data?.color ? `#${data?.color}` : 'rgb(var(--primary))' }}
             >
               {data?.name}
