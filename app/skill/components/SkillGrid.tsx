@@ -10,7 +10,7 @@ export default function SkillGrid({ skills }: { skills: Skill[] }) {
   });
 
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-4">
+    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
       {skills?.map((item) => (
         <SkillItem key={item?.id} data={item} />
       ))}

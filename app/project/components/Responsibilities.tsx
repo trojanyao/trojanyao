@@ -28,13 +28,13 @@ export default function Responsibilities({
   return orderedResponsibilities ? (
     <div className="flex-1 flex items-center gap-6">
       {/* title */}
-      <div className="flex flex-col items-center gap-4" style={{ color: `#${color}` }}>
+      <div className="flex flex-col items-center gap-3" style={{ color: `#${color}` }}>
         {isAchievements ? (
           <CheckBadgeIcon className="size-6" />
         ) : (
           <RocketLaunchIcon className="size-6" />
         )}
-        <div className="whitespace-nowrap">{isAchievements ? '工作成果' : '工作内容'}</div>
+        <div className="text-small whitespace-nowrap">{isAchievements ? '工作成果' : '工作内容'}</div>
       </div>
 
       {/* details */}
@@ -42,7 +42,7 @@ export default function Responsibilities({
         {orderedResponsibilities.map((item, index) => (
           <div key={index} className="flex gap-2">
             <CheckIcon className="size-4 min-w-4 min-h-4 mt-[0.375rem]" />
-            <div className="text-secondary leading-7 ">{item}</div>
+            <div className="text-secondary text-small leading-7">{item}</div>
           </div>
         ))}
       </div>

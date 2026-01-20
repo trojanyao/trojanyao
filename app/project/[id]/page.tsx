@@ -41,7 +41,7 @@ export default async function ProjectDetail({ params }: { params: Promise<{ id: 
   const { id } = await params;
 
   return (
-    <div>
+    <div className='content-wrap'>
       <ProjectBreadCrumb dataPromise={getProject(id)} />
 
       <Suspense fallback={<ProjectBasicSkeleton />}>
@@ -68,16 +68,17 @@ async function ProjectContent({ dataPromise }: { dataPromise: Promise<Project> }
 
   return (
     <div className="flex flex-col gap-10">
+      {/* <ProjectBasicSkeleton /> */}
       <BasicInfo project={project} />
 
       {/* Responsibilities & Achievements */}
-      <div className="flex gap-6">
+      <div className="flex flex-col gap-6 lg:flex-row">
         <Responsibilities
           color={project?.color}
           responsibilities={project?.responsibilities || []}
           key="responsibilities"
         />
-        <div className="w-[1px] border-r border-dashed border-secondary"></div>
+        <div className="w-full h-[1px] border-b lg:w-[1px] lg:h-auto lg:border-r border-dashed border-secondary"></div>
         <Responsibilities
           color={project?.color}
           achievements={project?.achievements || []}
@@ -94,9 +95,9 @@ async function ProjectContent({ dataPromise }: { dataPromise: Promise<Project> }
 /* Component: BasicInfo */
 function BasicInfo({ project }: { project: Project }) {
   return (
-    <div className="flex gap-24">
+    <div className="flex flex-col gap-6 md:flex-row md:gap-20 lg:gap-24">
       {/* Details */}
-      <div className="flex-1 pb-4 flex flex-col justify-between gap-4">
+      <div className="lg:flex-1 pb-0 flex flex-col gap-6 md:py-2 md:gap-12">
         {/* Top */}
         <div className="flex flex-col gap-4">
           {/* Header */}
@@ -121,7 +122,7 @@ function BasicInfo({ project }: { project: Project }) {
         </div>
 
         {/* Bottom */}
-        <div className="flex flex-col gap-8">
+        <div className="flex flex-col gap-4 xl:gap-8">
           {/* Link */}
           {project?.preview && (
             <div className="flex items-center gap-2">
@@ -173,7 +174,7 @@ function BasicInfo({ project }: { project: Project }) {
         alt={project?.name}
         width={600}
         height={450}
-        className="self-start rounded-2xl border border-secondary overflow-hidden"
+        className="w-full md:flex-1 aspect-[4/3] self-start rounded-2xl border border-secondary overflow-hidden"
         loading="eager"
         fetchPriority="high"
       />
@@ -236,9 +237,9 @@ function Preview({ project }: { project: Project }) {
 /* Component: Skeleton */
 function ProjectBasicSkeleton() {
   return (
-    <div className="flex gap-24 animate-pulse">
+    <div className="flex flex-col gap-6 md:flex-row md:gap-20 lg:gap-24 animate-pulse">
       {/* Details */}
-      <div className="flex-1 pb-4 flex flex-col justify-between gap-4">
+      <div className="lg:flex-1 md:py-2 flex flex-col gap-6 md:gap-12">
         {/* Top */}
         <div className="flex flex-col gap-4">
           {/* Header */}
@@ -259,7 +260,7 @@ function ProjectBasicSkeleton() {
         </div>
 
         {/* Bottom */}
-        <div className="flex flex-col gap-8">
+        <div className="flex flex-col gap-4 xl:gap-8">
           {/* Link */}
           <div className="w-44 h-8 bg-middle-gray rounded-lg"></div>
 
@@ -269,7 +270,7 @@ function ProjectBasicSkeleton() {
       </div>
 
       {/* Cover */}
-      <div className="w-[600px] h-[450px] bg-middle-gray self-start rounded-2xl flex justify-center items-center">
+      <div className="w-full md:flex-1 aspect-[4/3] bg-middle-gray self-start rounded-2xl flex justify-center items-center">
         <ArrowDownCircleIcon className="size-8 text-gray-200 animate-bounce [animation-duration:1s]" />
       </div>
     </div>
