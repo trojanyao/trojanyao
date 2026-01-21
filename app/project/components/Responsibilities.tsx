@@ -34,7 +34,9 @@ export default function Responsibilities({
         ) : (
           <RocketLaunchIcon className="size-6" />
         )}
-        <div className="text-small whitespace-nowrap">{isAchievements ? '工作成果' : '工作内容'}</div>
+        <div className="text-small whitespace-nowrap">
+          {isAchievements ? '工作成果' : '工作内容'}
+        </div>
       </div>
 
       {/* details */}
@@ -42,7 +44,7 @@ export default function Responsibilities({
         {orderedResponsibilities.map((item, index) => (
           <div key={index} className="flex gap-2">
             <CheckIcon className="size-4 min-w-4 min-h-4 mt-[0.375rem]" />
-            <div className="text-secondary text-small leading-7">{item}</div>
+            <div className="text-secondary text-small text-pretty leading-7">{item}</div>
           </div>
         ))}
       </div>
