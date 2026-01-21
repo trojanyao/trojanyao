@@ -41,7 +41,7 @@ export default async function ProjectDetail({ params }: { params: Promise<{ id: 
   const { id } = await params;
 
   return (
-    <div className='content-wrap'>
+    <div className="content-wrap">
       <ProjectBreadCrumb dataPromise={getProject(id)} />
 
       <Suspense fallback={<ProjectBasicSkeleton />}>
