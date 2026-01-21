@@ -20,7 +20,7 @@ export default async function Skills() {
   const skills: Skill[] = await getSkills();
 
   return (
-    <div>
+    <div className="content-wrap">
       <Breadcrumb menus={breadcrumbMenus} />
       <SkillGroup skills={skills} />
     </div>
