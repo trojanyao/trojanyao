@@ -17,8 +17,9 @@ export const metadata: Metadata = {
 
 export default function Resume() {
   return (
-    <div className="-mb-12 flex flex-col items-center">
-      <div className="w-[576px] pb-[88px] -mb-[88px] relative flex-1 bg-light-blue">
+    <div className="flex flex-col items-center">
+      {/* Action Bar Height: 92px, sm:88px */}
+      <div className="w-full max-w-[576px] flex-1 bg-light-blue pb-[92px] sm:pb-[88px] -mb-[92px] sm:-mb-[88px] relative">
         <Cover />
 
         <div className="p-6 flex flex-col gap-12">
@@ -30,7 +31,7 @@ export default function Resume() {
         </div>
       </div>
 
-      <div className="w-[576px] p-4 mx-auto sticky bottom-0">
+      <div className="w-full max-w-[576px] p-4 pr-14 sm:p-4 mx-auto sticky bottom-0">
         <ActionBar />
       </div>
     </div>

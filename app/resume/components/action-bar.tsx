@@ -11,7 +11,8 @@ import WeChatQRCode from '@/public/imgs/wechat-qrcode.webp';
 import CopyableText from '../../components/ui/copyable-text';
 
 const buttonClass =
-  'bg-middle-blue hover:bg-primary/20 px-3 py-2 rounded-full relative flex items-center gap-1 text-secondary text-small cursor-pointer';
+  'bg-middle-blue hover:bg-primary/20 px-4 sm:px-3 py-2 rounded-full relative flex items-center sm:gap-1 text-secondary text-small cursor-pointer whitespace-nowrap';
+const btnTextClass = 'hidden sm:inline';
 
 export default function ActionBar() {
   const [isBouncing, setIsBouncing] = useState(false);
@@ -24,14 +25,17 @@ export default function ActionBar() {
   };
 
   return (
-    <div className="bg-white/50 p-3 rounded-full shadow-blur z-50 flex justify-between items-center">
+    <div
+      className="bg-white/50 p-3 rounded-full shadow-blur z-50
+    flex justify-between items-stretch sm:items-center gap-2 sm:gap-4"
+    >
       {/* Left */}
-      <div className="flex items-center gap-2">
+      <div className="flex flex-row-reverse sm:flex-row items-center gap-2">
         {/* Add WeChat */}
         <div className="relative group">
           <button className={buttonClass}>
-            <Image src={WeChatLogo} alt="WeChat" className="size-4" />
-            <span>添加微信</span>
+            <Image src={WeChatLogo} alt="WeChat" className="size-5 sm:size-4" />
+            <span className={btnTextClass}>添加微信</span>
           </button>
 
           {/* QR Code */}
@@ -67,13 +71,13 @@ export default function ActionBar() {
         <div
           className={`${buttonClass} grid grid-cols-[auto_auto] transition-all duration-500 group`}
         >
-          <EnvelopeIcon className="size-4 flex-shrink-0" />
-          <span className="flex-shrink-0">发送邮件</span>
+          <EnvelopeIcon className="size-5 sm:size-4 flex-shrink-0" />
+          <span className={`${btnTextClass} flex-shrink-0`}>发送邮件</span>
           <div
             className={`
-              ml-1 overflow-hidden
+              sm:ml-1 overflow-hidden
               transition-[max-width,opacity,margin] duration-500
-              max-w-0 opacity-0 group-hover:max-w-[200px] group-hover:opacity-100
+              max-w-0 opacity-0 [@media(hover:hover)]:group-hover:max-w-[200px] [@media(hover:hover)]:group-hover:opacity-100
             `}
             style={{ gridColumn: 3 }}
           >
@@ -89,8 +93,8 @@ export default function ActionBar() {
         className={buttonClass}
         onClick={handleDownloadClick}
       >
-        <ArrowDownTrayIcon className={`size-4 ${isBouncing ? 'animate-bounce' : ''}`} />
-        <span>下载简历</span>
+        <ArrowDownTrayIcon className={`size-5 sm:size-4 ${isBouncing ? 'animate-bounce' : ''}`} />
+        <span className={btnTextClass}>下载简历</span>
       </a>
     </div>
   );

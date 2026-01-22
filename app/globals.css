@@ -69,6 +69,10 @@ html {
     @apply text-xl font-medium leading-none;
   }
 
+  .title-mini {
+    @apply text-lg font-medium leading-none;
+  }
+
   .text-middle {
     @apply text-base font-normal leading-none;
   }
