@@ -27,7 +27,7 @@ const info = {
   },
 };
 
-const listItemClass = 'flex items-center gap-2 text-[#AFBAC6] text-mini lg:text-small';
+const listItemClass = 'flex items-center gap-2 text-[#AFBAC6] text-mini sm:text-small';
 
 export default function Cover() {
   /* 根据 info.birthday 计算年龄 */
@@ -58,7 +58,7 @@ export default function Cover() {
   }
 
   return (
-    <div className="bg-cover-black w-full aspect-[4/3] pr-4 lg:pr-6 relative overflow-hidden flex flex-row-reverse items-center">
+    <div className="bg-cover-black w-full aspect-[4/3] pr-4 sm:pr-6 relative overflow-hidden flex flex-row-reverse items-center">
       <Image
         src={Portrait}
         alt="Portrait"
@@ -69,24 +69,24 @@ export default function Cover() {
         fetchPriority="high"
       />
 
-      <div className="flex flex-col gap-4 lg:gap-6 relative z-10">
+      <div className="flex flex-col gap-4 sm:gap-6 relative z-10">
         {/* Header */}
-        <div className="space-y-2 lg:space-y-3">
-          <div className="text-[#AFBAC6] title-mini lg:title-middle font-medium tracking-widest">
+        <div className="space-y-2 sm:space-y-3">
+          <div className="text-[#AFBAC6] title-mini sm:title-middle font-medium tracking-widest">
             {info.zh.name}
           </div>
 
-          <h1 className="text-primary title-small lg:title-large font-bold tracking-widest">
+          <h1 className="text-primary title-small sm:title-large font-bold tracking-widest">
             {info.zh.slogan}
           </h1>
 
-          <div className="w-fit p-[6px] lg:p-3 border border-primary/50 rounded-lg lg:rounded-xl text-primary text-mini lg:text-small">
+          <div className="w-fit p-[6px] sm:p-3 border border-primary/50 rounded-lg sm:rounded-xl text-primary text-mini sm:text-small">
             {info.zh.title}
           </div>
         </div>
 
         {/* Description */}
-        <ul className="opacity-80 flex flex-col gap-2 lg:gap-4">
+        <ul className="opacity-80 flex flex-col gap-2 sm:gap-4">
           <li className={listItemClass}>
             <CalendarDaysIcon className="size-4" />
             <span>
