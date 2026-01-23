@@ -113,7 +113,7 @@ export default function Cover() {
 
           <li className={listItemClass}>
             <EnvelopeIcon className="size-4" />
-            <CopyableText text="ytj1996@gmail.com" />
+            <CopyableText text={info.email} />
           </li>
 
           <li className={listItemClass}>
