@@ -31,7 +31,7 @@ export default function Resume() {
         </div>
       </div>
 
-      <div className="w-full max-w-[576px] p-4 pr-14 sm:p-4 mx-auto sticky bottom-0">
+      <div className="w-full max-w-[576px] p-2 py-3 pr-14 sm:p-4 mx-auto sticky bottom-0">
         <ActionBar />
       </div>
     </div>

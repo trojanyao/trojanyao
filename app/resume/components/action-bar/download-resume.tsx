@@ -18,10 +18,14 @@ export default function DownloadResume() {
     <a
       href="/files/姚陶钧-七年前端-三年远程-有设计审美-专注打造优秀产品.pdf"
       download
-      className={buttonClass}
+      className={`${buttonClass} group`}
       onClick={handleDownloadClick}
     >
-      <ArrowDownTrayIcon className={`size-5 sm:size-4 ${isBouncing ? 'animate-bounce' : ''}`} />
+      <ArrowDownTrayIcon
+        className={`size-5 sm:size-4
+        [@media(hover:hover)]:group-hover:animate-[bounce_0.75s_linear_infinite]
+        ${isBouncing ? 'animate-bounce' : ''}`}
+      />
       <span className={btnTextClass}>下载简历</span>
     </a>
   );
