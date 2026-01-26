@@ -13,7 +13,7 @@ export default async function SectionProject() {
     <section>
       <SectionHeader url="/project" title="精选项目" icon={<CheckBadgeIcon />} />
 
-      <div className="max-w-full flex gap-6">
+      <div className="max-w-full grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
         <Suspense fallback={<ProjectListSkeleton />}>
           <ProjectList />
         </Suspense>

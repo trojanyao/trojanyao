@@ -19,6 +19,12 @@ export async function getProjects(body?: any[]): Promise<Project[]> {
         ...(body ?? []),
       ],
     },
+    sorts: [
+      {
+        property: '开始 * → 结束',
+        direction: 'descending',
+      },
+    ],
   });
 
   return res?.results.map((page: any) => ({
@@ -28,12 +34,8 @@ export async function getProjects(body?: any[]): Promise<Project[]> {
     logo: page.icon?.file?.url,
     cover: page.cover?.file?.url,
     slogan: page.properties?.['简介 *']?.rich_text?.[0]?.text?.content,
-    dateStart: page.properties?.['开始 * → 结束']?.date?.start
-      ?.match(/^\d{4}-\d{2}/)?.[0]
-      ?.replaceAll('-', '.'),
-    dateEnd: page.properties?.['开始 * → 结束']?.date?.end
-      ?.match(/^\d{4}-\d{2}/)?.[0]
-      ?.replaceAll('-', '.'),
+    dateStart: page.properties?.['开始 * → 结束']?.date?.start?.match(/^\d{4}-\d{2}/)?.[0],
+    dateEnd: page.properties?.['开始 * → 结束']?.date?.end?.match(/^\d{4}-\d{2}/)?.[0],
     platform: page.properties?.['形态 *']?.multi_select?.map(
       (item: any) => ProjectPlatform[item?.name as ProjectPlatformOriginType]
     ),

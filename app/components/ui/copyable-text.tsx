@@ -13,8 +13,10 @@ function isEmail(text: string): boolean {
 export default function CopyableText({ text, ariaLabel }: { text: string; ariaLabel?: string }) {
   const [copied, setCopied] = useState(false);
 
-  /* Event Handler: Copy Email */
-  async function handleCopy() {
+  /* Event Handler: Copy Text */
+  async function handleCopy(e: React.MouseEvent) {
+    e.stopPropagation();
+
     await navigator.clipboard.writeText(text);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);

@@ -27,7 +27,7 @@ const info = {
   },
 };
 
-const listItemClass = 'flex items-center gap-2 text-[#AFBAC6] text-small';
+const listItemClass = 'flex items-center gap-2 text-[#AFBAC6] text-mini sm:text-small';
 
 export default function Cover() {
   /* 根据 info.birthday 计算年龄 */
@@ -58,33 +58,35 @@ export default function Cover() {
   }
 
   return (
-    <div className="bg-cover-black w-full aspect-[4/3] pr-6 relative overflow-hidden flex flex-row-reverse items-center">
+    <div className="bg-cover-black w-full aspect-[4/3] pr-4 sm:pr-6 relative overflow-hidden flex flex-row-reverse items-center">
       <Image
         src={Portrait}
         alt="Portrait"
         width={288}
         height={432}
-        className="absolute top-0 left-0 bottom-0"
+        className="w-1/2 absolute top-0 left-0 bottom-0"
         loading="eager"
         fetchPriority="high"
       />
 
-      <div className="flex flex-col gap-6 z-10">
+      <div className="flex flex-col gap-4 sm:gap-6 relative z-10">
         {/* Header */}
-        <div>
-          <div className="text-[#AFBAC6] title-middle font-medium tracking-widest">
+        <div className="space-y-2 sm:space-y-3">
+          <div className="text-[#AFBAC6] title-mini sm:title-middle font-medium tracking-widest">
             {info.zh.name}
           </div>
-          <h1 className="my-3 text-primary title-large font-bold tracking-widest">
+
+          <h1 className="text-primary title-small sm:title-large font-bold tracking-widest">
             {info.zh.slogan}
           </h1>
-          <div className="w-fit px-3 py-3 border border-primary/50 rounded-xl text-primary text-small">
+
+          <div className="w-fit p-[6px] sm:p-3 border border-primary/50 rounded-lg sm:rounded-xl text-primary text-mini sm:text-small">
             {info.zh.title}
           </div>
         </div>
 
         {/* Description */}
-        <ul className="flex flex-col gap-4">
+        <ul className="opacity-80 flex flex-col gap-2 sm:gap-4">
           <li className={listItemClass}>
             <CalendarDaysIcon className="size-4" />
             <span>
@@ -111,7 +113,7 @@ export default function Cover() {
 
           <li className={listItemClass}>
             <EnvelopeIcon className="size-4" />
-            <CopyableText text="ytj1996@gmail.com" />
+            <CopyableText text={info.email} />
           </li>
 
           <li className={listItemClass}>

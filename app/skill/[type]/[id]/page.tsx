@@ -30,7 +30,7 @@ export default async function SkillDetail({ params }: { params: Promise<{ id: st
   const { id } = await params;
 
   return (
-    <div>
+    <div className="content-wrap">
       <SkillBreadcrumb dataPromise={getSkill(id)} />
 
       <Suspense fallback={<BasicInfoSkeleton />}>
@@ -76,9 +76,9 @@ async function SkillContent({ dataPromise }: { dataPromise: Promise<Skill> }) {
 
 function BasicInfo({ skill }: { skill: Skill }) {
   return (
-    <div className="pt-8 flex justify-between items-center">
+    <div className="flex justify-between items-center">
       {/* Left */}
-      <div className="w-2/3 flex gap-6">
+      <div className="w-full lg:w-2/3 flex gap-6">
         <Image src={skill?.logo} alt={skill?.name} width={96} height={96} className="size-24" />
 
         <div className="py-1 flex flex-col justify-center gap-2">
@@ -95,7 +95,9 @@ function BasicInfo({ skill }: { skill: Skill }) {
 
           {/* Desc */}
           {skill?.description && (
-            <div className="text-small text-light leading-normal">{skill?.description}</div>
+            <div className="text-small text-light text-pretty leading-normal">
+              {skill?.description}
+            </div>
           )}
 
           {/* Status */}
@@ -110,7 +112,7 @@ function BasicInfoSkeleton() {
   return (
     <div className="pt-8 flex justify-between items-center animate-pulse">
       {/* Left */}
-      <div className="w-2/3 flex gap-6">
+      <div className="w-full lg:w-2/3 flex gap-6">
         <div className="bg-middle-gray size-24 aspect-square rounded-full" />
 
         <div className="py-1 flex flex-col justify-center gap-1 w-full">

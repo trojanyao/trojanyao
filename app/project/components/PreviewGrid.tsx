@@ -22,7 +22,7 @@ export default function PreviewGrid({
   const heightLandscape = Math.floor((height / width) * widthLandscape);
 
   return (
-    <div className={isPortrait ? 'grid grid-cols-4 gap-4 gap-y-6' : 'flex flex-col gap-4'}>
+    <div className={`grid ${isPortrait ? 'grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4' : 'grid-cols-1'} gap-4`}>
       {list.map((item) => (
         <Image
           key={item}
@@ -30,7 +30,7 @@ export default function PreviewGrid({
           alt="Preview"
           width={isPortrait ? 288 : 1200}
           height={isPortrait ? heightPortrait : heightLandscape}
-          className={`max-h-[800px] rounded-2xl ${showBorder ? 'border border-third' : ''}`}
+          className={`w-full max-h-[800px] rounded-2xl ${showBorder ? 'border border-third' : ''}`}
           fetchPriority="low"
         />
       ))}

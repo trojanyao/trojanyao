@@ -12,6 +12,11 @@ html {
     display: none;
   }
 
+  /* Responsive content wrapper */
+  .content-wrap {
+    @apply p-4 py-6 pt-0 sm:p-6 sm:pt-0 md:p-8 md:pt-0 xl:p-0 xl:pb-8;
+  }
+
   /* ===== Corner ===== */
   .squircle {
     corner-shape: squircle;
@@ -62,6 +67,10 @@ html {
   }
   .title-small {
     @apply text-xl font-medium leading-none;
+  }
+
+  .title-mini {
+    @apply text-lg font-medium leading-none;
   }
 
   .text-middle {

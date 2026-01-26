@@ -4,8 +4,13 @@ import CollaborationMap from '@/public/imgs/resume/collaboration.svg';
 
 export default function Collaboration() {
   return (
-    <div className="w-[504px] h-[288px]">
-      <Image src={CollaborationMap} alt="Collaboration Map" />
+    <div className="w-full aspect-[504/288] relative overflow-visible">
+      <Image
+        src={CollaborationMap}
+        alt="Collaboration Map"
+        style={{ width: '110%', maxWidth: '110%', height: 'auto' }}
+        className="absolute top-0 left-1/2 -translate-x-1/2"
+      />
     </div>
   );
 }

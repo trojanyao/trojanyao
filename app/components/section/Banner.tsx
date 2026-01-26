@@ -77,9 +77,9 @@ export default function Banner() {
 
   return (
     <div className="banner-wrap w-screen h-[80vh] min-h-[700px] -mt-20 box-content border-b border-secondary flex flex-col items-center">
-      <div className="w-[1200px] h-full min-h-[700px] relative flex flex-col justify-center items-center">
+      <div className="max-w-[1200px] h-full min-h-[700px] relative flex flex-col justify-center items-center">
         {/* Header */}
-        <div className="pb-[200px]  flex flex-col items-center">
+        <div className="pb-28 md:pb-36 lg:pb-[200px] flex flex-col items-center">
           {/* Name */}
           <div className="trojan text-secondary text-xl leading-none">TROJAN</div>
 
@@ -156,9 +156,8 @@ export default function Banner() {
         {/* Memoji */}
         <Image
           src={Memoji}
-          width={240}
           alt="Memoji"
-          className="absolute bottom-0 left-1/2 -translate-x-1/2"
+          className="w-48 md:w-64 lg:w-56 xl:w-60 absolute bottom-0 left-1/2 -translate-x-1/2"
           loading="eager"
           fetchPriority="high"
         />

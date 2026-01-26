@@ -26,8 +26,8 @@ export default function SectionHeader({
     return (
       <div className={`flex items-center gap-1 ${showArrow && 'cursor-pointer'}`}>
         <div className="flex items-center gap-2" style={{ color }}>
-          <div className="size-6">{icon}</div>
-          <span className="title-small">{title}</span>
+          <div className="size-5 sm:size-6">{icon}</div>
+          <span className="title-mini sm:title-small">{title}</span>
           {!!count && <ProjectCount count={count} />}
         </div>
 

@@ -33,7 +33,7 @@ function SkillGrid({ skills }: { skills: Skill[] }) {
   });
 
   return (
-    <div className="grid grid-cols-3 gap-3">
+    <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
       {skills.map((item) => (
         <SkillItem key={item?.id} data={item} className="bg-white" />
       ))}

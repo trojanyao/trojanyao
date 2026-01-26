@@ -22,7 +22,7 @@ export default async function DevProjects() {
   const projects = await getProjects();
 
   return (
-    <div>
+    <div className="content-wrap">
       <Breadcrumb menus={breadcrumbMenus} />
       <ProjectList projects={projects} />
     </div>

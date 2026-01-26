@@ -25,7 +25,7 @@ export default function SkillItem({ data, className }: { data: Skill; className?
         alt={data?.name}
         width={40}
         height={40}
-        className={`size-10 aspect-square rounded-xl squircle overflow-hidden ${angle} transition-all duration-300`}
+        className={`size-10 aspect-square rounded-md lg:rounded-xl squircle overflow-hidden ${angle} transition-all duration-300`}
       />
 
       <div className="flex-1 h-full py-[2px] flex flex-col justify-between overflow-hidden">

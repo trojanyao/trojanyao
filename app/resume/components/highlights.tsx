@@ -86,12 +86,20 @@ export default function Highlights() {
           >
             {/* Text */}
             <div className="flex-1 px-3">
-              <div className="text-primary title-small">{item.zh.title}</div>
-              <div className="mt-3 text-light text-small leading-normal">{item.zh.renderDesc}</div>
+              <div className="sm:hidden text-primary title-mini leading-normal whitespace-pre-wrap">
+                {item.zh.title?.split('，').join('\n')}
+              </div>
+              <div className="hidden sm:block text-primary text-middle font-medium sm:title-small">
+                {item.zh.title}
+              </div>
+
+              <div className="mt-3 text-light text-mini sm:text-small !leading-normal">
+                {item.zh.renderDesc}
+              </div>
             </div>
 
             {/* Image */}
-            <div className={`w-72 min-w-72 overflow-hidden ${index === 0 ? 'rounded-2xl' : ''}`}>
+            <div className={`w-3/5 overflow-hidden ${index === 0 ? 'rounded-2xl' : ''}`}>
               <Image src={item.img} alt={item.zh.title} />
             </div>
           </div>
