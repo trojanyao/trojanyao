@@ -7,6 +7,7 @@ import { usePathname } from 'next/navigation';
 import { Fragment } from 'react/jsx-runtime';
 
 import LogoText from '@/public/logo+text.svg';
+import Logo from '@/public/logo.svg';
 
 import GitHubLink from './GitHubLink';
 import LinkedInLink from './LinkedInLink';
@@ -50,12 +51,18 @@ export default function Nav() {
       {/* Logo */}
       <div>
         <Link href="/">
-          <Image src={LogoText} alt="Logo" className="w-auto h-10 lg:h-12 object-left" priority />
+          <Image src={Logo} alt="Logo" className="sm:hidden w-auto h-10 object-left" priority />
+
+          <Image
+            src={LogoText}
+            alt="Logo"
+            className="hidden sm:block w-auto h-10 lg:h-12 object-left"
+            priority
+          />
         </Link>
       </div>
 
       {/* Nav */}
-
       <nav
         className={`${headerHeightClass} fixed top-0 left-1/2 -translate-x-1/2 flex items-center`}
       >
@@ -90,7 +97,7 @@ export default function Nav() {
       </nav>
 
       {/* Right: Tools */}
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-2 sm:gap-4">
         {/* <Link href="/rss">
           <RssIcon className="size-5 text-orange cursor-pointer" />
         </Link> */}
