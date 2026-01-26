@@ -1,6 +1,6 @@
 export default function ProjectCardSkeleton() {
   return (
-    <div className="w-96 min-w-96 aspect-[4/3] bg-middle-gray border-[1px] border-third rounded-[20px] overflow-hidden relative animate-pulse">
+    <div className="flex-1 aspect-[4/3] bg-middle-gray border-[1px] border-third rounded-[20px] overflow-hidden relative animate-pulse">
       <div className="w-full bg-white/75 p-3 backdrop-blur-xl flex justify-between items-center gap-3 absolute bottom-0">
         <div className="flex items-center gap-2 overflow-hidden">
           {/* Logo */}
