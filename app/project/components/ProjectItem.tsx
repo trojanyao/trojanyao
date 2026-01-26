@@ -46,7 +46,7 @@ export default function ProjectItem({ data }: { data: Project }) {
         <div className="flex flex-col items-end gap-2">
           <div className="pr-[2px] text-right text-light text-[0.625rem]">
             {data?.dateStart != data?.dateEnd
-              ? `${data?.dateStart} - ${data?.dateEnd}`
+              ? `${data?.dateStart?.replaceAll('-', '.')} - ${data?.dateEnd?.replaceAll('-', '.')}`
               : data?.dateStart}
           </div>
           <div className="flex items-center gap-1">

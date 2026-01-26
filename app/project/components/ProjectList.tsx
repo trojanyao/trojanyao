@@ -30,7 +30,7 @@ export default function ProjectList({ projects, title }: { projects: Project[]; 
   /* Group the data */
   const groupedProjects = groupBy<Project>(
     projects,
-    groupKey === 'platform' ? 'platform' : (item: Project) => item?.dateStart?.split('.')?.[0],
+    groupKey === 'platform' ? 'platform' : (item: Project) => item?.dateStart?.split('-')?.[0],
     groupKey === 'platform'
       ? (a: GroupedItem<(typeof projects)[number]>, b: GroupedItem<(typeof projects)[number]>) => {
           const indexA = projectPlatformValues.indexOf(a.groupName);

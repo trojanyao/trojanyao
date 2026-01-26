@@ -162,7 +162,10 @@ function BasicInfo({ project }: { project: Project }) {
           {/* Date */}
           <div className="ml-1 text-light text-mini">
             {project?.dateStart != project?.dateEnd
-              ? `${project?.dateStart} - ${project?.dateEnd}`
+              ? `${project?.dateStart?.replaceAll('-', '.')} - ${project?.dateEnd?.replaceAll(
+                  '-',
+                  '.'
+                )}`
               : project?.dateStart}
           </div>
         </div>
