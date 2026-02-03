@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import ProductType from './ProductType';
+import ProductType from './primitives/ProductType';
 
 export default function ProjectItem({ data }: { data: Project }) {
   return (

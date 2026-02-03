@@ -3,8 +3,8 @@ import { Suspense } from 'react';
 import { Squares2X2Icon } from '@heroicons/react/24/outline';
 
 import SectionHeader from '@/app/components/common/SectionHeader';
-import ProjectCardSkeleton from '@/app/project/components/ProjectCardSkeleton';
 import ProjectItem from '@/app/project/components/ProjectItem';
+import ProjectCardSkeleton from '@/app/project/components/ProjectItemSkeleton';
 import { getProjects } from '@/lib/notion';
 
 export default function Projects() {

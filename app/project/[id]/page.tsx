@@ -18,10 +18,10 @@ import { getProject, getSkills } from '@/lib/notion';
 import { checkIsPortrait } from '@/lib/utils/check-portrait';
 import { checkUrlValid } from '@/lib/utils/check-url';
 
-import PreviewGrid from '../components/PreviewGrid';
-import ProductType from '../components/ProductType';
-import Responsibilities from '../components/Responsibilities';
-import StatusDown from '../components/StatusDown';
+import PreviewGrid from '../components/primitives/PreviewGrid';
+import ProductType from '../components/primitives/ProductType';
+import Responsibilities from '../components/primitives/Responsibilities';
+import StatusDown from '../components/primitives/StatusDown';
 
 export async function generateMetadata({
   params,

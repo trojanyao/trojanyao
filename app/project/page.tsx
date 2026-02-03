@@ -9,8 +9,8 @@ import { getProjects } from '@/lib/notion';
 import SectionHeader from '../components/common/SectionHeader';
 import Line from '../components/ui/Line';
 
-import ProjectCardSkeleton from './components/ProjectCardSkeleton';
-import ProjectList from './components/ProjectList';
+import ProjectList from './components/ProjectGroup';
+import ProjectCardSkeleton from './components/ProjectItemSkeleton';
 
 export const dynamic = 'force-dynamic'; // use SSR to avoid Notion's image expiry
 

@@ -2,8 +2,8 @@ import { Suspense } from 'react';
 
 import { CheckBadgeIcon } from '@heroicons/react/24/outline';
 
-import ProjectCardSkeleton from '@/app/project/components/ProjectCardSkeleton';
 import ProjectItem from '@/app/project/components/ProjectItem';
+import ProjectCardSkeleton from '@/app/project/components/ProjectItemSkeleton';
 import { getProjects } from '@/lib/notion';
 
 import SectionHeader from '../common/SectionHeader';
