@@ -1,9 +1,21 @@
+import { Suspense } from 'react';
+
 import SkillItem from '@/app/skill/components/SkillItem';
+import SkillItemSkeleton from '@/app/skill/components/SkillItemSkeleton';
 import { skillCategories } from '@/lib/constants/skill.constants';
 import { getSkills } from '@/lib/notion';
 import { groupBy } from '@/lib/utils/group-by';
 
-export default async function TechStacks() {
+export default function TechStacks() {
+  return (
+    <Suspense fallback={<TechStacksSkeleton />}>
+      <TechStacksContent />
+    </Suspense>
+  );
+}
+
+/* Component: TechStacksContent */
+async function TechStacksContent() {
   const skills: Skill[] = await getSkills();
 
   const groupedSkills = groupBy<Skill>(skills, 'category', (a, b) => {
@@ -36,6 +48,23 @@ function SkillGrid({ skills }: { skills: Skill[] }) {
     <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
       {skills.map((item) => (
         <SkillItem key={item?.id} data={item} className="bg-white" />
+      ))}
+    </div>
+  );
+}
+
+function TechStacksSkeleton() {
+  return (
+    <div className="flex flex-col gap-4">
+      {skillCategories.map((name) => (
+        <div key={name} className="flex flex-col gap-4">
+          <div className="pl-1 h-4 w-16 bg-gray-100 rounded animate-pulse" />
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+            {Array.from({ length: 6 }).map((_, i) => (
+              <SkillItemSkeleton key={i} className="bg-white" />
+            ))}
+          </div>
+        </div>
       ))}
     </div>
   );

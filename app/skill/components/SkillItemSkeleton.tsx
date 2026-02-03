@@ -1,6 +1,8 @@
-export default function SkillItemSkeleton() {
+export default function SkillItemSkeleton({ className }: { className?: string }) {
   return (
-    <div className="bg-light-gray p-4 rounded-2xl animate-pulse flex items-center gap-3">
+    <div
+      className={`bg-light-gray p-4 rounded-2xl animate-pulse flex items-center gap-3 ${className}`.trim()}
+    >
       {/* Logo */}
       <div className="size-10 bg-gray-100 rounded-lg"></div>
 
