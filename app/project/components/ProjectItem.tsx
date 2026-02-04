@@ -46,12 +46,12 @@ export default function ProjectItem({ data }: { data: Project }) {
           </div>
 
           {/* Desc + Time */}
-          <div className="flex justify-between items-center">
+          <div className="flex justify-between items-center gap-2">
             <div className="text-secondary text-xs leading-none overflow-hidden whitespace-nowrap text-ellipsis">
               {data?.slogan}
             </div>
 
-            <div className="pr-[2px] text-right text-light text-[0.625rem]">
+            <div className="pr-[2px] text-right text-light text-[0.625rem] whitespace-nowrap">
               {data?.dateStart != data?.dateEnd
                 ? `${data?.dateStart?.replaceAll('-', '.')} - ${data?.dateEnd?.replaceAll(
                     '-',
