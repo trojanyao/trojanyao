@@ -70,7 +70,7 @@ export default function Nav() {
           {menus.map((menuGroup, groupIndex) => (
             <Fragment key={groupIndex}>
               {/* Group Divider */}
-              {groupIndex !== 0 && <div className="w-[1px] h-4 bg-[var(--border-secondary)]" />}
+              {groupIndex !== 0 && <div className="w-px h-4 bg-(--border-secondary)" />}
 
               <ul className="flex items-center">
                 {menuGroup.map((menu, index) => (

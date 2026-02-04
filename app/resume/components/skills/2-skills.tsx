@@ -58,7 +58,7 @@ function TechStacksSkeleton() {
     <div className="flex flex-col gap-4">
       {skillCategories.map((name) => (
         <div key={name} className="flex flex-col gap-4">
-          <div className="pl-1 h-4 w-16 bg-gray-100 rounded animate-pulse" />
+          <div className="pl-1 h-4 w-16 bg-gray-100 rounded-sm animate-pulse" />
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
             {Array.from({ length: 6 }).map((_, i) => (
               <SkillItemSkeleton key={i} className="bg-white" />

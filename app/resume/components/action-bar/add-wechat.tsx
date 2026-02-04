@@ -48,7 +48,7 @@ export default function AddWeChat() {
       {/* QR Code */}
       <div
         className={`
-			pb-2 absolute -top-0 left-1/2 -translate-x-1/2 -translate-y-full
+			pb-2 absolute top-0 left-1/2 -translate-x-1/2 -translate-y-full
 			transition-all duration-300 ease-out
     
       ${
@@ -64,7 +64,7 @@ export default function AddWeChat() {
       >
         <div
           className={`
-			bg-white px-3 py-4 rounded-xl shadow-sm
+			bg-white px-3 py-4 rounded-xl shadow-xs
 			flex flex-col items-center gap-2
 			text-secondary
 		`}

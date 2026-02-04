@@ -58,7 +58,7 @@ export default function Cover() {
   }
 
   return (
-    <div className="bg-cover-black w-full aspect-[4/3] pr-4 sm:pr-6 relative overflow-hidden flex flex-row-reverse items-center">
+    <div className="bg-cover-black w-full aspect-4/3 pr-4 sm:pr-6 relative overflow-hidden flex flex-row-reverse items-center">
       <Image
         src={Portrait}
         alt="Portrait"

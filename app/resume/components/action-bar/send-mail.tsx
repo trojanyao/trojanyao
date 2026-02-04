@@ -38,14 +38,14 @@ export default function SendMail() {
   return (
     <div
       ref={wrapperRef}
-      className={`${buttonClass} !gap-0
+      className={`${buttonClass} gap-0!
       w-fit z-10
       ${expanded ? 'bg-primary/20' : ''}
       grid grid-cols-[auto_auto] transition-all duration-500 group`}
     >
       <button className="flex items-center gap-1" onClick={handleClick}>
-        <EnvelopeIcon className="size-5 sm:size-4 flex-shrink-0" />
-        <span className={`${btnTextClass} flex-shrink-0`}>发送邮件</span>
+        <EnvelopeIcon className="size-5 sm:size-4 shrink-0" />
+        <span className={`${btnTextClass} shrink-0`}>发送邮件</span>
       </button>
 
       {/* Detail */}

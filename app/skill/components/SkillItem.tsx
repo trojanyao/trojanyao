@@ -9,7 +9,7 @@ function getAngleFromId(id: string) {
     hash = (hash << 5) - hash + ch.charCodeAt(0);
     hash |= 0; // 转成 32 位有符号
   }
-  return hash % 2 === 0 ? 'group-hover:rotate-[-10deg]' : 'group-hover:rotate-[10deg]';
+  return hash % 2 === 0 ? 'group-hover:-rotate-10' : 'group-hover:rotate-10';
 }
 
 export default function SkillItem({ data, className }: { data: Skill; className?: string }) {

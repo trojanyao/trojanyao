@@ -4,7 +4,7 @@ import CollaborationMap from '@/public/imgs/resume/collaboration.svg';
 
 export default function Collaboration() {
   return (
-    <div className="w-full aspect-[504/288] relative overflow-visible">
+    <div className="w-full aspect-504/288 relative overflow-visible">
       <Image
         src={CollaborationMap}
         alt="Collaboration Map"
