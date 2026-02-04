@@ -16,6 +16,7 @@ const nextConfig = {
   images: {
     formats: ['image/avif', 'image/webp'],
     dangerouslyAllowSVG: true,
+    unoptimized: true, // Disable image optimization to save Vercel costs
     remotePatterns: [
       {
         protocol: 'https',

@@ -7,7 +7,7 @@ export default function SkillStatus({ status }: { status: SkillStatus }) {
       bg = 'bg-blue';
       color = 'text-blue';
       break;
-    case '熟练':
+    case '较熟练':
       bg = 'bg-green';
       color = 'text-green';
       break;

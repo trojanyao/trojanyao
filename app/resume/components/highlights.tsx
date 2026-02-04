@@ -93,7 +93,7 @@ export default function Highlights() {
                 {item.zh.title}
               </div>
 
-              <div className="mt-3 text-light text-mini sm:text-small !leading-normal">
+              <div className="mt-3 text-light text-mini sm:text-small leading-normal!">
                 {item.zh.renderDesc}
               </div>
             </div>

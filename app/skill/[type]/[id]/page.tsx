@@ -6,7 +6,7 @@ import { ArrowTopRightOnSquareIcon } from '@heroicons/react/16/solid';
 import { Metadata } from 'next';
 
 import Breadcrumb from '@/app/components/ui/Breadcrumb';
-import ProjectList from '@/app/project/components/ProjectList';
+import ProjectList from '@/app/project/components/ProjectGroup';
 import { getProjects } from '@/lib/notion/project';
 import { getSkill } from '@/lib/notion/skill';
 

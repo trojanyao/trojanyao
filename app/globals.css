@@ -1,13 +1,86 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
 
-html {
-  scroll-behavior: smooth;
+/* Customized theme variables (Design Tokens) */
+@theme {
+  --color-transparent: transparent;
+  --color-current: currentColor;
+
+  /* 品牌色、主题色 */
+  --color-primary: rgb(98 132 180);
+
+  /* 辅助色 */
+  --color-secondary-light-blue: rgb(248 250 252);
+  --color-secondary-middle-blue: rgb(237 244 252);
+
+  /* 功能色 */
+  --color-orange: rgb(255 102 0);
+  --color-green: rgb(63 214 96);
+  --color-blue: rgb(71 141 255);
+  --color-yellow: rgb(238 140 43);
+  --color-purple: rgb(151 71 255);
+
+  /* 中性色 */
+  --text-color-black: rgb(51 51 51);
+  --text-color-secondary: rgb(76 76 76);
+  --text-color-light: rgb(168 168 168);
+
+  --border-color-first: rgb(215 221 228);
+  --border-color-secondary: rgba(215, 221, 228, 0.5);
+  --border-color-third: rgb(242 242 242);
+
+  /* 背景色 */
+  --background-color-light-gray: rgb(250 250 250);
+  --background-color-light-blue: rgb(248 250 252);
+  --background-color-middle-gray: rgb(245 245 245);
+  --background-color-middle-blue: rgb(237 244 252);
+  --background-color-cover-black: #0e0e0e;
+
+  --background-image-gradient-link: linear-gradient(
+    to bottom,
+    rgba(230, 234, 237, 0.3),
+    rgba(241, 241, 241, 0.3)
+  );
+  --background-image-gradient-radial: radial-gradient(var(--tw-gradient-stops));
+  --background-image-gradient-conic: conic-gradient(
+    from 180deg at 50% 50%,
+    var(--tw-gradient-stops)
+  );
+
+  --font-weight-normal: 350;
+
+  --animate-bounce-right: bounce-right 600ms ease-out infinite;
+
+  @keyframes bounce-right {
+    0% 100% {
+      transform: translateX(0);
+    }
+    50% {
+      transform: translateX(4px);
+    }
+  }
 }
 
-/* ========== General ========== */
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
 @layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
+
+/* Customized components classes */
+@layer components {
+  /* Hide scrollbar in home page */
   body:has(.home)::-webkit-scrollbar {
     display: none;
   }
@@ -17,17 +90,12 @@ html {
     @apply p-4 py-6 pt-0 sm:p-6 sm:pt-0 md:p-8 md:pt-0 xl:p-0 xl:pb-8;
   }
 
-  /* ===== Corner ===== */
-  .squircle {
-    corner-shape: squircle;
-  }
-
-  /* ===== Shadow & Blur ===== */
+  /* Box shadow & blur effects */
   .shadow-blur {
     @apply shadow-[0_2px_8px_rgba(0,0,0,0.03)] backdrop-blur-[6px];
   }
 
-  /* ===== Fonts ===== */
+  /* ===== 🔸 Fonts ===== */
   /* 英文字体 */
   @font-face {
     font-family: 'MyFont';
@@ -45,6 +113,7 @@ html {
     font-family: 'MyFont';
   }
 
+  /* ===== 🔸 Page Section ===== */
   .section-list {
     @apply w-[1200px] flex flex-col gap-9;
   }
@@ -53,7 +122,7 @@ html {
     @apply gap-6;
   }
 
-  /* ===== Text ===== */
+  /* ===== 🔸 Title ===== */
   .title-extra-large {
     @apply text-[2rem] font-semibold leading-none;
   }
@@ -69,6 +138,7 @@ html {
     @apply text-xl font-medium leading-none;
   }
 
+  /* ===== 🔸 Text ===== */
   .title-mini {
     @apply text-lg font-medium leading-none;
   }
@@ -86,38 +156,9 @@ html {
   }
 }
 
-/* ========== Light Mode ========== */
-@layer base {
-  :root {
-    /* 品牌色、主题色 */
-    --primary: 98 132 180;
-
-    /* 辅助色 */
-    --secondary-light-blue: 248 250 252;
-    --secondary-middle-blue: 237 244 252;
-
-    /* 背景色 */
-    --bg-light-gray: 250 250 250; /* 浅灰 */
-    --bg-light-blue: 248 250 252; /* 浅蓝 */
-    --bg-middle-gray: 245 245 245; /* 中灰 */
-
-    /* 中性色 */
-    --text-primary: 51 51 51;
-    --text-secondary: 76 76 76;
-    --text-light: 168 168 168;
-    --border-first: 215 221 228;
-    --border-secondary: rgba(215, 221, 228, 0.5);
-    --border-third: 242 242 242;
-
-    /* 功能色 */
-    --orange: 255 102 0;
-    --green: 63 214 96;
-    --blue: 71 141 255;
-    --yellow: 238 140 43;
-    --purple: 151 71 255;
-  }
-}
-
-/* ========== Dark Mode ========== */
-@media (prefers-color-scheme: dark) {
+/* Customized utility classes */
+@utility squircle {
+  /* Rounded box corners */
+  corner-shape: squircle;
+  /* https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/corner-shape */
 }

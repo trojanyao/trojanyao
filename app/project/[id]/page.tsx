@@ -18,10 +18,10 @@ import { getProject, getSkills } from '@/lib/notion';
 import { checkIsPortrait } from '@/lib/utils/check-portrait';
 import { checkUrlValid } from '@/lib/utils/check-url';
 
-import PreviewGrid from '../components/PreviewGrid';
-import ProductType from '../components/ProductType';
-import Responsibilities from '../components/Responsibilities';
-import StatusDown from '../components/StatusDown';
+import PreviewGrid from '../components/primitives/PreviewGrid';
+import ProductType from '../components/primitives/ProductType';
+import Responsibilities from '../components/primitives/Responsibilities';
+import StatusDown from '../components/primitives/StatusDown';
 
 export async function generateMetadata({
   params,
@@ -78,7 +78,7 @@ async function ProjectContent({ dataPromise }: { dataPromise: Promise<Project> }
           responsibilities={project?.responsibilities || []}
           key="responsibilities"
         />
-        <div className="w-full h-[1px] border-b lg:w-[1px] lg:h-auto lg:border-r border-dashed border-secondary"></div>
+        <div className="w-full h-px border-b lg:w-px lg:h-auto lg:border-r border-dashed border-secondary"></div>
         <Responsibilities
           color={project?.color}
           achievements={project?.achievements || []}
@@ -177,7 +177,7 @@ function BasicInfo({ project }: { project: Project }) {
         alt={project?.name}
         width={600}
         height={450}
-        className="w-full md:flex-1 aspect-[4/3] self-start rounded-2xl border border-secondary overflow-hidden"
+        className="w-full md:flex-1 aspect-4/3 self-start rounded-2xl border border-secondary overflow-hidden"
         loading="eager"
         fetchPriority="high"
       />
@@ -252,12 +252,12 @@ function ProjectBasicSkeleton() {
             <div className="flex flex-col gap-3">
               {/* Title + Label */}
               <div className="flex items-center gap-2">
-                <div className="w-20 h-6 bg-middle-gray rounded"></div>
+                <div className="w-20 h-6 bg-middle-gray rounded-sm"></div>
                 <div className={`w-8 h-4 bg-middle-gray rounded-full`}></div>
               </div>
 
               {/* Description */}
-              <div className="w-48 h-4 bg-middle-gray rounded"></div>
+              <div className="w-48 h-4 bg-middle-gray rounded-sm"></div>
             </div>
           </div>
         </div>
@@ -268,12 +268,12 @@ function ProjectBasicSkeleton() {
           <div className="w-44 h-8 bg-middle-gray rounded-lg"></div>
 
           {/* Date */}
-          <div className="w-24 h-4 bg-middle-gray rounded"></div>
+          <div className="w-24 h-4 bg-middle-gray rounded-sm"></div>
         </div>
       </div>
 
       {/* Cover */}
-      <div className="w-full md:flex-1 aspect-[4/3] bg-middle-gray self-start rounded-2xl flex justify-center items-center">
+      <div className="w-full md:flex-1 aspect-4/3 bg-middle-gray self-start rounded-2xl flex justify-center items-center">
         <ArrowDownCircleIcon className="size-8 text-gray-200 animate-bounce [animation-duration:1s]" />
       </div>
     </div>
