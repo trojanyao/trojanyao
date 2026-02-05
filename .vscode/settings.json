@@ -11,13 +11,5 @@
   ],
   "eslint.enable": true,
   "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
-  "eslint.probe": [
-    "javascript",
-    "javascriptreact",
-    "typescript",
-    "typescriptreact"
-  ],
-  "i18n-ally.localesPaths": [
-    "app/i18n"
-  ]
+  "eslint.probe": ["javascript", "javascriptreact", "typescript", "typescriptreact"]
 }
