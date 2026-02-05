@@ -1,15 +1,15 @@
 import '../globals.css';
 import { Analytics } from '@vercel/analytics/next';
 
+import Footer from '@/app/[lang]/components/common/Footer';
+import Header from '@/app/[lang]/components/common/Header';
+import ScrollToTop from '@/app/[lang]/components/common/ScrollToTop';
+import { getDictionary, Locale } from '@/app/i18n/dictionaries';
+import DictionaryProvider from '@/app/i18n/dictionary-context';
+
 import SmoothScroll from './smooth-scroll';
 
 import type { Metadata } from 'next';
-
-import Footer from '@/app/components/common/Footer';
-import Header from '@/app/components/common/Header';
-import ScrollToTop from '@/app/components/common/ScrollToTop';
-
-
 
 export const metadata: Metadata = {
   title: {
@@ -47,18 +47,23 @@ export const metadata: Metadata = {
   ],
 };
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default async function RootLayout({ params, children }: Readonly<LayoutProps<'/[lang]'>>) {
+  const { lang } = await params;
+  const dict = await getDictionary(lang as Locale);
+
   return (
     <html lang="en">
       <body className="max-w-[1200px] min-h-screen bg-white m-auto overflow-x-hidden flex flex-col items-center text-black font-normal leading-none">
         <SmoothScroll>
-          <Header />
-          <main className="w-full flex-1 mt-20 flex flex-col">{children}</main>
-          <Footer />
+          <DictionaryProvider dictionary={dict}>
+            <Header />
+            <main className="w-full flex-1 mt-20 flex flex-col">{children}</main>
+            <Footer />
 
-          {/* 1280px(xl breakpoint) + 72px(40px width + 2 * 16px padding) = 1352px as the breakpoint to fix ScrollToTop */}
-          <ScrollToTop className="fixed bottom-3 right-3 min-[1352px]:left-[calc(50vw+600px+16px)]" />
-          <Analytics />
+            {/* 1280px(xl breakpoint) + 72px(40px width + 2 * 16px padding) = 1352px as the breakpoint to fix ScrollToTop */}
+            <ScrollToTop className="fixed bottom-3 right-3 min-[1352px]:left-[calc(50vw+600px+16px)]" />
+            <Analytics />
+          </DictionaryProvider>
         </SmoothScroll>
       </body>
     </html>

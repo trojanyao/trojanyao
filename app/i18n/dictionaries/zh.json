@@ -1,0 +1,10 @@
+{
+	"project": {
+		"general": "项目",
+		"selected": "精选项目"
+	},
+	"skill": {
+		"general": "技能",
+		"plural": "技能"
+	}
+}

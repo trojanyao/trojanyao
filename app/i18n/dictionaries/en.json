@@ -1,0 +1,10 @@
+{
+	"project": {
+		"general": "Project",
+		"selected": "Selected Projects"
+	},
+	"skill": {
+		"general": "Skill",
+		"plural": "Skills"
+	}
+}
