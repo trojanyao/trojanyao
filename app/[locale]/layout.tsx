@@ -1,5 +1,10 @@
 import '../globals.css';
+import { notFound } from 'next/navigation';
+
 import { Analytics } from '@vercel/analytics/next';
+import { hasLocale, NextIntlClientProvider } from 'next-intl';
+
+import { routing } from '@/i18n/routing';
 
 import Footer from './components/common/Footer';
 import Header from './components/common/Header';
@@ -7,6 +12,10 @@ import ScrollToTop from './components/common/ScrollToTop';
 import SmoothScroll from './smooth-scroll';
 
 import type { Metadata } from 'next';
+
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
+}
 
 export const metadata: Metadata = {
   title: {
@@ -44,19 +53,32 @@ export const metadata: Metadata = {
   ],
 };
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default async function RootLayout({
+  children,
+  params,
+}: {
+  children: React.ReactNode;
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  if (!hasLocale(routing.locales, locale)) {
+    notFound();
+  }
+
   return (
     <html lang="en">
       <body className="max-w-[1200px] min-h-screen bg-white m-auto overflow-x-hidden flex flex-col items-center text-black font-normal leading-none">
-        <SmoothScroll>
-          <Header />
-          <main className="w-full flex-1 mt-20 flex flex-col">{children}</main>
-          <Footer />
+        <NextIntlClientProvider locale={locale}>
+          <SmoothScroll>
+            <Header />
+            <main className="w-full flex-1 mt-20 flex flex-col">{children}</main>
+            <Footer />
 
-          {/* 1280px(xl breakpoint) + 72px(40px width + 2 * 16px padding) = 1352px as the breakpoint to fix ScrollToTop */}
-          <ScrollToTop className="fixed bottom-3 right-3 min-[1352px]:left-[calc(50vw+600px+16px)]" />
-          <Analytics />
-        </SmoothScroll>
+            {/* 1280px(xl breakpoint) + 72px(40px width + 2 * 16px padding) = 1352px as the breakpoint to fix ScrollToTop */}
+            <ScrollToTop className="fixed bottom-3 right-3 min-[1352px]:left-[calc(50vw+600px+16px)]" />
+            <Analytics />
+          </SmoothScroll>
+        </NextIntlClientProvider>
       </body>
     </html>
   );
