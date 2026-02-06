@@ -52,12 +52,12 @@ export default function ProjectItem({ data }: { data: Project }) {
             </div>
 
             <div className="pr-[2px] text-right text-light text-[0.625rem] whitespace-nowrap">
-              {data?.dateStart != data?.dateEnd
+              {data?.dateStart !== data?.dateEnd
                 ? `${data?.dateStart?.replaceAll('-', '.')} - ${data?.dateEnd?.replaceAll(
                     '-',
                     '.'
                   )}`
-                : data?.dateStart}
+                : data?.dateStart?.replaceAll('-', '.')}
             </div>
           </div>
         </div>
