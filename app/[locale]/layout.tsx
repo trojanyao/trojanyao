@@ -66,7 +66,7 @@ export default async function RootLayout({
   }
 
   return (
-    <html lang="en">
+    <html>
       <body className="max-w-[1200px] min-h-screen bg-white m-auto overflow-x-hidden flex flex-col items-center text-black font-normal leading-none">
         <NextIntlClientProvider locale={locale}>
           <SmoothScroll>

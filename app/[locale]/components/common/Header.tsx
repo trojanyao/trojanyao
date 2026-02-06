@@ -1,48 +1,50 @@
 'use client';
 
 import Image from 'next/image';
-import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
+import { useTranslations } from 'next-intl';
 import { Fragment } from 'react/jsx-runtime';
 
+import { Link } from '@/i18n/navigation';
 import LogoText from '@/public/logo+text.svg';
 import Logo from '@/public/logo.svg';
 
 import GitHubLink from './GitHubLink';
 import LinkedInLink from './LinkedInLink';
 
-const menus = [
-  [
-    {
-      name: '服务',
-      path: '/resume',
-    },
-    {
-      name: '项目',
-      path: '/project',
-    },
-    {
-      name: '技能',
-      path: '/skill/dev',
-    },
-  ],
-  // [
-  //   {
-  //     name: '关于',
-  //     path: '/about',
-  //   },
-  //   {
-  //     name: '留言板',
-  //     path: 'guestbook',
-  //   },
-  // ],
-];
-
 const headerHeightClass = 'h-20';
 
 export default function Nav() {
   const pathname = usePathname();
+  const t = useTranslations('common');
+
+  const menus = [
+    [
+      {
+        name: t('service'),
+        path: '/resume',
+      },
+      {
+        name: t('project'),
+        path: '/project',
+      },
+      {
+        name: t('skill'),
+        path: '/skill/dev',
+      },
+    ],
+    // [
+    //   {
+    //     name: '关于',
+    //     path: '/about',
+    //   },
+    //   {
+    //     name: '留言板',
+    //     path: 'guestbook',
+    //   },
+    // ],
+  ];
 
   return (
     <header

@@ -1,0 +1,20 @@
+{
+  "banner": {
+    "cta-button": "立即预订",
+    "desc": {
+      "masterpiece": "用专业和认真\\n打造精致细腻的优秀产品",
+      "minimalism": "极简不是简陋，是删繁就简",
+      "ui-ux": "热衷于构建\\nUI 和 UX 友好的前端项目"
+    },
+    "design-savvy": "有设计审美的",
+    "fe-engineer": "前端工程师",
+    "fully-remote": "全职远程",
+    "minimalist": "极简主义者",
+    "pragmatic": "务实的"
+  },
+  "common": {
+    "project": "项目",
+    "service": "服务",
+    "skill": "技能"
+  }
+}

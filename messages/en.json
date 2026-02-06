@@ -1,0 +1,20 @@
+{
+  "banner": {
+    "cta-button": "Book Now",
+    "desc": {
+      "masterpiece": "Building refined, high-quality products\\nwith care and precision",
+      "minimalism": "Minimalism isn’t about being simplistic —\\nit’s about removing the unnecessary",
+      "ui-ux": "Passionate about building\\nUI- and UX-friendly front-end projects"
+    },
+    "design-savvy": "Design-Savvy",
+    "fe-engineer": "Front-end Engineer",
+    "fully-remote": "Fully Remote",
+    "minimalist": "Minimalist",
+    "pragmatic": "Pragmatic"
+  },
+  "common": {
+    "project": "Project",
+    "service": "Service",
+    "skill": "Skill"
+  }
+}

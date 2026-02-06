@@ -162,3 +162,13 @@
   corner-shape: squircle;
   /* https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/corner-shape */
 }
+
+@layer utilities {
+  .banner-left {
+    @apply text-2xl font-semibold leading-none whitespace-nowrap;
+  }
+
+  .banner-right {
+    @apply text-2xl font-semibold leading-none whitespace-nowrap;
+  }
+}

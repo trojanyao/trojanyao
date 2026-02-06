@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { useGSAP } from '@gsap/react';
 import { ChevronDoubleRightIcon } from '@heroicons/react/20/solid';
 import { gsap } from 'gsap';
+import { useLocale, useTranslations } from 'next-intl';
 
 import './banner.css';
 
@@ -17,22 +18,25 @@ import Memoji from '@/public/memoji.webp';
 gsap.registerPlugin(useGSAP);
 
 export default function Banner() {
+  const locale = useLocale();
+  const t = useTranslations('banner');
+
   const textGroups = [
     {
-      title: { left: '全职远程', right: 'Freelancer' },
-      description: '用专业和认真\n打造精致细腻的优秀产品',
+      title: { left: t('fully-remote'), right: 'Freelancer' },
+      description: t('desc.masterpiece'),
     },
     {
-      title: { left: '有设计审美的', right: '前端工程师' },
-      description: '热衷于构建\nUI 和 UX 友好的前端项目',
+      title: { left: t('design-savvy'), right: t('fe-engineer') },
+      description: t('desc.ui-ux'),
     },
     {
-      title: { left: '务实的', right: '极简主义者' },
-      description: '极简不是简陋，是删繁就简',
+      title: { left: t('pragmatic'), right: t('minimalist') },
+      description: t('desc.minimalism'),
     },
     {
-      title: { left: '全职远程', right: 'Freelancer' },
-      description: '用专业和认真\n打造精致细腻的优秀产品',
+      title: { left: t('fully-remote'), right: 'Freelancer' },
+      description: t('desc.masterpiece'),
     },
   ];
   const OFFSET = 32;
@@ -57,8 +61,8 @@ export default function Banner() {
     });
 
     titleList.forEach((element: HTMLLIElement, index: number) => {
-      const left = element.querySelector('.left');
-      const right = element.querySelector('.right');
+      const left = element.querySelector('.banner-left');
+      const right = element.querySelector('.banner-right');
       const desc = descList[index];
 
       if (index > 0) {
@@ -86,40 +90,41 @@ export default function Banner() {
           {/* Title */}
           <ul
             id="titleEffects"
-            // h = 22(5.5rem) = 8 + mt-8 + pb-8
-            className="w-96 h-20 overflow-hidden list-none relative flex flex-col items-center"
+            // 1 line: h = 2xl(6) + li.mt-8(8) + li.pb-4(4) = 6 + 8 + 4 = 18
+            // 2 lines: h = 2xl(6) * 2 + li.mt-8(8) + li.pb-4(4) + gap-2(2) = 12 + 8 + 4 + 2 = 26
+            className={`w-lg ${locale === 'en' ? 'h-26 sm:h-18' : 'h-18'} overflow-hidden list-none relative flex flex-col items-center`}
           >
             {textGroups.map((text, index) => (
               <li
                 key={index}
-                className={`mt-8 pb-4 ${
-                  animStart && 'absolute'
-                } top-0 flex justify-center items-center gap-2 text-black title-middle tracking-widest select-none`}
+                className={`mt-8 pb-4
+                  ${animStart && 'absolute'} top-0
+                  text-black title-middle select-none
+                  ${locale === 'zh' ? 'tracking-widest' : 'tracking-wide'}`}
               >
                 {index === 1 ? (
-                  <h1 className="flex justify-center items-center gap-2">
-                    <span className="left text-primary text-2xl font-semibold">
-                      {text?.title?.left}
-                    </span>
-                    <span className="right text-[1.625rem] title-middle">{text?.title?.right}</span>
+                  // 第 2 个文本用 h1 包裹
+                  <h1
+                    className={`flex ${locale === 'en' ? 'flex-col sm:flex-row' : 'flex-row'} justify-center items-center gap-2`}
+                  >
+                    <span className="banner-left text-primary ">{text?.title?.left}</span>
+                    <span className="banner-right ">{text?.title?.right}</span>
                   </h1>
                 ) : (
-                  <>
+                  // 其他文本用 div 包裹
+                  <div
+                    className={`flex ${locale === 'en' ? 'flex-col sm:flex-row' : 'flex-row'} justify-center items-center gap-2`}
+                  >
+                    <span className="banner-left">{text?.title?.left}</span>
                     <span
-                      className={`left ${index === 1 && 'text-primary'} text-2xl font-semibold`}
-                    >
-                      {text?.title?.left}
-                    </span>
-                    <span
-                      className={`right ${(index === 0 || index === 3) && 'text-green'} ${
-                        index === 2 && 'text-orange'
-                      } text-[1.625rem] title-middle ${
-                        (index === 0 || index === 3) && kaushan_script.className
-                      }`}
+                      className={`banner-right
+                        ${(index === 0 || index === 3) && 'text-green'}
+                        ${index === 2 && 'text-orange'}
+                        ${(index === 0 || index === 3) && kaushan_script.className}`}
                     >
                       {text?.title?.right}
                     </span>
-                  </>
+                  </div>
                 )}
               </li>
             ))}
@@ -130,11 +135,12 @@ export default function Banner() {
             {textGroups.map((text, index) => (
               <li
                 key={index}
-                className={`desc-item ${
-                  animStart && 'absolute'
-                } top-0 text-center text-light tracking-widest leading-6 whitespace-pre-wrap`}
+                className={`desc-item
+                ${animStart && 'absolute'} top-0
+                text-center text-light leading-6 whitespace-pre-wrap
+                ${locale === 'zh' ? 'tracking-widest' : 'tracking-wide'}`}
               >
-                {text?.description}
+                {text?.description?.replace('\\n', '\n')}
               </li>
             ))}
           </ul>
@@ -145,7 +151,7 @@ export default function Banner() {
               href="/resume"
               className="bg-middle-blue w-fit pl-4 pr-3 py-2 rounded-full flex items-center gap-0 text-primary group"
             >
-              <div className="text-small font-medium">立即预约</div>
+              <div className="text-small font-medium">{t('cta-button')}</div>
               <ChevronDoubleRightIcon className="size-5 group-hover:animate-bounce-right" />
             </Link>
 
@@ -157,7 +163,7 @@ export default function Banner() {
         <Image
           src={Memoji}
           alt="Memoji"
-          className="w-48 md:w-64 lg:w-56 xl:w-60 absolute bottom-0 left-1/2 -translate-x-1/2"
+          className="w-48 md:w-52 lg:w-56 xl:w-60 absolute bottom-0 left-1/2 -translate-x-1/2"
           loading="eager"
           fetchPriority="high"
         />
