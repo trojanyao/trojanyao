@@ -1,0 +1,167 @@
+'use client';
+
+import { useState } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+
+import { useGSAP } from '@gsap/react';
+import { ChevronDoubleRightIcon } from '@heroicons/react/20/solid';
+import { gsap } from 'gsap';
+
+import './banner.css';
+
+import AvailableStatus from '@/app/[locale]/service/components/AvailableStatus';
+import { kaushan_script } from '@/lib/fonts';
+import Memoji from '@/public/memoji.webp';
+
+gsap.registerPlugin(useGSAP);
+
+export default function Banner() {
+  const textGroups = [
+    {
+      title: { left: '全职远程', right: 'Freelancer' },
+      description: '用专业和认真\n打造精致细腻的优秀产品',
+    },
+    {
+      title: { left: '有设计审美的', right: '前端工程师' },
+      description: '热衷于构建\nUI 和 UX 友好的前端项目',
+    },
+    {
+      title: { left: '务实的', right: '极简主义者' },
+      description: '极简不是简陋，是删繁就简',
+    },
+    {
+      title: { left: '全职远程', right: 'Freelancer' },
+      description: '用专业和认真\n打造精致细腻的优秀产品',
+    },
+  ];
+  const OFFSET = 32;
+  const DURATION = 1;
+  const DELAY = 2; // Time for each content pause
+
+  const [animStart, setAnimStart] = useState<boolean>(false);
+
+  useGSAP(() => {
+    setAnimStart(true);
+
+    const titleList: HTMLLIElement[] = gsap.utils.toArray('#titleEffects li');
+    const descList: HTMLDivElement[] = gsap.utils.toArray('.desc-item');
+
+    const tl = gsap.timeline({
+      repeat: -1,
+      repeatDelay: 0,
+      defaults: {
+        ease: 'power3.inOut',
+        duration: DURATION,
+      },
+    });
+
+    titleList.forEach((element: HTMLLIElement, index: number) => {
+      const left = element.querySelector('.left');
+      const right = element.querySelector('.right');
+      const desc = descList[index];
+
+      if (index > 0) {
+        tl.from(left, { y: OFFSET, opacity: 0 }, '<')
+          .from(desc, { opacity: 0 }, '<')
+          .from(right, { y: OFFSET, opacity: 0 }, '<0.1');
+      }
+
+      if (index < textGroups.length - 1) {
+        tl.to(left, { y: -OFFSET, opacity: 0, delay: DELAY })
+          .to(desc, { opacity: 0 }, '<')
+          .to(right, { y: -OFFSET, opacity: 0 }, '<0.1');
+      }
+    });
+  });
+
+  return (
+    <div className="banner-wrap w-screen h-[80vh] min-h-[700px] -mt-20 box-content border-b border-secondary flex flex-col items-center">
+      <div className="max-w-[1200px] h-full min-h-[700px] relative flex flex-col justify-center items-center">
+        {/* Header */}
+        <div className="pb-28 md:pb-36 lg:pb-[200px] flex flex-col items-center">
+          {/* Name */}
+          <div className="trojan text-secondary text-xl leading-none">TROJAN</div>
+
+          {/* Title */}
+          <ul
+            id="titleEffects"
+            // h = 22(5.5rem) = 8 + mt-8 + pb-8
+            className="w-96 h-20 overflow-hidden list-none relative flex flex-col items-center"
+          >
+            {textGroups.map((text, index) => (
+              <li
+                key={index}
+                className={`mt-8 pb-4 ${
+                  animStart && 'absolute'
+                } top-0 flex justify-center items-center gap-2 text-black title-middle tracking-widest select-none`}
+              >
+                {index === 1 ? (
+                  <h1 className="flex justify-center items-center gap-2">
+                    <span className="left text-primary text-2xl font-semibold">
+                      {text?.title?.left}
+                    </span>
+                    <span className="right text-[1.625rem] title-middle">{text?.title?.right}</span>
+                  </h1>
+                ) : (
+                  <>
+                    <span
+                      className={`left ${index === 1 && 'text-primary'} text-2xl font-semibold`}
+                    >
+                      {text?.title?.left}
+                    </span>
+                    <span
+                      className={`right ${(index === 0 || index === 3) && 'text-green'} ${
+                        index === 2 && 'text-orange'
+                      } text-[1.625rem] title-middle ${
+                        (index === 0 || index === 3) && kaushan_script.className
+                      }`}
+                    >
+                      {text?.title?.right}
+                    </span>
+                  </>
+                )}
+              </li>
+            ))}
+          </ul>
+
+          {/* Description */}
+          <ul className="w-96 h-12 overflow-hidden list-none relative flex flex-col items-center">
+            {textGroups.map((text, index) => (
+              <li
+                key={index}
+                className={`desc-item ${
+                  animStart && 'absolute'
+                } top-0 text-center text-light tracking-widest leading-6 whitespace-pre-wrap`}
+              >
+                {text?.description}
+              </li>
+            ))}
+          </ul>
+
+          {/* Status & CTA */}
+          <div className="mt-12 flex flex-col items-center gap-4">
+            <Link
+              href="/resume"
+              className="bg-middle-blue w-fit pl-4 pr-3 py-2 rounded-full flex items-center gap-0 text-primary group"
+            >
+              <div className="text-small font-medium">立即预约</div>
+              <ChevronDoubleRightIcon className="size-5 group-hover:animate-bounce-right" />
+            </Link>
+
+            <AvailableStatus />
+          </div>
+        </div>
+
+        {/* Memoji */}
+        <Image
+          src={Memoji}
+          alt="Memoji"
+          className="w-48 md:w-64 lg:w-56 xl:w-60 absolute bottom-0 left-1/2 -translate-x-1/2"
+          loading="eager"
+          fetchPriority="high"
+        />
+      </div>
+    </div>
+  );
+}
