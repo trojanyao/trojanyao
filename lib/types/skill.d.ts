@@ -6,6 +6,7 @@ declare global {
     // Base
     id: string;
     name: string;
+    nameEN: string;
     logo: string;
     status: SkillStatus;
     // Others

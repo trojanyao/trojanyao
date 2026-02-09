@@ -35,6 +35,11 @@
     "available-now": "Now"
   },
   "skill": {
+    "level": {
+      "familiar": "Familiar",
+      "learning": "Learning",
+      "proficient": "Proficient"
+    },
     "plural": "Skills"
   }
 }

@@ -1,6 +1,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
+import { useLocale } from 'next-intl';
+
 import SkillStatus from './SkillStatus';
 
 function getAngleFromId(id: string) {
@@ -13,6 +15,9 @@ function getAngleFromId(id: string) {
 }
 
 export default function SkillItem({ data, className }: { data: Skill; className?: string }) {
+  const locale = useLocale();
+  const isEN = locale === 'en';
+
   const angle = getAngleFromId(data?.id);
 
   return (
@@ -32,7 +37,7 @@ export default function SkillItem({ data, className }: { data: Skill; className?
         <div
           className={`text-secondary text-small font-medium leading-tight overflow-hidden whitespace-nowrap text-ellipsis`}
         >
-          {data?.name}
+          {isEN ? data?.nameEN || data?.name : data?.name}
         </div>
 
         <SkillStatus status={data?.status} />

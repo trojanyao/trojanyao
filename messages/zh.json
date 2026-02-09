@@ -35,6 +35,11 @@
     "available-now": "立即"
   },
   "skill": {
+    "level": {
+      "familiar": "使用过",
+      "learning": "学习中",
+      "proficient": "熟练"
+    },
     "plural": "技能"
   }
 }

@@ -1,5 +1,7 @@
 import { cache } from 'react';
 
+import { SkillStatusEnum } from '../constants/skill.constants';
+
 import notion from './client';
 
 /* Get Skill List */
@@ -28,8 +30,11 @@ export async function getSkills(body?: any[]): Promise<Skill[]> {
   return res?.results.map((page: any) => ({
     id: page.id,
     name: page.properties?.['技能']?.title?.[0]?.text?.content,
+    nameEN: page.properties?.['Name']?.rich_text?.[0]?.text?.content,
     logo: page.icon?.file?.url,
-    status: page.properties?.['优先级 / 状态']?.status?.name,
+    status: SkillStatusEnum[
+      (page.properties?.['优先级 / 状态']?.status?.name as keyof typeof SkillStatusEnum) ?? '学习中'
+    ] as SkillStatus,
     category: page.properties?.['分类 *']?.select?.name,
   }));
 }
@@ -42,12 +47,15 @@ export async function _getSkill(id: string): Promise<Skill> {
   return {
     id: page.id,
     name: page.properties?.['技能']?.title?.[0]?.text?.content,
+    nameEN: page.properties?.['Name']?.rich_text?.[0]?.text?.content,
     logo: page.icon?.file?.url,
     // TODO: support bold and other annotations
     description: page.properties?.['简介 *']?.rich_text
       ?.map((item: any) => item?.plain_text)
       ?.join(''),
-    status: page.properties?.['优先级 / 状态']?.status?.name,
+    status: SkillStatusEnum[
+      (page.properties?.['优先级 / 状态']?.status?.name as keyof typeof SkillStatusEnum) ?? '学习中'
+    ] as SkillStatus,
     site: page.properties?.['链接 *']?.url,
     relatedProjectIds: page.properties?.['相关项目']?.relation?.map((item: any) => item?.id) ?? [],
   };
