@@ -16,5 +16,15 @@
     "project": "Project",
     "service": "Service",
     "skill": "Skill"
+  },
+  "project": {
+    "selected": "Selected Projects"
+  },
+  "service": {
+    "available": "Available <highlight>{term}</highlight>",
+    "available-now": "Now"
+  },
+  "skill": {
+    "plural": "Skills"
   }
 }

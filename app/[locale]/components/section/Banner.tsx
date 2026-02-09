@@ -146,7 +146,7 @@ export default function Banner() {
           </ul>
 
           {/* Status & CTA */}
-          <div className="mt-12 flex flex-col items-center gap-4">
+          <div className="mt-12 lg:mt-18 flex flex-col items-center gap-4">
             <Link
               href="/resume"
               className="bg-middle-blue w-fit pl-4 pr-3 py-2 rounded-full flex items-center gap-0 text-primary group"

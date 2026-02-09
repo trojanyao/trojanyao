@@ -1,6 +1,9 @@
 import { CalendarDaysIcon } from '@heroicons/react/20/solid';
+import { useTranslations } from 'next-intl';
 
 export default function AvailableStatus() {
+  const t = useTranslations('service');
+
   const availableNow = true;
 
   return (
@@ -20,9 +23,10 @@ export default function AvailableStatus() {
 
       <div className="flex items-center text-secondary text-sm">
         {availableNow ? (
-          <>
-            可<span className="mx-1 text-green font-medium">立即</span>开始服务
-          </>
+          t.rich('available', {
+            term: t('available-now'),
+            highlight: (chunks) => <span className="mx-1 text-green font-medium">{chunks}</span>,
+          })
         ) : (
           <>
             服务中 · 预计可于 <span className="mx-1 text-primary font-medium">2024.06.01</span>{' '}

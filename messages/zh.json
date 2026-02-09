@@ -1,6 +1,6 @@
 {
   "banner": {
-    "cta-button": "立即预订",
+    "cta-button": "立即预约",
     "desc": {
       "masterpiece": "用专业和认真\\n打造精致细腻的优秀产品",
       "minimalism": "极简不是简陋，是删繁就简",
@@ -16,5 +16,15 @@
     "project": "项目",
     "service": "服务",
     "skill": "技能"
+  },
+  "project": {
+    "selected": "精选项目"
+  },
+  "service": {
+    "available": "可 <highlight>{term}</highlight> 开始服务",
+    "available-now": "立即"
+  },
+  "skill": {
+    "plural": "技能"
   }
 }
