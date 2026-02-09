@@ -18,7 +18,17 @@
     "skill": "技能"
   },
   "project": {
-    "selected": "精选项目"
+    "selected": "精选项目",
+    "type": {
+      "android": "Android",
+      "ios": "iOS",
+      "pwa": "PWA",
+      "weapp": "微信小程序",
+      "web-desktop": "SaaS · 桌面端",
+      "web-mobile": "SaaS · 移动端",
+      "website-desktop": "官网 · 桌面端",
+      "website-mobile": "官网 · 移动端"
+    }
   },
   "service": {
     "available": "可 <highlight>{term}</highlight> 开始服务",

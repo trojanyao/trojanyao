@@ -31,9 +31,11 @@ export async function getProjects(body?: any[]): Promise<Project[]> {
     // 基础
     id: page.id,
     name: page.properties?.['项目']?.title?.[0]?.text?.content,
+    nameEN: page.properties?.['Name *']?.rich_text?.[0]?.text?.content,
     logo: page.icon?.file?.url,
     cover: page.cover?.file?.url,
     desc: page.properties?.['简介 *']?.rich_text?.[0]?.text?.content,
+    descEN: page.properties?.['Intro *']?.rich_text?.[0]?.text?.content,
     dateStart: page.properties?.['开始 * → 结束']?.date?.start?.match(/^\d{4}-\d{2}/)?.[0],
     dateEnd: page.properties?.['开始 * → 结束']?.date?.end?.match(/^\d{4}-\d{2}/)?.[0],
     platform: page.properties?.['形态 *']?.multi_select?.map(
@@ -55,9 +57,11 @@ export async function _getProject(id: string): Promise<Project> {
     // 基础
     id: page.id,
     name: page.properties?.['项目']?.title?.[0]?.text?.content,
+    nameEN: page.properties?.['Name *']?.rich_text?.[0]?.text?.content,
     logo: page.icon?.file?.url,
     cover: page.cover?.file?.url,
     desc: page.properties?.['简介 *']?.rich_text?.[0]?.text?.content,
+    descEN: page.properties?.['Intro *']?.rich_text?.[0]?.text?.content,
     dateStart: page.properties?.['开始 * → 结束']?.date?.start
       ?.match(/^\d{4}-\d{2}/)?.[0]
       ?.replaceAll('-', '.'),

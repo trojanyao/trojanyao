@@ -6,9 +6,11 @@ declare global {
     /* 基础 */
     id: string;
     name: string;
+    nameEN: string;
     logo: string;
     cover: string;
     desc: string;
+    descEN: string;
     dateStart: string;
     dateEnd: string;
     platform: ProjectPlatformVisibleType[];

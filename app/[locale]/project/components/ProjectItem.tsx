@@ -1,9 +1,14 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
+import { useLocale } from 'next-intl';
+
 import ProductType from './primitives/ProductType';
 
 export default function ProjectItem({ data }: { data: Project }) {
+  const locale = useLocale();
+  const isEN = locale === 'en';
+
   return (
     <Link
       href={`/project/${data?.id}`}
@@ -35,7 +40,7 @@ export default function ProjectItem({ data }: { data: Project }) {
               className="font-medium whitespace-nowrap text-ellipsis overflow-hidden"
               style={{ color: data?.color ? `#${data?.color}` : 'rgb(var(--primary))' }}
             >
-              {data?.name}
+              {isEN ? data?.nameEN || data?.name : data?.name}
             </div>
 
             <div className="flex items-center gap-1">
@@ -48,7 +53,7 @@ export default function ProjectItem({ data }: { data: Project }) {
           {/* Desc + Time */}
           <div className="flex justify-between items-center gap-2">
             <div className="text-secondary text-xs leading-none overflow-hidden whitespace-nowrap text-ellipsis">
-              {data?.desc}
+              {isEN ? data?.descEN || data?.desc : data?.desc}
             </div>
 
             <div className="pr-[2px] text-right text-light text-[0.625rem] whitespace-nowrap">

@@ -18,7 +18,17 @@
     "skill": "Skill"
   },
   "project": {
-    "selected": "Selected Projects"
+    "selected": "Selected Projects",
+    "type": {
+      "android": "Android",
+      "ios": "iOS",
+      "pwa": "PWA",
+      "weapp": "WeChat Mini-Program",
+      "web-desktop": "SaaS · Desktop",
+      "web-mobile": "SaaS · Mobile",
+      "website-desktop": "Website · Desktop",
+      "website-mobile": "Website · Mobile"
+    }
   },
   "service": {
     "available": "Available <highlight>{term}</highlight>",

@@ -1,23 +1,27 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
+
 export default function ProductType({ platform }: { platform: ProjectPlatformVisible }) {
+  const t = useTranslations('project.type');
+
   let color = '';
 
   switch (platform) {
-    case 'Web App · 桌面端':
-    case 'Web App · 移动端':
+    case 'web-desktop':
+    case 'web-mobile':
       color = 'bg-blue/10 text-blue';
       break;
-    case 'Web 官网 · 桌面端':
-    case 'Web 官网 · 移动端':
-    case 'Android':
+    case 'website-desktop':
+    case 'website-mobile':
+    case 'android':
       color = 'bg-green/10 text-green';
       break;
-    case 'PWA':
-    case '微信小程序':
+    case 'pwa':
+    case 'weapp':
       color = 'bg-purple/10 text-purple';
       break;
-    case 'iOS':
+    case 'ios':
       color = 'bg-orange/10 text-orange';
       break;
     default:
@@ -29,7 +33,7 @@ export default function ProductType({ platform }: { platform: ProjectPlatformVis
     <div
       className={`px-2 py-1 ${color} rounded-full text-center text-[0.625rem] whitespace-nowrap`}
     >
-      {platform}
+      {t(platform)}
     </div>
   );
 }
