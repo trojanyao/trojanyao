@@ -2,6 +2,8 @@ import { Suspense } from 'react';
 
 import { CodeBracketSquareIcon } from '@heroicons/react/24/outline';
 import { Metadata } from 'next';
+import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 
 import SectionHeader from '@/app/[locale]/components/common/SectionHeader';
 import Breadcrumb from '@/app/[locale]/components/ui/Breadcrumb';
@@ -11,17 +13,19 @@ import { getSkills } from '@/lib/notion/skill';
 import SkillGroup from '../components/SkillGroup';
 import SkillItemSkeleton from '../components/SkillItemSkeleton';
 
-const breadcrumbMenus = [
-  { text: '开发', url: '/dev' },
-  { text: '开发技能', url: '/dev/projects' },
-];
-
 export const metadata: Metadata = {
   title: '开发技能',
   description: '已掌握、使用过和学习中的开发技能，包括前端、服务端、App 及其他。',
 };
 
 export default async function Skills() {
+  const t = await getTranslations();
+
+  const breadcrumbMenus = [
+    { text: t('common.dev'), url: '/dev' },
+    { text: t('skill.dev-skill'), url: '/dev/projects' },
+  ];
+
   return (
     <div className="content-wrap">
       <Breadcrumb menus={breadcrumbMenus} />
@@ -43,14 +47,16 @@ async function SkillListContent() {
 }
 
 function SkillListSkeleton() {
+  const t = useTranslations('skill');
+
   const skeletonArray = [
-    { text: '较熟练', count: 15 },
-    { text: '使用过', count: 12 },
+    { text: t('level.proficient'), count: 15 },
+    { text: t('level.familiar'), count: 12 },
   ];
 
   return (
     <div>
-      <SectionHeader title="开发技能" icon={<CodeBracketSquareIcon />}>
+      <SectionHeader title={t('dev-skill')} icon={<CodeBracketSquareIcon />}>
         {/* Avoid CLS */}
         <div className="h-7"></div>
       </SectionHeader>

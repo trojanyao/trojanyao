@@ -13,6 +13,7 @@
     "pragmatic": "务实的"
   },
   "common": {
+    "dev": "开发",
     "project": "项目",
     "service": "服务",
     "skill": "技能"
@@ -35,6 +36,17 @@
     "available-now": "立即"
   },
   "skill": {
+    "category": {
+      "app": "App",
+      "back-end": "后端",
+      "front-end": "前端",
+      "others": "其他"
+    },
+    "dev-skill": "开发技能",
+    "group": {
+      "category": "按类别",
+      "proficiency": "按熟练度"
+    },
     "level": {
       "familiar": "使用过",
       "learning": "学习中",

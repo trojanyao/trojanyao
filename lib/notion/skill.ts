@@ -1,6 +1,6 @@
 import { cache } from 'react';
 
-import { SkillStatusEnum } from '../constants/skill.constants';
+import { SkillCategoryEnum, SkillStatusEnum } from '../constants/skill.constants';
 
 import notion from './client';
 
@@ -35,7 +35,9 @@ export async function getSkills(body?: any[]): Promise<Skill[]> {
     status: SkillStatusEnum[
       (page.properties?.['优先级 / 状态']?.status?.name as keyof typeof SkillStatusEnum) ?? '学习中'
     ] as SkillStatus,
-    category: page.properties?.['分类 *']?.select?.name,
+    category: SkillCategoryEnum[
+      page.properties?.['分类 *']?.select?.name as keyof typeof SkillCategoryEnum
+    ] as SkillCategory,
   }));
 }
 

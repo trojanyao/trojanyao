@@ -17,20 +17,20 @@ import { groupBy } from '@/lib/utils/group-by';
 
 import SkillGrid from './SkillGrid';
 
-const groupByOptions: GroupOptionItem[] = [
-  { icon: <RectangleStackIcon />, key: 'status', text: '按熟练度' },
-  { icon: <FolderOpenIcon />, key: 'category', text: '按类别' },
-];
-
 export default function SkillGroup({ skills }: { skills: Skill[] }) {
-  const t = useTranslations('skill.level');
+  const t = useTranslations('skill');
+
+  const groupByOptions: GroupOptionItem[] = [
+    { icon: <RectangleStackIcon />, key: 'status', text: t('group.proficiency') },
+    { icon: <FolderOpenIcon />, key: 'category', text: t('group.category') },
+  ];
 
   const [groupKey, setGroupKey] = useState<keyof Skill>('status');
 
   /* Group skill list by groupKey */
   const groupedSkills = groupBy<Skill>(skills, groupKey, (a, b) => {
     // 自定义分组顺序
-    // 按 status（熟练度）分组时按照 sillStatuses 顺序（学习中 - 熟练 - 使用过）
+    // 按 status（熟练度）分组时按照 skillStatuses 顺序（学习中 - 熟练 - 使用过）
     // 按 category（类别）分组时按照 skillCategories 顺序（前端 - 服务端 - App - 其他）
 
     let getIndex: (item: typeof a) => number;
@@ -49,11 +49,27 @@ export default function SkillGroup({ skills }: { skills: Skill[] }) {
     // 如果未找到索引，则将其视为 Infinity，以确保它们排在最后
     // 否则按索引顺序排序
     return (indexA === -1 ? Infinity : indexA) - (indexB === -1 ? Infinity : indexB);
+  }).map((groupItem) => {
+    // 支持 groupName 的本地化
+    let localizedGroupName = groupItem.groupName;
+
+    if (groupKey === 'status') {
+      // 通过 skill.level.xxx 本地化
+      localizedGroupName = t(`level.${groupItem.groupName}` as any);
+    } else if (groupKey === 'category') {
+      // 通过 skill.category.xxx 本地化（假设有 category 的本地化映射，如果有）
+      // 如果没有 category 的本地化则可保持为原始名
+      localizedGroupName = t?.(`category.${groupItem.groupName}` as any) || groupItem.groupName;
+    }
+    return {
+      ...groupItem,
+      groupName: localizedGroupName,
+    };
   });
 
   return (
     <div>
-      <SectionHeader title="开发技能" icon={<CodeBracketSquareIcon />}>
+      <SectionHeader title={t('dev-skill')} icon={<CodeBracketSquareIcon />}>
         <GroupBy
           options={groupByOptions}
           groupKey={groupKey}
@@ -67,7 +83,7 @@ export default function SkillGroup({ skills }: { skills: Skill[] }) {
         {/* List */}
         {groupedSkills?.map((groupItem, index) => (
           <div key={index} className="flex flex-col gap-4">
-            <div className="title-small text-secondary">{t(groupItem?.groupName)}</div>
+            <div className="title-small text-secondary">{groupItem?.groupName}</div>
             <SkillGrid skills={groupItem?.items} />
           </div>
         ))}
