@@ -8,7 +8,7 @@ declare global {
     name: string;
     logo: string;
     cover: string;
-    slogan: string;
+    desc: string;
     dateStart: string;
     dateEnd: string;
     platform: ProjectPlatformVisibleType[];

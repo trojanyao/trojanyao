@@ -33,11 +33,11 @@ export async function getProjects(body?: any[]): Promise<Project[]> {
     name: page.properties?.['项目']?.title?.[0]?.text?.content,
     logo: page.icon?.file?.url,
     cover: page.cover?.file?.url,
-    slogan: page.properties?.['简介 *']?.rich_text?.[0]?.text?.content,
+    desc: page.properties?.['简介 *']?.rich_text?.[0]?.text?.content,
     dateStart: page.properties?.['开始 * → 结束']?.date?.start?.match(/^\d{4}-\d{2}/)?.[0],
     dateEnd: page.properties?.['开始 * → 结束']?.date?.end?.match(/^\d{4}-\d{2}/)?.[0],
     platform: page.properties?.['形态 *']?.multi_select?.map(
-      (item: any) => ProjectPlatform[item?.name as ProjectPlatformOriginType]
+      (item: any) => ProjectPlatform[item?.name as ProjectPlatformOriginType],
     ),
     // 个人网站
     color: page.properties?.['品牌色 *']?.rich_text?.[0]?.text?.content,
@@ -57,7 +57,7 @@ export async function _getProject(id: string): Promise<Project> {
     name: page.properties?.['项目']?.title?.[0]?.text?.content,
     logo: page.icon?.file?.url,
     cover: page.cover?.file?.url,
-    slogan: page.properties?.['简介 *']?.rich_text?.[0]?.text?.content,
+    desc: page.properties?.['简介 *']?.rich_text?.[0]?.text?.content,
     dateStart: page.properties?.['开始 * → 结束']?.date?.start
       ?.match(/^\d{4}-\d{2}/)?.[0]
       ?.replaceAll('-', '.'),
@@ -65,14 +65,14 @@ export async function _getProject(id: string): Promise<Project> {
       ?.match(/^\d{4}-\d{2}/)?.[0]
       ?.replaceAll('-', '.'),
     platform: page.properties?.['形态 *']?.multi_select?.map(
-      (item: any) => ProjectPlatform[item?.name as ProjectPlatformOriginType]
+      (item: any) => ProjectPlatform[item?.name as ProjectPlatformOriginType],
     ),
     preview: page.properties?.['线上预览 *']?.url,
     qrcode: page.properties?.['二维码 / 小程序码']?.files?.map((file: any) => file?.file?.url),
     status: page.properties?.['在线状态']?.status?.name,
     // 开发
     responsibilities: page.properties?.['工作内容 *']?.rich_text?.map(
-      (item: any) => item?.plain_text
+      (item: any) => item?.plain_text,
     ),
     achievements: page.properties?.['工作成果 *']?.rich_text?.map((item: any) => item?.plain_text),
     skills: page.properties?.['技术栈 *']?.relation?.map((item: any) => item?.id),

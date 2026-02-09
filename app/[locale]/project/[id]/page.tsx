@@ -33,7 +33,7 @@ export async function generateMetadata({
 
   return {
     title: `项目案例 - ${project?.name}`,
-    description: project?.slogan,
+    description: project?.desc,
   };
 }
 
@@ -116,7 +116,7 @@ function BasicInfo({ project }: { project: Project }) {
               </div>
 
               {/* Description */}
-              <span className="text-small text-light">{project?.slogan}</span>
+              <span className="text-small text-light">{project?.desc}</span>
             </div>
           </div>
         </div>
@@ -164,7 +164,7 @@ function BasicInfo({ project }: { project: Project }) {
             {project?.dateStart != project?.dateEnd
               ? `${project?.dateStart?.replaceAll('-', '.')} - ${project?.dateEnd?.replaceAll(
                   '-',
-                  '.'
+                  '.',
                 )}`
               : project?.dateStart}
           </div>
