@@ -61,6 +61,7 @@
       "learning": "Learning",
       "proficient": "Proficient"
     },
-    "plural": "Skills"
+    "plural": "Skills",
+    "related-project": "Related Projects"
   }
 }

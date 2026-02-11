@@ -61,6 +61,7 @@
       "learning": "学习中",
       "proficient": "熟练"
     },
-    "plural": "技能"
+    "plural": "技能",
+    "related-project": "相关项目"
   }
 }
