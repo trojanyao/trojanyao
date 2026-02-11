@@ -23,12 +23,18 @@
     "dev-project": "开发项目"
   },
   "project": {
+    "achivements": "工作成果",
+    "case": "项目案例",
     "dev-project": "开发项目",
     "group": {
       "by-platform": "按平台",
       "by-time": "按时间"
     },
+    "offline": "甲方自主下线",
+    "responsibilities": "工作内容",
+    "screenshots": "真机截图",
     "selected": "精选项目",
+    "tech-stack": "技术栈",
     "type": {
       "android": "Android",
       "ios": "iOS",

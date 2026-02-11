@@ -10,6 +10,8 @@ import {
   ArrowDownCircleIcon,
 } from '@heroicons/react/24/outline';
 import { Metadata } from 'next';
+import { useLocale, useTranslations } from 'next-intl';
+import { getLocale, getTranslations } from 'next-intl/server';
 
 import SectionHeader from '@/app/[locale]/components/common/SectionHeader';
 import Breadcrumb from '@/app/[locale]/components/ui/Breadcrumb';
@@ -23,20 +25,24 @@ import ProductType from '../components/primitives/ProductType';
 import Responsibilities from '../components/primitives/Responsibilities';
 import StatusDown from '../components/primitives/StatusDown';
 
+/* Metadata */
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ id: string }>;
+  params: Promise<{ locale: string; id: string }>;
 }): Promise<Metadata> {
-  const { id } = await params;
+  const { locale, id } = await params;
+  const t = await getTranslations({ locale, namespace: 'project' });
+
   const project = await getProject(id);
 
   return {
-    title: `项目案例 - ${project?.name}`,
-    description: project?.desc,
+    title: `${t('case')} - ${locale === 'zh' ? project?.name : project?.nameEN || project?.name}`,
+    description: locale === 'zh' ? project?.desc : project?.descEN || project?.desc,
   };
 }
 
+/* Function Component */
 export default async function ProjectDetail({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
 
@@ -52,18 +58,23 @@ export default async function ProjectDetail({ params }: { params: Promise<{ id: 
 }
 
 async function ProjectBreadCrumb({ dataPromise }: { dataPromise: Promise<Project> }) {
+  const locale = await getLocale();
+  const t = await getTranslations('dev');
+
   const project = await dataPromise;
 
   const menus = [
-    { text: '开发', url: '/dev' },
-    { text: '开发项目', url: '/project' },
-    { text: project?.name },
+    { text: t('common'), url: '/dev' },
+    { text: t('dev-project'), url: '/project' },
+    { text: locale === 'zh' ? project?.name : project?.nameEN || project?.name },
   ];
 
   return <Breadcrumb menus={menus} />;
 }
 
 async function ProjectContent({ dataPromise }: { dataPromise: Promise<Project> }) {
+  const locale = await getLocale();
+
   const project = await dataPromise;
 
   return (
@@ -75,13 +86,21 @@ async function ProjectContent({ dataPromise }: { dataPromise: Promise<Project> }
       <div className="flex flex-col gap-6 lg:flex-row">
         <Responsibilities
           color={project?.color}
-          responsibilities={project?.responsibilities || []}
+          responsibilities={
+            locale === 'zh'
+              ? project?.responsibilities || []
+              : project?.responsibilitiesEN || project?.responsibilities || []
+          }
           key="responsibilities"
         />
         <div className="w-full h-px border-b lg:w-px lg:h-auto lg:border-r border-dashed border-secondary"></div>
         <Responsibilities
           color={project?.color}
-          achievements={project?.achievements || []}
+          achievements={
+            locale === 'zh'
+              ? project?.achievements || []
+              : project?.achievementsEN || project?.achievements || []
+          }
           key="achievements"
         />
       </div>
@@ -94,6 +113,8 @@ async function ProjectContent({ dataPromise }: { dataPromise: Promise<Project> }
 
 /* Component: BasicInfo */
 function BasicInfo({ project }: { project: Project }) {
+  const locale = useLocale();
+
   return (
     <div className="flex flex-col gap-6 md:flex-row md:gap-20 lg:gap-24">
       {/* Details */}
@@ -108,7 +129,7 @@ function BasicInfo({ project }: { project: Project }) {
               {/* Title + Label */}
               <div className="flex items-center gap-2">
                 <h1 className="title-small" style={{ color: `#${project?.color}` }}>
-                  {project?.name}
+                  {locale === 'zh' ? project?.name : project?.nameEN || project?.name}
                 </h1>
                 {project?.platform?.map((t: ProjectPlatformVisible, i) => (
                   <ProductType key={i} platform={t} />
@@ -116,7 +137,9 @@ function BasicInfo({ project }: { project: Project }) {
               </div>
 
               {/* Description */}
-              <span className="text-small text-light">{project?.desc}</span>
+              <span className="text-small text-light">
+                {locale === 'zh' ? project?.desc : project?.descEN || project?.desc}
+              </span>
             </div>
           </div>
         </div>
@@ -125,7 +148,7 @@ function BasicInfo({ project }: { project: Project }) {
         <div className="flex flex-col gap-4 xl:gap-8">
           {/* Link */}
           {project?.preview && (
-            <div className="flex items-center gap-2">
+            <div className="flex justify-start items-center gap-2">
               <div
                 className="w-fit rounded-lg group"
                 style={{
@@ -143,8 +166,12 @@ function BasicInfo({ project }: { project: Project }) {
                     <span className="text-small">{project?.preview}</span>
                   </Link>
                 ) : (
-                  <div className="px-3 py-2">
-                    <span className="text-small">{project?.preview}</span>
+                  <div className="px-3 py-2 flex text-small">
+                    <span className="whitespace-pre-wrap leading-normal">
+                      {locale === 'zh'
+                        ? project?.preview
+                        : project?.previewEN?.replaceAll('<br/>', '\n') || project?.preview}
+                    </span>
                   </div>
                 )}
               </div>
@@ -187,6 +214,8 @@ function BasicInfo({ project }: { project: Project }) {
 
 /* Component: TechStack */
 async function TechStack({ project }: { project: Project }) {
+  const t = await getTranslations('project');
+
   // Returns unsorted skills
   const skills = await getSkills([
     {
@@ -210,7 +239,11 @@ async function TechStack({ project }: { project: Project }) {
 
   return (
     <div>
-      <SectionHeader title="技术栈" icon={<CodeBracketIcon />} color={`#${project?.color}`} />
+      <SectionHeader
+        title={t('tech-stack')}
+        icon={<CodeBracketIcon />}
+        color={`#${project?.color}`}
+      />
       <SkillGrid skills={skills} />
     </div>
   );
@@ -218,12 +251,14 @@ async function TechStack({ project }: { project: Project }) {
 
 /* Component: Preview */
 function Preview({ project }: { project: Project }) {
+  const t = useTranslations('project');
+
   const isPortrait = checkIsPortrait(project?.width ?? 0, project?.height ?? 0);
 
   return (
     <div>
       <SectionHeader
-        title="真机截图"
+        title={t('screenshots')}
         icon={isPortrait ? <DevicePhoneMobileIcon /> : <ComputerDesktopIcon />}
         color={`#${project?.color}`}
       />

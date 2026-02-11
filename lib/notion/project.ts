@@ -72,13 +72,20 @@ export async function _getProject(id: string): Promise<Project> {
       (item: any) => ProjectPlatform[item?.name as ProjectPlatformOriginType],
     ),
     preview: page.properties?.['线上预览 *']?.url,
+    previewEN: page.properties?.['Preview']?.rich_text?.[0]?.text?.content,
     qrcode: page.properties?.['二维码 / 小程序码']?.files?.map((file: any) => file?.file?.url),
     status: page.properties?.['在线状态']?.status?.name,
     // 开发
     responsibilities: page.properties?.['工作内容 *']?.rich_text?.map(
       (item: any) => item?.plain_text,
     ),
+    responsibilitiesEN: page.properties?.['Responsibilities *']?.rich_text?.map(
+      (item: any) => item?.plain_text,
+    ),
     achievements: page.properties?.['工作成果 *']?.rich_text?.map((item: any) => item?.plain_text),
+    achievementsEN: page.properties?.['Achievements *']?.rich_text?.map(
+      (item: any) => item?.plain_text,
+    ),
     skills: page.properties?.['技术栈 *']?.relation?.map((item: any) => item?.id),
     // 个人网站
     color: page.properties?.['品牌色 *']?.rich_text?.[0]?.text?.content,

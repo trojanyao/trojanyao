@@ -1,8 +1,11 @@
 import { NoSymbolIcon } from '@heroicons/react/16/solid';
+import { getTranslations } from 'next-intl/server';
 
 import { checkUrlAvailable, checkUrlValid } from '@/lib/utils/check-url';
 
 export default async function StatusDown({ preview, status }: { preview: string; status: string }) {
+  const t = await getTranslations('project');
+
   const manualDown = status?.includes('下线');
   const previewUrlNotAvailable = checkUrlValid(preview) && !checkUrlAvailable(preview);
 
@@ -14,7 +17,7 @@ export default async function StatusDown({ preview, status }: { preview: string;
         <NoSymbolIcon className="size-4" />
 
         {/* Tooltip */}
-        <span className="text-center text-xs whitespace-nowrap">甲方已自主下线</span>
+        <span className="text-center text-xs whitespace-nowrap">{t('offline')}</span>
       </div>
     )
   );

@@ -16,11 +16,14 @@ declare global {
     platform: ProjectPlatformVisibleType[];
     status?: string;
     preview?: string;
+    previewEN?: string;
     qrcode?: string;
     /* 开发 */
     skills?: string[];
     responsibilities?: string[];
+    responsibilitiesEN?: string[];
     achievements?: string[];
+    achievementsEN?: string[];
     /* 个人网站 */
     color: string;
     screenshots?: string[];

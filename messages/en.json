@@ -23,12 +23,18 @@
     "dev-project": "Dev Projects"
   },
   "project": {
+    "achivements": "Achivements",
+    "case": "Project Case",
     "dev-project": "Dev Projects",
     "group": {
       "by-platform": "By platform",
       "by-time": "By time"
     },
+    "offline": "Taken offline by the client",
+    "responsibilities": "Responsibilities",
+    "screenshots": "Screenshots",
     "selected": "Selected Projects",
+    "tech-stack": "Tech Stacks",
     "type": {
       "android": "Android",
       "ios": "iOS",

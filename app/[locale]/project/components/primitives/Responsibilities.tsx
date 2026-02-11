@@ -1,5 +1,6 @@
 import { CheckBadgeIcon, CheckIcon } from '@heroicons/react/24/outline';
 import { RocketLaunchIcon } from '@heroicons/react/24/outline';
+import { useTranslations } from 'next-intl';
 
 export default function Responsibilities({
   color,
@@ -10,6 +11,7 @@ export default function Responsibilities({
   responsibilities?: string[];
   achievements?: string[];
 }) {
+  const t = useTranslations('project');
   const isAchievements = achievements && Array.isArray(achievements) && achievements.length > 0;
 
   /**
@@ -35,7 +37,7 @@ export default function Responsibilities({
           <RocketLaunchIcon className="size-6" />
         )}
         <div className="text-small whitespace-nowrap">
-          {isAchievements ? '工作成果' : '工作内容'}
+          {isAchievements ? t('achivements') : t('responsibilities')}
         </div>
       </div>
 
