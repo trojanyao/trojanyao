@@ -13,10 +13,22 @@ import { getSkills } from '@/lib/notion/skill';
 import SkillGroup from '../components/SkillGroup';
 import SkillItemSkeleton from '../components/SkillItemSkeleton';
 
-export const metadata: Metadata = {
-  title: '开发技能',
-  description: '已掌握、使用过和学习中的开发技能，包括前端、服务端、App 及其他。',
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'skill' });
+
+  return {
+    title: t('dev-skill'),
+    description:
+      locale === 'zh'
+        ? '已掌握、使用过和学习中的开发技能，包括前端、服务端、App 及其他。'
+        : 'Development skills that I have mastered, used, or am currently learning, including frontend, backend, app, and others.',
+  };
+}
 
 export default async function Skills() {
   const t = await getTranslations();
