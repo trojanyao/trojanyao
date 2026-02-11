@@ -1,7 +1,13 @@
 @import 'tailwindcss';
 
+/* 显式指定要扫描的源码路径，确保 sm: 等响应式类被生成 */
+@source '../**/*.{js,ts,jsx,tsx,mdx}';
+@source '../app/[[]*[]]/**/*.{js,ts,jsx,tsx,mdx}';
+
 /* Customized theme variables (Design Tokens) */
 @theme {
+  --breakpoint-xs: 520px;
+
   --color-transparent: transparent;
   --color-current: currentColor;
 
@@ -122,38 +128,40 @@
     @apply gap-6;
   }
 
-  /* ===== 🔸 Title ===== */
-  .title-extra-large {
-    @apply text-[2rem] font-semibold leading-none;
-  }
+  /* title-* 和 text-* 改为 @utility，以支持 sm:、md: 等响应式变体（v4 的 @layer components 不支持变体） */
+}
 
-  .title-large {
-    @apply text-[1.75rem] font-semibold leading-none;
-  }
+/* ===== 🔸 Title & Text（@utility 支持响应式变体） ===== */
+@utility title-extra-large {
+  @apply text-[2rem] font-semibold leading-none;
+}
 
-  .title-middle {
-    @apply text-2xl font-semibold leading-none;
-  }
-  .title-small {
-    @apply text-xl font-medium leading-none;
-  }
+@utility title-large {
+  @apply text-[1.75rem] font-semibold leading-none;
+}
 
-  /* ===== 🔸 Text ===== */
-  .title-mini {
-    @apply text-lg font-medium leading-none;
-  }
+@utility title-middle {
+  @apply text-2xl font-semibold leading-none;
+}
 
-  .text-middle {
-    @apply text-base font-normal leading-none;
-  }
+@utility title-small {
+  @apply text-xl font-medium leading-none;
+}
 
-  .text-small {
-    @apply text-sm font-normal leading-none;
-  }
+@utility title-mini {
+  @apply text-lg font-medium leading-none;
+}
 
-  .text-mini {
-    @apply text-xs font-normal leading-none;
-  }
+@utility text-middle {
+  @apply text-base font-normal leading-none;
+}
+
+@utility text-small {
+  @apply text-sm font-normal leading-none;
+}
+
+@utility text-mini {
+  @apply text-xs font-normal leading-none;
 }
 
 /* Customized utility classes */
