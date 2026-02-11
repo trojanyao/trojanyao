@@ -8,3 +8,7 @@ export function checkIsPortrait(width: number, height: number): boolean {
   // Check if width and height are defined and if height is greater than width and less than width * 3
   return Boolean(width) && Boolean(height) && height > width && height < width * 3;
 }
+
+export function checkIsLongScreen(width: number, height: number) {
+  return Boolean(width) && Boolean(height) && height > width && height > width * 3;
+}
