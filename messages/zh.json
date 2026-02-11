@@ -18,7 +18,16 @@
     "service": "服务",
     "skill": "技能"
   },
+  "dev": {
+    "common": "开发",
+    "dev-project": "开发项目"
+  },
   "project": {
+    "dev-project": "开发项目",
+    "group": {
+      "by-platform": "按平台",
+      "by-time": "按时间"
+    },
     "selected": "精选项目",
     "type": {
       "android": "Android",

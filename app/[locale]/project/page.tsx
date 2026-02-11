@@ -2,6 +2,8 @@ import { Suspense } from 'react';
 
 import { Squares2X2Icon } from '@heroicons/react/24/outline';
 import { Metadata } from 'next';
+import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 
 import Breadcrumb from '@/app/[locale]/components/ui/Breadcrumb';
 import { getProjects } from '@/lib/notion';
@@ -9,21 +11,35 @@ import { getProjects } from '@/lib/notion';
 import SectionHeader from '../components/common/SectionHeader';
 import Line from '../components/ui/Line';
 
-import ProjectList from './components/ProjectGroup';
+import ProjectGroup from './components/ProjectGroup';
 import ProjectCardSkeleton from './components/ProjectItemSkeleton';
 
 export const dynamic = 'force-dynamic'; // use SSR to avoid Notion's image expiry
 
-export const metadata: Metadata = {
-  title: '开发项目',
-  description: '参与和主导的历史开发项目案例，包括 Web、App、小程序等。',
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'project' });
+
+  return {
+    title: t('dev-project'),
+    description:
+      locale === 'zh'
+        ? '主导和参与的开发项目案例，包括 Web、App、小程序等。'
+        : 'Development project cases that I have led or participated in, including Web, App, Mini Programs, etc.',
+  };
+}
 
 export default function DevProjects() {
+  const t = useTranslations('dev');
+
   const breadcrumbMenus = [
-    { text: '开发' }, // TODO: open /dev url
+    { text: t('common') }, // TODO: open /dev url
     // { text: '开发', url: '/dev' },
-    { text: '开发项目', url: '/project' },
+    { text: t('dev-project'), url: '/project' },
   ];
 
   return (
@@ -41,15 +57,17 @@ export default function DevProjects() {
 async function ProjectsContent() {
   const projects = await getProjects();
 
-  return <ProjectList projects={projects} />;
+  return <ProjectGroup projects={projects} />;
 }
 
 function ProjectListSkeleton() {
+  const t = useTranslations('dev');
+
   const skeletonArray = Array.from({ length: 3 });
 
   return (
     <div>
-      <SectionHeader title="开发项目" icon={<Squares2X2Icon />}>
+      <SectionHeader title={t('dev-project')} icon={<Squares2X2Icon />}>
         {/* Avoid CLS */}
         <div className="h-7"></div>
       </SectionHeader>

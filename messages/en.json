@@ -18,13 +18,22 @@
     "service": "Service",
     "skill": "Skill"
   },
+  "dev": {
+    "common": "Dev",
+    "dev-project": "Dev Projects"
+  },
   "project": {
+    "dev-project": "Dev Projects",
+    "group": {
+      "by-platform": "By platform",
+      "by-time": "By time"
+    },
     "selected": "Selected Projects",
     "type": {
       "android": "Android",
       "ios": "iOS",
       "pwa": "PWA",
-      "weapp": "WeChat Mini-Program",
+      "weapp": "WeChat Mini Program",
       "web-desktop": "SaaS · Desktop",
       "web-mobile": "SaaS · Mobile",
       "website-desktop": "Website · Desktop",
