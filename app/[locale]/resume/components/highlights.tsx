@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import { SparklesIcon } from '@heroicons/react/24/outline';
+import { useLocale, useTranslations } from 'next-intl';
 
 import SectionHeader from '@/app/[locale]/components/common/SectionHeader';
 import Image01 from '@/public/imgs/resume/highlights/01.webp';
@@ -23,6 +24,20 @@ const data = [
         </>
       ),
     },
+    en: {
+      title: 'Product-First\nUX-Oriented',
+      renderDesc: (
+        <>
+          Product-Driven approach
+          <br />
+          Prioritizing user experience
+          <br />
+          Focus on Core Web Vitals
+          <br />
+          and performance scores
+        </>
+      ),
+    },
     img: Image01,
   },
   {
@@ -41,6 +56,22 @@ const data = [
         </>
       ),
     },
+    en: {
+      title: 'Quick Learner\nFast Adopter',
+      renderDesc: (
+        <>
+          In the{' '}
+          <Link
+            href="project/72d11628-6dfa-47f8-8b83-06b2dd5ab21f"
+            className="text-[#FF3C58] font-medium"
+          >
+            TAOREN
+          </Link>{' '}
+          Project, mastered GSAP wit hin a week, utilizing geometric concepts to achieve complex
+          banner animations and successfully delivered
+        </>
+      ),
+    },
     img: Image02,
   },
   {
@@ -53,6 +84,18 @@ const data = [
           代码管理完整规范
           <br />
           资料归档全盘交付
+        </>
+      ),
+    },
+    en: {
+      title: 'Diligent and\nDetail-Oriented',
+      renderDesc: (
+        <>
+          Organized project docs
+          <br />
+          Standardized code management
+          <br />
+          Complete delivery of all materials
         </>
       ),
     },
@@ -69,14 +112,29 @@ const data = [
         </>
       ),
     },
+    en: {
+      title: 'Thoughtful Perfectionist and',
+      renderDesc: (
+        <>
+          Attention to dimensions, alignment, and typography
+          <br />
+          Meticulous with typos, punctuation, and other details
+        </>
+      ),
+    },
     img: Image04,
   },
 ];
 
 export default function Highlights() {
+  const locale = useLocale();
+  const t = useTranslations('resume.title');
+
+  const lang = locale === 'zh' ? 'zh' : 'en';
+
   return (
     <div>
-      <SectionHeader title="个人亮点" icon={<SparklesIcon />} />
+      <SectionHeader title={t('highlights')} icon={<SparklesIcon />} />
 
       <div className="flex flex-col gap-12">
         {data.map((item, index) => (
@@ -87,20 +145,21 @@ export default function Highlights() {
             {/* Text */}
             <div className="flex-1 px-3">
               <div className="sm:hidden text-primary title-mini leading-normal whitespace-pre-wrap">
-                {item.zh.title?.split('，').join('\n')}
+                {item[lang].title?.split('，').join('\n')}
               </div>
-              <div className="hidden sm:block text-primary text-middle font-medium sm:title-small">
-                {item.zh.title}
+
+              <div className="hidden sm:block text-primary text-middle font-medium sm:title-small leading-normal! whitespace-pre-wrap">
+                {item[lang].title}
               </div>
 
               <div className="mt-3 text-light text-mini sm:text-small leading-normal!">
-                {item.zh.renderDesc}
+                {item[lang].renderDesc}
               </div>
             </div>
 
             {/* Image */}
             <div className={`w-3/5 overflow-hidden ${index === 0 ? 'rounded-2xl' : ''}`}>
-              <Image src={item.img} alt={item.zh.title} />
+              <Image src={item.img} alt={item[lang].title} />
             </div>
           </div>
         ))}

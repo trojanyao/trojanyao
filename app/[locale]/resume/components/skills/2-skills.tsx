@@ -1,8 +1,10 @@
 import { Suspense } from 'react';
 
+import { getTranslations } from 'next-intl/server';
+
 import SkillItem from '@/app/[locale]/skill/components/SkillItem';
 import SkillItemSkeleton from '@/app/[locale]/skill/components/SkillItemSkeleton';
-import { skillCategories } from '@/lib/constants/skill.constants';
+import { skillCategories, skillProficiencies } from '@/lib/constants/skill.constants';
 import { getSkills } from '@/lib/notion';
 import { groupBy } from '@/lib/utils/group-by';
 
@@ -16,6 +18,8 @@ export default function TechStacks() {
 
 /* Component: TechStacksContent */
 async function TechStacksContent() {
+  const t = await getTranslations('skill.category');
+
   const skills: Skill[] = await getSkills();
 
   const groupedSkills = groupBy<Skill>(skills, 'category', (a, b) => {
@@ -29,18 +33,16 @@ async function TechStacksContent() {
 
   return groupedSkills?.map((groupItem, index) => (
     <div key={index} className="flex flex-col gap-4">
-      <div className="pl-1 text-primary text-middle font-medium">{groupItem?.groupName}</div>
+      <div className="pl-1 text-primary text-middle font-medium">{t(groupItem?.groupName)}</div>
       <SkillGrid skills={groupItem?.items} />
     </div>
   ));
 }
 
 function SkillGrid({ skills }: { skills: Skill[] }) {
-  const skillSorts = ['熟练', '使用过', '学习中'];
-
   skills.sort((a, b) => {
-    const indexA = skillSorts.indexOf(a?.status);
-    const indexB = skillSorts.indexOf(b?.status);
+    const indexA = skillProficiencies.indexOf(a?.status);
+    const indexB = skillProficiencies.indexOf(b?.status);
     return indexA - indexB;
   });
 

@@ -46,6 +46,22 @@
       "website-mobile": "官网 · 移动端"
     }
   },
+  "resume": {
+    "joined-on": "{date} 参加工作",
+    "years-experience": "{years} 年经验",
+    "years-old": "{ages} 岁",
+    "title": {
+      "highlights": "个人亮点",
+      "modes": "合作模式",
+      "payment": "合作渠道"
+    },
+    "action-bar": {
+      "wechat": "添加微信",
+      "copy-wechat": "复制微信号",
+      "email": "发送邮件",
+      "download": "下载简历"
+    }
+  },
   "service": {
     "available": "可 <highlight>{term}</highlight> 开始服务",
     "available-now": "立即"

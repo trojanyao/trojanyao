@@ -1,6 +1,8 @@
 import { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 
+import { useTranslations } from 'next-intl';
+
 import CopyableText from '@/app/[locale]/components/ui/copyable-text';
 import WeChatLogo from '@/public/icons/wechat.webp';
 import WeChatQRCode from '@/public/imgs/wechat-qrcode.webp';
@@ -8,6 +10,8 @@ import WeChatQRCode from '@/public/imgs/wechat-qrcode.webp';
 import { btnTextClass, buttonClass } from '.';
 
 export default function AddWeChat() {
+  const t = useTranslations('resume.action-bar');
+
   const [modalVisible, setModalVisible] = useState(false);
   const wrapperRef = useRef<HTMLDivElement>(null);
 
@@ -42,7 +46,7 @@ export default function AddWeChat() {
         onClick={handleClick}
       >
         <Image src={WeChatLogo} alt="WeChat" className="size-5 min-w-5 sm:size-4" />
-        <span className={btnTextClass}>添加微信</span>
+        <span className={btnTextClass}>{t('wechat')}</span>
       </button>
 
       {/* QR Code */}
@@ -77,7 +81,7 @@ export default function AddWeChat() {
             height={112}
             className="size-28 min-w-28 min-h-28"
           />
-          <CopyableText text="trojanyao" ariaLabel="复制微信号" />
+          <CopyableText text="trojanyao" ariaLabel={t('copy-wechat')} />
         </div>
       </div>
     </div>

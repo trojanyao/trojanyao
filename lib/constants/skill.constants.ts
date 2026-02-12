@@ -20,3 +20,5 @@ export const SkillCategoryEnum = {
 
 export const skillCategories = ['front-end', 'back-end', 'app', 'others'] as const;
 export type SkillCategoryType = (typeof skillCategories)[number];
+
+export const skillProficiencies = ['proficient', 'familiar', 'learning'] as const;

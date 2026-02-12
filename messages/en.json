@@ -46,6 +46,22 @@
       "website-mobile": "Website · Mobile"
     }
   },
+  "resume": {
+    "joined-on": "Joined on {date}",
+    "years-experience": "{years}+ yrs exp.",
+    "years-old": "{ages} years old",
+    "title": {
+      "highlights": "Personal Highlights",
+      "modes": "Engagement Models",
+      "payment": "Payment & Contracting"
+    },
+    "action-bar": {
+      "wechat": "WeChat",
+      "copy-wechat": "Copy WeChat ID",
+      "email": "Email",
+      "download": "Download Resume"
+    }
+  },
   "service": {
     "available": "Available <highlight>{term}</highlight>",
     "available-now": "Now"

@@ -1,10 +1,13 @@
 import { useState } from 'react';
 
 import { ArrowDownTrayIcon } from '@heroicons/react/24/outline';
+import { useTranslations } from 'next-intl';
 
 import { btnTextClass, buttonClass } from '.';
 
 export default function DownloadResume() {
+  const t = useTranslations('resume.action-bar');
+
   const [isBouncing, setIsBouncing] = useState(false);
 
   const handleDownloadClick = () => {
@@ -26,7 +29,7 @@ export default function DownloadResume() {
         [@media(hover:hover)]:group-hover:animate-[bounce_0.75s_linear_infinite]
         ${isBouncing ? 'animate-bounce' : ''}`}
       />
-      <span className={btnTextClass}>下载简历</span>
+      <span className={btnTextClass}>{t('download')}</span>
     </a>
   );
 }

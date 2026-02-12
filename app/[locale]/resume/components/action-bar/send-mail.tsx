@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 
 import { EnvelopeIcon } from '@heroicons/react/24/outline';
+import { useTranslations } from 'next-intl';
 
 import CopyableText from '@/app/[locale]/components/ui/copyable-text';
 
@@ -9,6 +10,8 @@ import { btnTextClass, buttonClass } from '.';
 const mailAddress = 'ytj1996@gmail.com';
 
 export default function SendMail() {
+  const t = useTranslations('resume.action-bar');
+
   const [expanded, setExpanded] = useState(false);
   const wrapperRef = useRef<HTMLDivElement>(null);
 
@@ -45,7 +48,7 @@ export default function SendMail() {
     >
       <button className="flex items-center gap-1" onClick={handleClick}>
         <EnvelopeIcon className="size-5 sm:size-4 shrink-0" />
-        <span className={`${btnTextClass} shrink-0`}>发送邮件</span>
+        <span className={`${btnTextClass} shrink-0`}>{t('email')}</span>
       </button>
 
       {/* Detail */}

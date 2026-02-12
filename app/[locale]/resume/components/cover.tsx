@@ -8,7 +8,9 @@ import {
 } from '@heroicons/react/24/outline';
 import { EnvelopeIcon } from '@heroicons/react/24/outline';
 import { GithubIcon } from 'lucide-react';
+import { useLocale, useTranslations } from 'next-intl';
 
+import { formatYearMonth } from '@/lib/utils/format-date';
 import Portrait from '@/public/imgs/portrait.webp';
 
 import CopyableText from '../../components/ui/copyable-text';
@@ -22,15 +24,27 @@ const info = {
     name: '姚陶钧',
     slogan: '专注打造优秀产品',
     title: '前端 · 全栈开发',
-    education: '2014.08-2018.06 天津科技大学',
+    education: '2014.09-2018.06 天津科技大学',
     degree: '网络工程 本科 学士学位',
+  },
+  en: {
+    name: 'TROJAN YAO',
+    slogan: 'Focus on creating\nexcellent products',
+    title: 'Front-end · Full-stack Developer',
+    education: 'Sep 2014 - Jun 2018, TUST',
+    degree: 'B.Eng. in Network Engineering',
   },
 };
 
 const listItemClass = 'flex items-center gap-2 text-[#AFBAC6] text-mini xs:text-small';
 
 export default function Cover() {
-  /* 根据 info.birthday 计算年龄 */
+  const locale = useLocale();
+  const t = useTranslations('resume');
+
+  const lang = locale === 'zh' ? 'zh' : 'en';
+
+  /* Get the age according to info.birthday */
   function getAge(birthdayStr: string) {
     // 期望格式： '1995.02'
     const [yearStr, monthStr] = birthdayStr.split('.');
@@ -72,16 +86,21 @@ export default function Cover() {
       <div className="flex flex-col gap-4 xs:gap-6 relative z-10">
         {/* Header */}
         <div className="space-y-2 xs:space-y-3">
-          <div className="text-[#AFBAC6] title-mini xs:title-middle font-medium tracking-widest">
-            {info.zh.name}
+          <div
+            className={`text-[#AFBAC6] ${locale === 'zh' ? 'title-mini xs:title-middle' : 'text-middle'} font-medium tracking-widest`}
+          >
+            {info[lang].name}
           </div>
 
-          <h1 className="text-primary title-small xs:title-large font-bold tracking-widest">
-            {info.zh.slogan}
+          <h1
+            className={`text-primary title-small xs:title-large font-bold
+              ${locale === 'zh' ? 'tracking-widest' : 'tracking-wide leading-[1.2]!'} whitespace-pre-wrap`}
+          >
+            {info[lang].slogan}
           </h1>
 
           <div className="w-fit p-[6px] xs:p-3 border border-primary/50 rounded-lg xs:rounded-xl text-primary text-mini xs:text-small">
-            {info.zh.title}
+            {info[lang].title}
           </div>
         </div>
 
@@ -90,25 +109,27 @@ export default function Cover() {
           <li className={listItemClass}>
             <CalendarDaysIcon className="size-4" />
             <span>
-              {info.birthday}（{getAge(info.birthday)} 岁）
+              {formatYearMonth(new Date(info.birthday), locale)}（
+              {t('years-old', { ages: getAge(info.birthday) })}）
             </span>
           </li>
 
           <li className={listItemClass}>
             <BriefcaseIcon className="size-4" />
             <span>
-              {info.startDate} 参加工作（{getYearsExperience(info.startDate)} 年经验）
+              {t('joined-on', { date: formatYearMonth(new Date(info.startDate), locale) })}（
+              {t('years-experience', { years: getYearsExperience(info.startDate) })}）
             </span>
           </li>
 
           <li className={listItemClass}>
             <BuildingLibraryIcon className="size-4" />
-            <span>{info.zh.education}</span>
+            <span>{info[lang].education}</span>
           </li>
 
           <li className={listItemClass}>
             <AcademicCapIcon className="size-4" />
-            <span>{info.zh.degree}</span>
+            <span>{info[lang].degree}</span>
           </li>
 
           <li className={listItemClass}>
