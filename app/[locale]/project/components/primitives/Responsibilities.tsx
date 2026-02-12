@@ -37,7 +37,7 @@ export default function Responsibilities({
           <RocketLaunchIcon className="size-6" />
         )}
         <div className="text-small whitespace-nowrap">
-          {isAchievements ? t('achivements') : t('responsibilities')}
+          {isAchievements ? t('achievements') : t('responsibilities')}
         </div>
       </div>
 
