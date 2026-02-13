@@ -1,8 +1,12 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
+
 import { LocaleSwitcher } from './locale-switch';
 
 export default function Footer() {
+  const t = useTranslations('common');
+
   return (
     <footer
       className="w-full mx-auto py-6 px-4 xl:px-0 border-t border-secondary
@@ -16,7 +20,7 @@ export default function Footer() {
       {/* Center */}
       <div className="flex-1 text-center text-light whitespace-nowrap">
         {/* eslint-disable-next-line no-irregular-whitespace */}
-        © 2024–{new Date().getFullYear()} 极简一生 All Rights Reserved.
+        © 2024–{new Date().getFullYear()} {t('app')} All Rights Reserved.
       </div>
 
       {/* Right */}
