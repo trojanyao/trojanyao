@@ -2,7 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 
-import { LocaleSwitcher } from './locale-switch';
+import { LocaleSwitcher } from './locale-switcher';
 
 export default function Footer() {
   const t = useTranslations('common');
