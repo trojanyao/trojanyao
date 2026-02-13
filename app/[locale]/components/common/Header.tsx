@@ -7,7 +7,6 @@ import { useTranslations } from 'next-intl';
 import { Fragment } from 'react/jsx-runtime';
 
 import { Link } from '@/i18n/navigation';
-import LogoText from '@/public/logo+text.svg';
 import Logo from '@/public/logo.svg';
 
 import GitHubLink from './GitHubLink';
@@ -52,15 +51,10 @@ export default function Nav() {
     >
       {/* Logo */}
       <div>
-        <Link href="/">
-          <Image src={Logo} alt="Logo" className="sm:hidden w-auto h-10 object-left" priority />
+        <Link href="/" className="flex items-center gap-1">
+          <Image src={Logo} alt="Logo" className="w-auto h-10 object-left" priority />
 
-          <Image
-            src={LogoText}
-            alt="Logo"
-            className="hidden sm:block w-auto h-10 lg:h-12 object-left"
-            priority
-          />
+          <div className="text-lg text-black font-[450]">{t('app')}</div>
         </Link>
       </div>
 
