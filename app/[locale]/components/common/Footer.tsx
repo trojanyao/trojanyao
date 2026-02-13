@@ -9,7 +9,7 @@ export default function Footer() {
 
   return (
     <footer
-      className="w-full mx-auto py-6 px-4 xl:px-0 border-t border-secondary
+      className="w-full mx-auto py-6 px-4 xl:px-0 border-t border-secondary z-50
     flex flex-col sm:flex-row justify-between items-center gap-6
     text-sm leading-none"
     >
