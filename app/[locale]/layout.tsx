@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 
 import { Analytics } from '@vercel/analytics/next';
 import { hasLocale, NextIntlClientProvider } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 
 import { routing } from '@/i18n/routing';
 
@@ -17,41 +18,76 @@ export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
-export const metadata: Metadata = {
-  title: {
-    default: '极简一生 | TROJAN 的个人网站',
-    template: '%s | 极简一生',
-  },
-  description: '全职远程 Freelancer，有设计审美的前端工程师，极简主义者',
-  generator: 'Next.js',
-  creator: 'Trojan Yao',
-  authors: [{ name: 'trojanyao', url: 'https://minimalistrojan.com' }],
-  keywords: [
-    // 技术
-    '前端',
-    '全栈',
-    'Next.js',
-    'React Native',
-    'Expo',
-    '小程序',
-    // 商务
-    '外包',
-    '前端外包',
-    '全栈外包',
-    'React Native 外包',
-    'Expo 外包',
-    '小程序外包',
-    // 角色
-    'Freelancer',
-    '自由职业',
-    '灵活外包',
-    '独立开发',
-    '个人外包',
-    '独立外包',
-    '设计审美',
-    '前端工程师',
-  ],
-};
+const keywordsZH = [
+  // 技术
+  '前端',
+  '全栈',
+  'Next.js',
+  'React Native',
+  'Expo',
+  '小程序',
+  // 商务
+  '外包',
+  '前端外包',
+  '全栈外包',
+  'React Native 外包',
+  'Expo 外包',
+  '小程序外包',
+  // 角色
+  'Freelancer',
+  '自由职业',
+  '灵活外包',
+  '独立开发',
+  '个人外包',
+  '独立外包',
+  '设计审美',
+  '前端工程师',
+];
+
+const keywordsEN = [
+  // 技术
+  'Frontend',
+  'Full-stack',
+  'Next.js',
+  'React Native',
+  'Expo',
+  'Mini Program',
+  // 商务
+  'Outsourcing',
+  'Frontend Outsourcing',
+  'Full-stack Outsourcing',
+  'React Native Outsourcing',
+  'Expo Outsourcing',
+  'Mini Program Outsourcing',
+  // 角色
+  'Freelancer',
+  'Flexible Outsourcing',
+  'Independent Developer',
+  'Personal Outsourcing',
+  'Design Aesthetic',
+  'Frontend Engineer',
+];
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations('common');
+
+  return {
+    title: {
+      default: t('title'),
+      template: `%s | ${t('app')}`,
+    },
+    description: t('desc'),
+    generator: 'Next.js',
+    creator: 'Trojan Yao',
+    authors: [{ name: 'trojanyao', url: 'https://minimalistrojan.com' }],
+    keywords: locale === 'zh' ? keywordsZH : keywordsEN,
+  };
+}
 
 export default async function RootLayout({
   children,

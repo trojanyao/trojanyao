@@ -1,11 +1,12 @@
 import { useState } from 'react';
 
 import { ArrowDownTrayIcon } from '@heroicons/react/24/outline';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 
 import { btnTextClass, buttonClass } from '.';
 
 export default function DownloadResume() {
+  const locale = useLocale();
   const t = useTranslations('resume.action-bar');
 
   const [isBouncing, setIsBouncing] = useState(false);
@@ -19,7 +20,11 @@ export default function DownloadResume() {
 
   return (
     <a
-      href="/files/姚陶钧-七年前端-三年远程-有设计审美-专注打造优秀产品.pdf"
+      href={
+        locale === 'zh'
+          ? '/files/姚陶钧-七年前端-三年远程-有设计审美-专注打造优秀产品.pdf'
+          : '/files/Trojan_Yao_Frontend_Engineer_Resume.pdf'
+      }
       download
       className={`${buttonClass} group`}
       onClick={handleDownloadClick}

@@ -24,7 +24,8 @@ export async function generateMetadata({
 
   return {
     title: locale === 'zh' ? skill?.name : skill?.nameEN || skill?.name,
-    description: skill?.description,
+    // TODO: replace with English description when available
+    description: locale === 'zh' ? skill?.description : '',
   };
 }
 

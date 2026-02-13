@@ -10,10 +10,21 @@ import Skills from './components/skills';
 
 export const dynamic = 'force-dynamic'; // use SSR to avoid Notion's image expiry
 
-export const metadata: Metadata = {
-  title: '姚陶钧的个人简历',
-  description: '有设计审美的前端工程师，七年前端经验，三年远程 Freelancer 经验',
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+
+  return {
+    title: locale === 'zh' ? '姚陶钧的个人简历' : "TROJAN's resume",
+    description:
+      locale === 'zh'
+        ? '有设计审美的前端工程师，七年前端经验，三年远程 Freelancer 经验'
+        : 'Design-savvy front-end engineer, 7 years of front-end experience, and 3 years of remote freelancer experience',
+  };
+}
 
 export default function Resume() {
   return (

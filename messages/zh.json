@@ -14,6 +14,8 @@
   },
   "common": {
     "app": "极简一生",
+    "title": "极简一生 | TROJAN 的个人网站",
+    "desc": "全职远程 Freelancer，有设计审美的前端工程师，极简主义者",
     "dev": "开发",
     "project": "项目",
     "service": "服务",
