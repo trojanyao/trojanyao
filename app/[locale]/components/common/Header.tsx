@@ -66,8 +66,7 @@ export default function Nav() {
           {/* <Link href="/rss">
           <RssIcon className="size-5 text-orange cursor-pointer" />
         </Link> */}
-          {isResumePage && <LinkedInLink />}
-          <GitHubLink />
+          {isResumePage ? <LinkedInLink /> : <GitHubLink />}
         </div>
       </header>
 
