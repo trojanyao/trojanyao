@@ -54,7 +54,7 @@ export default function Nav() {
         <Link href="/" className="flex items-center gap-1">
           <Image src={Logo} alt="Logo" className="w-auto h-10 object-left" priority />
 
-          <div className="text-lg text-black font-[450]">{t('app')}</div>
+          <div className="hidden sm:block text-lg text-black font-[450]">{t('app')}</div>
         </Link>
       </div>
 
