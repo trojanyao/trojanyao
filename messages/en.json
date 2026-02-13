@@ -19,7 +19,9 @@
     "dev": "Dev",
     "project": "Project",
     "service": "Service",
-    "skill": "Skill"
+    "skill": "Skill",
+    "copy-text": "Copy Text",
+    "copy-email": "Copy Email"
   },
   "dev": {
     "common": "Dev",
@@ -27,7 +29,8 @@
   },
   "project": {
     "achievements": "Achievements",
-    "case": "Project Case",
+    "case": "Project Cases",
+    "empty": "No projects yet",
     "dev-project": "Dev Projects",
     "group": {
       "by-platform": "By platform",

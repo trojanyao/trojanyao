@@ -102,10 +102,12 @@ export default function ProjectGroup({ projects, title }: { projects: Project[];
 }
 
 function ProjectEmpty() {
+  const t = useTranslations('project');
+
   return (
     <div className="py-24 flex flex-col items-center gap-4">
       <ArchiveBoxIcon className="size-6 text-light" />
-      <span className="text-light text-small">暂无项目</span>
+      <span className="text-light text-small">{t('empty')}</span>
     </div>
   );
 }

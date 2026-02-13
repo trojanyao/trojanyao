@@ -19,7 +19,9 @@
     "dev": "开发",
     "project": "项目",
     "service": "服务",
-    "skill": "技能"
+    "skill": "技能",
+    "copy-text": "复制文本",
+    "copy-email": "复制邮箱地址"
   },
   "dev": {
     "common": "开发",
@@ -29,6 +31,7 @@
     "achievements": "工作成果",
     "case": "项目案例",
     "dev-project": "开发项目",
+    "empty": "暂无项目",
     "group": {
       "by-platform": "按平台",
       "by-time": "按时间"

@@ -29,7 +29,7 @@ const info = {
   },
   en: {
     name: 'TROJAN YAO',
-    slogan: 'Focus on creating\nexcellent products',
+    slogan: 'Focus on building\nexcellent products',
     title: 'Front-end · Full-stack Developer',
     education: 'Sep 2014 - Jun 2018, TUST',
     degree: 'B.Eng. in Network Engineering',
