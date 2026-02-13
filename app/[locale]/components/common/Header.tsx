@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { Fragment } from 'react/jsx-runtime';
 
 import { Link } from '@/i18n/navigation';
@@ -16,6 +16,7 @@ const headerHeightClass = 'h-20';
 
 export default function Nav() {
   const pathname = usePathname();
+  const locale = useLocale();
   const t = useTranslations('common');
 
   const isResumePage = pathname.includes('/resume');
@@ -91,7 +92,8 @@ export default function Nav() {
                     <Link
                       href={menu.path}
                       className={`hover:bg-gradient-link px-5 py-3 rounded-full text-primary leading-none text-nowrap ${
-                        pathname === menu.path && 'font-medium bg-gradient-link'
+                        pathname.startsWith(`/${locale}${menu.path}`) &&
+                        'font-medium bg-gradient-link'
                       }`}
                     >
                       {menu.name}
