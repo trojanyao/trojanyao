@@ -1,0 +1,47 @@
+import Image from 'next/image';
+import Link from 'next/link';
+
+import { useLocale } from 'next-intl';
+
+import SkillStatus from './SkillStatus';
+
+function getAngleFromId(id: string) {
+  let hash = 0;
+  for (const ch of id) {
+    hash = (hash << 5) - hash + ch.charCodeAt(0);
+    hash |= 0; // 转成 32 位有符号
+  }
+  return hash % 2 === 0 ? 'group-hover:-rotate-10' : 'group-hover:rotate-10';
+}
+
+export default function SkillItem({ data, className }: { data: Skill; className?: string }) {
+  const locale = useLocale();
+  const isEN = locale === 'en';
+
+  const angle = getAngleFromId(data?.id);
+
+  return (
+    <Link
+      href={`/skill/dev/${data?.id}`}
+      className={`bg-light-gray p-4 rounded-2xl flex items-center gap-3 group ${className}`}
+    >
+      <Image
+        src={data?.logo}
+        alt={data?.name}
+        width={40}
+        height={40}
+        className={`size-10 aspect-square rounded-md lg:rounded-xl squircle overflow-hidden ${angle} transition-all duration-300`}
+      />
+
+      <div className="flex-1 h-full py-[2px] flex flex-col justify-between overflow-hidden">
+        <div
+          className={`text-secondary text-small font-medium leading-tight overflow-hidden whitespace-nowrap text-ellipsis`}
+        >
+          {isEN ? data?.nameEN || data?.name : data?.name}
+        </div>
+
+        <SkillStatus status={data?.status} />
+      </div>
+    </Link>
+  );
+}

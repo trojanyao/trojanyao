@@ -1,0 +1,92 @@
+{
+  "banner": {
+    "cta-button": "立即预约",
+    "desc": {
+      "masterpiece": "用专业和认真\\n打造精致细腻的优秀产品",
+      "minimalism": "极简不是简陋，是删繁就简",
+      "ui-ux": "热衷于构建\\nUI 和 UX 友好的前端项目"
+    },
+    "design-savvy": "有设计审美的",
+    "fe-engineer": "前端工程师",
+    "fully-remote": "全职远程",
+    "minimalist": "极简主义者",
+    "pragmatic": "务实的"
+  },
+  "common": {
+    "app": "极简一生",
+    "title": "极简一生 | TROJAN 的个人网站",
+    "desc": "全职远程 Freelancer，有设计审美的前端工程师，极简主义者",
+    "dev": "开发",
+    "project": "项目",
+    "service": "服务",
+    "skill": "技能"
+  },
+  "dev": {
+    "common": "开发",
+    "dev-project": "开发项目"
+  },
+  "project": {
+    "achievements": "工作成果",
+    "case": "项目案例",
+    "dev-project": "开发项目",
+    "group": {
+      "by-platform": "按平台",
+      "by-time": "按时间"
+    },
+    "offline": "甲方自主下线",
+    "responsibilities": "工作内容",
+    "screenshots": "真机截图",
+    "selected": "精选项目",
+    "tech-stack": "技术栈",
+    "type": {
+      "android": "Android",
+      "ios": "iOS",
+      "pwa": "PWA",
+      "weapp": "微信小程序",
+      "web-desktop": "SaaS · 桌面端",
+      "web-mobile": "SaaS · 移动端",
+      "website-desktop": "官网 · 桌面端",
+      "website-mobile": "官网 · 移动端"
+    }
+  },
+  "resume": {
+    "joined-on": "{date} 参加工作",
+    "years-experience": "{years} 年经验",
+    "years-old": "{ages} 岁",
+    "title": {
+      "highlights": "个人亮点",
+      "modes": "合作模式",
+      "payment": "合作渠道"
+    },
+    "action-bar": {
+      "wechat": "添加微信",
+      "copy-wechat": "复制微信号",
+      "email": "发送邮件",
+      "download": "下载简历"
+    }
+  },
+  "service": {
+    "available": "可 <highlight>{term}</highlight> 开始服务",
+    "available-now": "立即"
+  },
+  "skill": {
+    "category": {
+      "app": "App",
+      "back-end": "后端",
+      "front-end": "前端",
+      "others": "其他"
+    },
+    "dev-skill": "开发技能",
+    "group": {
+      "category": "按类别",
+      "proficiency": "按熟练度"
+    },
+    "level": {
+      "familiar": "使用过",
+      "learning": "学习中",
+      "proficient": "熟练"
+    },
+    "plural": "技能",
+    "related-project": "相关项目"
+  }
+}

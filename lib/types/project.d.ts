@@ -6,19 +6,24 @@ declare global {
     /* 基础 */
     id: string;
     name: string;
+    nameEN: string;
     logo: string;
     cover: string;
-    slogan: string;
+    desc: string;
+    descEN: string;
     dateStart: string;
     dateEnd: string;
     platform: ProjectPlatformVisibleType[];
     status?: string;
     preview?: string;
+    previewEN?: string;
     qrcode?: string;
     /* 开发 */
     skills?: string[];
     responsibilities?: string[];
+    responsibilitiesEN?: string[];
     achievements?: string[];
+    achievementsEN?: string[];
     /* 个人网站 */
     color: string;
     screenshots?: string[];

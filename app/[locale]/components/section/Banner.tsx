@@ -1,0 +1,173 @@
+'use client';
+
+import { useState } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+
+import { useGSAP } from '@gsap/react';
+import { ChevronDoubleRightIcon } from '@heroicons/react/20/solid';
+import { gsap } from 'gsap';
+import { useLocale, useTranslations } from 'next-intl';
+
+import './banner.css';
+
+import AvailableStatus from '@/app/[locale]/service/components/AvailableStatus';
+import { kaushan_script } from '@/lib/fonts';
+import Memoji from '@/public/memoji.webp';
+
+gsap.registerPlugin(useGSAP);
+
+export default function Banner() {
+  const locale = useLocale();
+  const t = useTranslations('banner');
+
+  const textGroups = [
+    {
+      title: { left: t('fully-remote'), right: 'Freelancer' },
+      description: t('desc.masterpiece'),
+    },
+    {
+      title: { left: t('design-savvy'), right: t('fe-engineer') },
+      description: t('desc.ui-ux'),
+    },
+    {
+      title: { left: t('pragmatic'), right: t('minimalist') },
+      description: t('desc.minimalism'),
+    },
+    {
+      title: { left: t('fully-remote'), right: 'Freelancer' },
+      description: t('desc.masterpiece'),
+    },
+  ];
+  const OFFSET = 32;
+  const DURATION = 1;
+  const DELAY = 2; // Time for each content pause
+
+  const [animStart, setAnimStart] = useState<boolean>(false);
+
+  useGSAP(() => {
+    setAnimStart(true);
+
+    const titleList: HTMLLIElement[] = gsap.utils.toArray('#titleEffects li');
+    const descList: HTMLDivElement[] = gsap.utils.toArray('.desc-item');
+
+    const tl = gsap.timeline({
+      repeat: -1,
+      repeatDelay: 0,
+      defaults: {
+        ease: 'power3.inOut',
+        duration: DURATION,
+      },
+    });
+
+    titleList.forEach((element: HTMLLIElement, index: number) => {
+      const left = element.querySelector('.banner-left');
+      const right = element.querySelector('.banner-right');
+      const desc = descList[index];
+
+      if (index > 0) {
+        tl.from(left, { y: OFFSET, opacity: 0 }, '<')
+          .from(desc, { opacity: 0 }, '<')
+          .from(right, { y: OFFSET, opacity: 0 }, '<0.1');
+      }
+
+      if (index < textGroups.length - 1) {
+        tl.to(left, { y: -OFFSET, opacity: 0, delay: DELAY })
+          .to(desc, { opacity: 0 }, '<')
+          .to(right, { y: -OFFSET, opacity: 0 }, '<0.1');
+      }
+    });
+  });
+
+  return (
+    <div className="banner-wrap w-screen h-[80vh] min-h-[700px] -mt-20 box-content border-b border-secondary flex flex-col items-center">
+      <div className="max-w-[1200px] h-full min-h-[700px] relative flex flex-col justify-center items-center">
+        {/* Header */}
+        <div className="pb-28 md:pb-36 lg:pb-[200px] flex flex-col items-center">
+          {/* Name */}
+          <div className="trojan text-secondary text-xl leading-none">TROJAN</div>
+
+          {/* Title */}
+          <ul
+            id="titleEffects"
+            // 1 line: h = 2xl(6) + li.mt-8(8) + li.pb-4(4) = 6 + 8 + 4 = 18
+            // 2 lines: h = 2xl(6) * 2 + li.mt-8(8) + li.pb-4(4) + gap-2(2) = 12 + 8 + 4 + 2 = 26
+            className={`w-lg ${locale === 'en' ? 'h-26 sm:h-18' : 'h-18'} overflow-hidden list-none relative flex flex-col items-center`}
+          >
+            {textGroups.map((text, index) => (
+              <li
+                key={index}
+                className={`mt-8 pb-4
+                  ${animStart && 'absolute'} top-0
+                  text-black title-middle select-none
+                  ${locale === 'zh' ? 'tracking-widest' : 'tracking-wide'}`}
+              >
+                {index === 1 ? (
+                  // 第 2 个文本用 h1 包裹
+                  <h1
+                    className={`flex ${locale === 'en' ? 'flex-col sm:flex-row' : 'flex-row'} justify-center items-center gap-2`}
+                  >
+                    <span className="banner-left text-primary ">{text?.title?.left}</span>
+                    <span className="banner-right ">{text?.title?.right}</span>
+                  </h1>
+                ) : (
+                  // 其他文本用 div 包裹
+                  <div
+                    className={`flex ${locale === 'en' ? 'flex-col sm:flex-row' : 'flex-row'} justify-center items-center gap-2`}
+                  >
+                    <span className="banner-left">{text?.title?.left}</span>
+                    <span
+                      className={`banner-right
+                        ${(index === 0 || index === 3) && 'text-green'}
+                        ${index === 2 && 'text-orange'}
+                        ${(index === 0 || index === 3) && kaushan_script.className}`}
+                    >
+                      {text?.title?.right}
+                    </span>
+                  </div>
+                )}
+              </li>
+            ))}
+          </ul>
+
+          {/* Description */}
+          <ul className="w-96 h-12 overflow-hidden list-none relative flex flex-col items-center">
+            {textGroups.map((text, index) => (
+              <li
+                key={index}
+                className={`desc-item
+                ${animStart && 'absolute'} top-0
+                text-center text-light leading-6 whitespace-pre-wrap
+                ${locale === 'zh' ? 'tracking-widest' : 'tracking-wide'}`}
+              >
+                {text?.description?.replace('\\n', '\n')}
+              </li>
+            ))}
+          </ul>
+
+          {/* Status & CTA */}
+          <div className="mt-12 lg:mt-18 flex flex-col items-center gap-4">
+            <Link
+              href="/resume"
+              className="bg-middle-blue w-fit pl-4 pr-3 py-2 rounded-full flex items-center gap-0 text-primary group"
+            >
+              <div className="text-small font-medium">{t('cta-button')}</div>
+              <ChevronDoubleRightIcon className="size-5 group-hover:animate-bounce-right" />
+            </Link>
+
+            <AvailableStatus />
+          </div>
+        </div>
+
+        {/* Memoji */}
+        <Image
+          src={Memoji}
+          alt="Memoji"
+          className="w-48 md:w-52 lg:w-56 xl:w-60 absolute bottom-0 left-1/2 -translate-x-1/2"
+          loading="eager"
+          fetchPriority="high"
+        />
+      </div>
+    </div>
+  );
+}

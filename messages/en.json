@@ -1,0 +1,92 @@
+{
+  "banner": {
+    "cta-button": "Book Now",
+    "desc": {
+      "masterpiece": "Building refined, high-quality products\\nwith care and precision",
+      "minimalism": "Minimalism isn’t about being simplistic —\\nit’s about removing the unnecessary",
+      "ui-ux": "Passionate about crafting\\nUI- and UX-friendly front-end projects"
+    },
+    "design-savvy": "Design-Savvy",
+    "fe-engineer": "Front-end Engineer",
+    "fully-remote": "Fully Remote",
+    "minimalist": "Minimalist",
+    "pragmatic": "Pragmatic"
+  },
+  "common": {
+    "app": "MinimaLife",
+    "title": "MinimaLife | TROJAN's Website",
+    "desc": "Fully remote freelancer, design-savvy front-end engineer, minimalist",
+    "dev": "Dev",
+    "project": "Project",
+    "service": "Service",
+    "skill": "Skill"
+  },
+  "dev": {
+    "common": "Dev",
+    "dev-project": "Dev Projects"
+  },
+  "project": {
+    "achievements": "Achievements",
+    "case": "Project Case",
+    "dev-project": "Dev Projects",
+    "group": {
+      "by-platform": "By platform",
+      "by-time": "By time"
+    },
+    "offline": "Taken offline by the client",
+    "responsibilities": "Responsibilities",
+    "screenshots": "Screenshots",
+    "selected": "Selected Projects",
+    "tech-stack": "Tech Stacks",
+    "type": {
+      "android": "Android",
+      "ios": "iOS",
+      "pwa": "PWA",
+      "weapp": "WeChat Mini Program",
+      "web-desktop": "SaaS · Desktop",
+      "web-mobile": "SaaS · Mobile",
+      "website-desktop": "Website · Desktop",
+      "website-mobile": "Website · Mobile"
+    }
+  },
+  "resume": {
+    "joined-on": "Joined on {date}",
+    "years-experience": "{years}+ yrs exp.",
+    "years-old": "{ages} years old",
+    "title": {
+      "highlights": "Personal Highlights",
+      "modes": "Engagement Models",
+      "payment": "Payment & Contracting"
+    },
+    "action-bar": {
+      "wechat": "WeChat",
+      "copy-wechat": "Copy WeChat ID",
+      "email": "Email",
+      "download": "Download Resume"
+    }
+  },
+  "service": {
+    "available": "Available <highlight>{term}</highlight>",
+    "available-now": "Now"
+  },
+  "skill": {
+    "category": {
+      "app": "App",
+      "back-end": "Back-end",
+      "front-end": "Front-end",
+      "others": "Others"
+    },
+    "dev-skill": "Dev Skills",
+    "group": {
+      "category": "By category",
+      "proficiency": "By proficiency"
+    },
+    "level": {
+      "familiar": "Familiar",
+      "learning": "Learning",
+      "proficient": "Proficient"
+    },
+    "plural": "Skills",
+    "related-project": "Related Projects"
+  }
+}

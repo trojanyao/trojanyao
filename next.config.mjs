@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 import AutoImport from 'unplugin-auto-import/webpack';
+import createNextIntlPlugin from 'next-intl/plugin';
 
 const nextConfig = {
   webpack: (config) => {
@@ -29,4 +30,6 @@ const nextConfig = {
   // productionBrowserSourceMaps: true,
 };
 
-export default nextConfig;
+const withNextIntl = createNextIntlPlugin('./i18n/request.ts');
+
+export default withNextIntl(nextConfig);

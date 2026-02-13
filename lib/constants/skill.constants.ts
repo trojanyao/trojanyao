@@ -1,5 +1,24 @@
-export const skillStatuses = ['学习中', '较熟练', '使用过'] as const;
+export const SkillStatusEnum = {
+  学习中: 'learning',
+  较熟练: 'proficient',
+  熟练: 'proficient',
+  使用过: 'familiar',
+};
+
+export type SkillStatusEnumKeyType = keyof typeof SkillStatusEnum;
+
+export const skillStatuses = ['learning', 'proficient', 'familiar'] as const;
 export type SkillStatusType = (typeof skillStatuses)[number];
 
-export const skillCategories = ['前端', '服务端', 'App', '其他'] as const;
+export const SkillCategoryEnum = {
+  前端: 'front-end',
+  服务端: 'back-end',
+  后端: 'back-end',
+  App: 'app',
+  其他: 'others',
+};
+
+export const skillCategories = ['front-end', 'back-end', 'app', 'others'] as const;
 export type SkillCategoryType = (typeof skillCategories)[number];
+
+export const skillProficiencies = ['proficient', 'familiar', 'learning'] as const;
