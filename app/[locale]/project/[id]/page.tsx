@@ -116,9 +116,9 @@ function BasicInfo({ project }: { project: Project }) {
   const locale = useLocale();
 
   return (
-    <div className="flex flex-col gap-6 md:flex-row md:gap-20 lg:gap-24">
+    <div className="flex flex-col gap-6 md:flex-row md:gap-10 lg:gap-24">
       {/* Details */}
-      <div className="lg:flex-1 pb-0 flex flex-col gap-6 md:py-2 md:gap-12">
+      <div className="md:flex-1 pb-0 flex flex-col gap-6 md:py-2 md:gap-12 overflow-hidden">
         {/* Top */}
         <div className="flex flex-col gap-4">
           {/* Header */}
@@ -126,14 +126,17 @@ function BasicInfo({ project }: { project: Project }) {
             <Image src={project?.logo} alt={`${project?.name} Logo`} width={64} height={64} />
 
             <div className="flex flex-col gap-3">
-              {/* Title + Label */}
+              {/* Title + Labels */}
               <div className="flex items-center gap-2">
                 <h1 className="title-small" style={{ color: `#${project?.color}` }}>
                   {locale === 'zh' ? project?.name : project?.nameEN || project?.name}
                 </h1>
-                {project?.platform?.map((t: ProjectPlatformVisible, i) => (
-                  <ProductType key={i} platform={t} />
-                ))}
+
+                <div className="flex items-center gap-1">
+                  {project?.platform?.map((t: ProjectPlatformVisible, i) => (
+                    <ProductType key={i} platform={t} />
+                  ))}
+                </div>
               </div>
 
               {/* Description */}
@@ -148,7 +151,8 @@ function BasicInfo({ project }: { project: Project }) {
         <div className="flex flex-col gap-4 xl:gap-8">
           {/* Link */}
           {project?.preview && (
-            <div className="flex justify-start items-center gap-2">
+            <div className="flex flex-col lg:flex-row justify-start lg:items-center gap-2">
+              {/* URL */}
               <div
                 className="w-fit rounded-lg group"
                 style={{
@@ -277,7 +281,7 @@ function ProjectBasicSkeleton() {
   return (
     <div className="flex flex-col gap-6 md:flex-row md:gap-20 lg:gap-24 animate-pulse">
       {/* Details */}
-      <div className="lg:flex-1 md:py-2 flex flex-col gap-6 md:gap-12">
+      <div className="md:flex-1 md:py-2 flex flex-col gap-6 md:gap-12">
         {/* Top */}
         <div className="flex flex-col gap-4">
           {/* Header */}
@@ -309,7 +313,7 @@ function ProjectBasicSkeleton() {
 
       {/* Cover */}
       <div className="w-full md:flex-1 aspect-4/3 bg-middle-gray self-start rounded-2xl flex justify-center items-center">
-        <ArrowDownCircleIcon className="size-8 text-gray-200 animate-bounce [animation-duration:1s]" />
+        <ArrowDownCircleIcon className="size-8 text-gray-200 animate-bounce animation-duration-[1s]" />
       </div>
     </div>
   );

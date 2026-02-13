@@ -25,7 +25,7 @@ export default function CopyableText({ text, ariaLabel }: { text: string; ariaLa
   const isEmailAddress = isEmail(text);
 
   return (
-    <div className="flex items-center gap-1 text-small">
+    <div className="flex items-center gap-1 text-mini xs:text-small">
       {isEmailAddress ? (
         <a href={`mailto:${text}`} className="relative z-10 hover:underline cursor-pointer">
           {text}

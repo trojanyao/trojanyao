@@ -29,8 +29,11 @@ export default function Responsibilities({
 
   return orderedResponsibilities ? (
     <div className="flex-1 flex items-center gap-6">
-      {/* title */}
-      <div className="flex flex-col items-center gap-3" style={{ color: `#${color}` }}>
+      {/* Icon + Text */}
+      <div
+        className="min-w-26 lg:w-fit flex flex-col items-center gap-3"
+        style={{ color: `#${color}` }}
+      >
         {isAchievements ? (
           <CheckBadgeIcon className="size-6" />
         ) : (
@@ -46,7 +49,7 @@ export default function Responsibilities({
         {orderedResponsibilities.map((item, index) => (
           <div key={index} className="flex gap-2">
             <CheckIcon className="size-4 min-w-4 min-h-4 mt-1.5" />
-            <div className="text-secondary text-small text-pretty leading-7">{item}</div>
+            <div className="text-secondary text-small sm:text-pretty leading-7">{item}</div>
           </div>
         ))}
       </div>
