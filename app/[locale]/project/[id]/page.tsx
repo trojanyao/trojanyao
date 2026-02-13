@@ -64,7 +64,7 @@ async function ProjectBreadCrumb({ dataPromise }: { dataPromise: Promise<Project
   const project = await dataPromise;
 
   const menus = [
-    { text: t('common'), url: '/dev' },
+    { text: t('common') }, // TODO: open /dev url
     { text: t('dev-project'), url: '/project' },
     { text: locale === 'zh' ? project?.name : project?.nameEN || project?.name },
   ];
@@ -116,7 +116,7 @@ function BasicInfo({ project }: { project: Project }) {
   const locale = useLocale();
 
   return (
-    <div className="flex flex-col gap-6 md:flex-row md:gap-10 lg:gap-24">
+    <div className="flex flex-col gap-6 md:flex-row md:gap-8 lg:gap-10">
       {/* Details */}
       <div className="md:flex-1 pb-0 flex flex-col gap-6 md:py-2 md:gap-12 overflow-hidden">
         {/* Top */}

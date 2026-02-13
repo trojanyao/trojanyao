@@ -23,7 +23,11 @@ export default function Breadcrumb({ menus }: { menus: MenuItem[] }) {
               index === menus?.length - 1 ? 'text-secondary' : 'text-light'
             } text-small ${menu?.url ? 'hover:text-secondary' : ''}`}
           >
-            {menu?.url ? <Link href={menu?.url}>{menu?.text}</Link> : <span>{menu?.text}</span>}
+            {menu?.url ? (
+              <Link href={menu?.url}>{menu?.text}</Link>
+            ) : (
+              <span className="cursor-not-allowed">{menu?.text}</span>
+            )}
           </div>
         </Fragment>
       ))}
