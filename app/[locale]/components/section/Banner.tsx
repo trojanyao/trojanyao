@@ -81,9 +81,9 @@ export default function Banner() {
 
   return (
     <div className="banner-wrap w-screen h-[80vh] min-h-[700px] -mt-20 box-content border-b border-secondary flex flex-col items-center">
-      <div className="max-w-[1200px] h-full min-h-[700px] relative flex flex-col justify-center items-center">
+      <div className="w-full max-w-[1200px] h-full min-h-[700px] relative flex flex-col justify-center items-center">
         {/* Header */}
-        <div className="pb-28 md:pb-36 lg:pb-[200px] flex flex-col items-center">
+        <div className="w-full pb-28 md:pb-36 lg:pb-[200px] flex flex-col items-center">
           {/* Name */}
           <div className="trojan text-secondary text-xl leading-none">TROJAN</div>
 
@@ -92,7 +92,7 @@ export default function Banner() {
             id="titleEffects"
             // 1 line: h = 2xl(6) + li.mt-8(8) + li.pb-4(4) = 6 + 8 + 4 = 18
             // 2 lines: h = 2xl(6) * 2 + li.mt-8(8) + li.pb-4(4) + gap-2(2) = 12 + 8 + 4 + 2 = 26
-            className={`w-lg ${locale === 'en' ? 'h-26 sm:h-18' : 'h-18'} overflow-hidden list-none relative flex flex-col items-center`}
+            className={`w-full ${locale === 'en' ? 'h-26 sm:h-18' : 'h-18'} overflow-hidden list-none relative flex flex-col items-center`}
           >
             {textGroups.map((text, index) => (
               <li
@@ -131,7 +131,7 @@ export default function Banner() {
           </ul>
 
           {/* Description */}
-          <ul className="w-96 h-12 overflow-hidden list-none relative flex flex-col items-center">
+          <ul className="w-full h-12 overflow-hidden list-none relative flex flex-col items-center">
             {textGroups.map((text, index) => (
               <li
                 key={index}

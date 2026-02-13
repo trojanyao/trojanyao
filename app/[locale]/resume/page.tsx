@@ -29,8 +29,8 @@ export async function generateMetadata({
 export default function Resume() {
   return (
     <div className="flex flex-col items-center">
-      {/* Action Bar Height: 92px, sm:88px */}
-      <div className="w-full max-w-[576px] flex-1 bg-light-blue pb-[92px] sm:pb-[88px] -mb-[92px] sm:-mb-[88px] relative">
+      {/* Action Bar Height: 76px, sm:88px */}
+      <div className="w-full max-w-[576px] flex-1 bg-light-blue pb-[76px] -mb-[76px] sm:pb-[88px] sm:-mb-[88px] relative">
         <Cover />
 
         <div className="p-6 flex flex-col gap-12">

@@ -4,7 +4,7 @@
     "desc": {
       "masterpiece": "用专业和认真\\n打造精致细腻的优秀产品",
       "minimalism": "极简不是简陋，是删繁就简",
-      "ui-ux": "热衷于构建\\nUI 和 UX 友好的前端项目"
+      "ui-ux": "沉迷于构建\\nUI 和 UX 友好的前端项目"
     },
     "design-savvy": "有设计审美的",
     "fe-engineer": "前端工程师",
@@ -19,7 +19,9 @@
     "dev": "开发",
     "project": "项目",
     "service": "服务",
-    "skill": "技能"
+    "skill": "技能",
+    "copy-text": "复制文本",
+    "copy-email": "复制邮箱地址"
   },
   "dev": {
     "common": "开发",
@@ -29,6 +31,7 @@
     "achievements": "工作成果",
     "case": "项目案例",
     "dev-project": "开发项目",
+    "empty": "暂无项目",
     "group": {
       "by-platform": "按平台",
       "by-time": "按时间"

@@ -36,7 +36,11 @@ export function LocaleSwitcher() {
       <Tabs defaultValue={locale} value={locale} onValueChange={handleValueChange}>
         <TabsList>
           {locales.map(({ locale, label, flag }) => (
-            <TabsTrigger key={locale} value={locale} className="flex items-center gap-1">
+            <TabsTrigger
+              key={locale}
+              value={locale}
+              className="flex items-center gap-1 cursor-pointer"
+            >
               <div className="w-5 h-4 rounded-sm overflow-hidden">{flag}</div>
               {label}
             </TabsTrigger>

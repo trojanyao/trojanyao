@@ -36,7 +36,7 @@ export default function CooperationModes() {
         {modes.map((mode, index) => (
           <div key={index} className="flex-1 flex flex-col items-center gap-4">
             <div className="size-8 text-primary">{mode.icon}</div>
-            <div className="text-small">{mode[lang]}</div>
+            <div className="text-center text-small leading-normal">{mode[lang]}</div>
           </div>
         ))}
       </div>

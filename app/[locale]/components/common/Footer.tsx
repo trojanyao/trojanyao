@@ -2,14 +2,14 @@
 
 import { useTranslations } from 'next-intl';
 
-import { LocaleSwitcher } from './locale-switch';
+import { LocaleSwitcher } from './locale-switcher';
 
 export default function Footer() {
   const t = useTranslations('common');
 
   return (
     <footer
-      className="w-full mx-auto py-6 px-4 xl:px-0 border-t border-secondary
+      className="w-full mx-auto py-6 px-4 xl:px-0 border-t border-secondary z-50
     flex flex-col sm:flex-row justify-between items-center gap-6
     text-sm leading-none"
     >

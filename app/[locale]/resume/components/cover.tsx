@@ -29,7 +29,7 @@ const info = {
   },
   en: {
     name: 'TROJAN YAO',
-    slogan: 'Focus on creating\nexcellent products',
+    slogan: 'Focus on building\nexcellent products',
     title: 'Front-end · Full-stack Developer',
     education: 'Sep 2014 - Jun 2018, TUST',
     degree: 'B.Eng. in Network Engineering',
@@ -72,7 +72,7 @@ export default function Cover() {
   }
 
   return (
-    <div className="bg-cover-black w-full aspect-4/3 pr-4 xs:pr-6 relative overflow-hidden flex flex-row-reverse items-center">
+    <div className="bg-cover-black w-full aspect-4/3 pr-2 xs:pr-6 relative overflow-hidden flex flex-row-reverse items-center">
       <Image
         src={Portrait}
         alt="Portrait"
@@ -83,11 +83,11 @@ export default function Cover() {
         fetchPriority="high"
       />
 
-      <div className="flex flex-col gap-4 xs:gap-6 relative z-10">
+      <div className="flex flex-col gap-3 xs:gap-6 relative z-10">
         {/* Header */}
         <div className="space-y-2 xs:space-y-3">
           <div
-            className={`text-[#AFBAC6] ${locale === 'zh' ? 'title-mini xs:title-middle' : 'text-middle'} font-medium tracking-widest`}
+            className={`text-[#AFBAC6] ${locale === 'zh' ? 'title-mini xs:title-middle tracking-widest' : 'text-middle tracking-wide'} font-medium`}
           >
             {info[lang].name}
           </div>
@@ -105,7 +105,7 @@ export default function Cover() {
         </div>
 
         {/* Description */}
-        <ul className="opacity-80 flex flex-col gap-2 xs:gap-4">
+        <ul className="opacity-80 flex flex-col gap-1.5 xs:gap-4">
           <li className={listItemClass}>
             <CalendarDaysIcon className="size-4" />
             <span>

@@ -4,6 +4,7 @@ import { useState } from 'react';
 
 import { CheckCircleIcon } from '@heroicons/react/20/solid';
 import { Square2StackIcon } from '@heroicons/react/24/outline';
+import { useTranslations } from 'next-intl';
 
 function isEmail(text: string): boolean {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -11,6 +12,8 @@ function isEmail(text: string): boolean {
 }
 
 export default function CopyableText({ text, ariaLabel }: { text: string; ariaLabel?: string }) {
+  const t = useTranslations('common');
+
   const [copied, setCopied] = useState(false);
 
   /* Event Handler: Copy Text */
@@ -25,7 +28,7 @@ export default function CopyableText({ text, ariaLabel }: { text: string; ariaLa
   const isEmailAddress = isEmail(text);
 
   return (
-    <div className="flex items-center gap-1 text-small">
+    <div className="flex items-center gap-1 text-mini xs:text-small">
       {isEmailAddress ? (
         <a href={`mailto:${text}`} className="relative z-10 hover:underline cursor-pointer">
           {text}
@@ -38,14 +41,13 @@ export default function CopyableText({ text, ariaLabel }: { text: string; ariaLa
         <button
           onClick={handleCopy}
           className="cursor-pointer hover:opacity-70 transition-opacity"
-          aria-label={isEmailAddress ? '复制邮箱地址' : ariaLabel || '复制文本'}
+          aria-label={isEmailAddress ? t('copy-email') : ariaLabel || t('copy-text')}
         >
           <Square2StackIcon className="size-4 text-secondary" />
         </button>
       ) : (
         <div className="flex items-center gap-1 text-emerald-500 text-mini">
           <CheckCircleIcon className="size-4" />
-          {/* <span className="whitespace-nowrap">已复制</span> */}
         </div>
       )}
     </div>
