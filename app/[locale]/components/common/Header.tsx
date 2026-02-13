@@ -18,6 +18,8 @@ export default function Nav() {
   const pathname = usePathname();
   const t = useTranslations('common');
 
+  const isResumePage = pathname.includes('/resume');
+
   const menus = [
     [
       {
@@ -46,21 +48,32 @@ export default function Nav() {
   ];
 
   return (
-    <header
-      className={`w-full max-w-[1200px] ${headerHeightClass} mx-auto px-4 md:px-6 xl:px-0 box-border absolute z-50 flex justify-between items-center`}
-    >
-      {/* Logo */}
-      <div>
-        <Link href="/" className="flex items-center gap-1">
-          <Image src={Logo} alt="Logo" className="w-auto h-10 object-left" priority />
+    <>
+      <header
+        className={`w-full max-w-[1200px] ${headerHeightClass} mx-auto px-4 md:px-6 xl:px-0 box-border absolute z-50 flex justify-between items-center`}
+      >
+        {/* Logo */}
+        <div>
+          <Link href="/" className="flex items-center gap-1">
+            <Image src={Logo} alt="Logo" className="w-auto h-10 object-left" priority />
 
-          <div className="hidden sm:block text-lg text-black font-[450]">{t('app')}</div>
-        </Link>
-      </div>
+            <div className="hidden sm:block text-lg text-black font-[450]">{t('app')}</div>
+          </Link>
+        </div>
+
+        {/* Right: Tools */}
+        <div className="flex items-center gap-2 sm:gap-4">
+          {/* <Link href="/rss">
+          <RssIcon className="size-5 text-orange cursor-pointer" />
+        </Link> */}
+          {isResumePage && <LinkedInLink />}
+          <GitHubLink />
+        </div>
+      </header>
 
       {/* Nav */}
       <nav
-        className={`${headerHeightClass} fixed top-0 left-1/2 -translate-x-1/2 flex items-center`}
+        className={`${headerHeightClass} z-9999 fixed top-0 left-1/2 -translate-x-1/2 flex items-center`}
       >
         <div className="bg-white/75 p-2 rounded-full shadow-[0_1px_6px_rgba(0,0,0,0.05)] backdrop-blur-[6px] flex items-center gap-2">
           {menus.map((menuGroup, groupIndex) => (
@@ -91,15 +104,6 @@ export default function Nav() {
           ))}
         </div>
       </nav>
-
-      {/* Right: Tools */}
-      <div className="flex items-center gap-2 sm:gap-4">
-        {/* <Link href="/rss">
-          <RssIcon className="size-5 text-orange cursor-pointer" />
-        </Link> */}
-        <LinkedInLink />
-        <GitHubLink />
-      </div>
-    </header>
+    </>
   );
 }
