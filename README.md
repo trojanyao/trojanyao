@@ -11,9 +11,7 @@
 
 ###
 
-<h6 align="center">Fully Remote Freelancer</h6>
 <h6 align="center">Design-Savvy Front-end Engineer</h6>
-<h6 align="center">Pragmatic Minimalist</h6>
 
 <hr/>
 
@@ -30,8 +28,8 @@
 ###
 
 <span>
-<img src="https://devimg.vercel.app/github/profile/trojanyao" height="150" />
-<img src="https://streak-stats.demolab.com?user=trojanyao&locale=en&mode=weekly&theme=tokyonight&hide_border=false&border_radius=16&date_format=%5BY.%5Dn.j&order=3" height="150" alt="streak graph"/>
+<img src="https://devimg.vercel.app/github/profile/trojanyao" height="120" />
+<img src="https://streak-stats.demolab.com?user=trojanyao&locale=en&mode=weekly&theme=tokyonight&hide_border=false&border_radius=16&date_format=%5BY.%5Dn.j&order=3" height="120" alt="streak graph"/>
 </span>
 
 ###
