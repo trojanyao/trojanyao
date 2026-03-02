@@ -23,7 +23,7 @@ export default function DownloadResume() {
       href={
         locale === 'zh'
           ? '/files/姚陶钧-七年前端-三年远程-有设计审美-专注打造优秀产品.pdf'
-          : '/files/Trojan_Yao_Frontend_Engineer_Resume.pdf'
+          : '/files/Trojan_Yao_Frontend_Engineer_Resume+Portfolio.pdf'
       }
       download
       className={`${buttonClass} group`}
