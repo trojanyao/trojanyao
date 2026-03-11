@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 
 import { useGSAP } from '@gsap/react';
@@ -13,7 +12,6 @@ import './banner.css';
 
 import AvailableStatus from '@/app/[locale]/service/components/AvailableStatus';
 import { kaushan_script } from '@/lib/fonts';
-import Memoji from '@/public/memoji.webp';
 
 gsap.registerPlugin(useGSAP);
 
@@ -160,13 +158,44 @@ export default function Banner() {
         </div>
 
         {/* Memoji */}
-        <Image
-          src={Memoji}
-          alt="Memoji"
-          className="w-48 md:w-52 lg:w-56 xl:w-60 absolute bottom-0 left-1/2 -translate-x-1/2"
-          loading="eager"
-          fetchPriority="high"
-        />
+        <picture>
+          <source
+            type="image/avif"
+            srcSet={[
+              '/memoji/memoji-192.avif 192w',
+              '/memoji/memoji-256.avif 256w',
+              '/memoji/memoji-320.avif 320w',
+              '/memoji/memoji-384.avif 384w',
+              '/memoji/memoji-448.avif 448w',
+              '/memoji/memoji-512.avif 512w',
+              '/memoji/memoji-640.avif 640w',
+            ].join(', ')}
+            sizes="(min-width: 1280px) 240px, (min-width: 1024px) 224px, (min-width: 768px) 208px, 192px"
+          />
+          <source
+            type="image/webp"
+            srcSet={[
+              '/memoji/memoji-192.webp 192w',
+              '/memoji/memoji-256.webp 256w',
+              '/memoji/memoji-320.webp 320w',
+              '/memoji/memoji-384.webp 384w',
+              '/memoji/memoji-448.webp 448w',
+              '/memoji/memoji-512.webp 512w',
+              '/memoji/memoji-640.webp 640w',
+            ].join(', ')}
+            sizes="(min-width: 1280px) 240px, (min-width: 1024px) 224px, (min-width: 768px) 208px, 192px"
+          />
+          <img
+            src="/memoji/memoji-384.webp"
+            alt="Memoji"
+            width={384}
+            height={384}
+            className="w-48 md:w-52 lg:w-56 xl:w-60 absolute bottom-0 left-1/2 -translate-x-1/2"
+            loading="eager"
+            fetchPriority="high"
+            decoding="async"
+          />
+        </picture>
       </div>
     </div>
   );
