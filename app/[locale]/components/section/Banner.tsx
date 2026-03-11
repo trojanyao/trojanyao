@@ -8,8 +8,6 @@ import { ChevronDoubleRightIcon } from '@heroicons/react/20/solid';
 import { gsap } from 'gsap';
 import { useLocale, useTranslations } from 'next-intl';
 
-import './banner.css';
-
 import AvailableStatus from '@/app/[locale]/service/components/AvailableStatus';
 import { kaushan_script } from '@/lib/fonts';
 
@@ -18,6 +16,8 @@ gsap.registerPlugin(useGSAP);
 export default function Banner() {
   const locale = useLocale();
   const t = useTranslations('banner');
+  const bannerBackgroundImage =
+    `url("data:image/svg+xml,<svg id='patternId' width='100%' height='100%' xmlns='http://www.w3.org/2000/svg'><defs><pattern id='a' patternUnits='userSpaceOnUse' width='60' height='60' patternTransform='scale(0.5) rotate(0)'><rect x='0' y='0' width='100%' height='100%' fill='hsla(0, 0%, 100%, 0)'/><path d='M11 6a5 5 0 01-5 5 5 5 0 01-5-5 5 5 0 015-5 5 5 0 015 5' transform='translate(10,0)' stroke-width='1' stroke='none' fill='hsla(212, 71%, 96%, 0.6)'/></pattern></defs><rect width='100%' height='100%' transform='translate(0,0)' fill='url(%23a)'/></svg>")`;
 
   const textGroups = [
     {
@@ -78,7 +78,13 @@ export default function Banner() {
   });
 
   return (
-    <div className="banner-wrap w-screen h-[80vh] min-h-[700px] -mt-20 box-content border-b border-secondary flex flex-col items-center">
+    <div
+      className="w-screen h-[80vh] min-h-[700px] -mt-20 box-content border-b border-secondary flex flex-col items-center"
+      style={{
+        backgroundColor: 'var(--secondary-light-blue)',
+        backgroundImage: bannerBackgroundImage,
+      }}
+    >
       <div className="w-full max-w-[1200px] h-full min-h-[700px] relative flex flex-col justify-center items-center">
         {/* Header */}
         <div className="w-full pb-28 md:pb-36 lg:pb-[200px] flex flex-col items-center">
