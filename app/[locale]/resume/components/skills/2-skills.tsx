@@ -2,8 +2,8 @@ import { Suspense } from 'react';
 
 import { getTranslations } from 'next-intl/server';
 
+import { SkillItemSkeleton } from '@/app/[locale]/skill/components/SkillGridSkeleton';
 import SkillItem from '@/app/[locale]/skill/components/SkillItem';
-import SkillItemSkeleton from '@/app/[locale]/skill/components/SkillItemSkeleton';
 import { skillCategories, skillProficiencies } from '@/lib/constants/skill.constants';
 import { getSkills } from '@/lib/notion';
 import { groupBy } from '@/lib/utils/group-by';

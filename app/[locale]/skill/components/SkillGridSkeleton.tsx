@@ -1,4 +1,14 @@
-export default function SkillItemSkeleton({ className }: { className?: string }) {
+export default function SkillGridSkeleton({ length = 12 }: { length?: number }) {
+  return (
+    <div className="w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+      {Array.from({ length }).map((_, idx) => (
+        <SkillItemSkeleton key={idx} />
+      ))}
+    </div>
+  );
+}
+
+export function SkillItemSkeleton({ className }: { className?: string }) {
   return (
     <div
       className={`bg-light-gray p-4 rounded-2xl animate-pulse flex items-center gap-3 ${className}`.trim()}

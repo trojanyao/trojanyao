@@ -12,7 +12,7 @@ export default function Home() {
       <Banner />
 
       {/* Content */}
-      <div className="max-w-[1200px] mx-auto p-6 md:p-8 xl:px-0 box-border flex flex-col gap-6">
+      <div className="w-full max-w-[1200px] mx-auto p-6 md:p-8 xl:px-0 box-border flex flex-col gap-6">
         {/* <SectionService /> */}
         <SectionProject />
         <SectionSkill />

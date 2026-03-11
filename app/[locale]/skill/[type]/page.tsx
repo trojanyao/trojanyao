@@ -10,8 +10,8 @@ import Breadcrumb from '@/app/[locale]/components/ui/Breadcrumb';
 import Line from '@/app/[locale]/components/ui/Line';
 import { getSkills } from '@/lib/notion/skill';
 
+import SkillGridSkeleton from '../components/SkillGridSkeleton';
 import SkillGroup from '../components/SkillGroup';
-import SkillItemSkeleton from '../components/SkillItemSkeleton';
 
 export async function generateMetadata({
   params,
@@ -80,11 +80,7 @@ function SkillListSkeleton() {
           <div key={index} className="flex flex-col items-start gap-4">
             <div className="title-small text-secondary">{item.text}</div>
 
-            <div className="w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-              {Array.from({ length: item.count }).map((_, idx) => (
-                <SkillItemSkeleton key={idx} />
-              ))}
-            </div>
+            <SkillGridSkeleton length={item.count} />
           </div>
         ))}
       </div>
