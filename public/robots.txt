@@ -1,9 +1,4 @@
-//robots.txt
- 
-# Block all crawlers for project detail
+# robots.txt
 User-agent: *
 Disallow: /project/
- 
-# Allow all crawlers
-User-agent: *
 Allow: /
