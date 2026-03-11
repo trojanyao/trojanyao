@@ -6,6 +6,7 @@ import { hasLocale, NextIntlClientProvider } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 
 import { routing } from '@/i18n/routing';
+import { inter } from '@/lib/fonts';
 
 import Footer from './components/common/Footer';
 import Header from './components/common/Header';
@@ -103,7 +104,9 @@ export default async function RootLayout({
 
   return (
     <html>
-      <body className="max-w-[1200px] min-h-screen bg-white m-auto overflow-x-hidden flex flex-col items-center text-black font-normal leading-none">
+      <body
+        className={`${inter.className} ${inter.variable} max-w-[1200px] min-h-screen bg-white m-auto overflow-x-hidden flex flex-col items-center text-black font-normal leading-none`}
+      >
         <NextIntlClientProvider locale={locale}>
           <SmoothScroll>
             <Header />
