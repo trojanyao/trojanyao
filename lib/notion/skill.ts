@@ -3,6 +3,7 @@ import { cache } from 'react';
 import { SkillCategoryEnum, SkillStatusEnum } from '../constants/skill.constants';
 
 import notion from './client';
+import { getProxiedImageUrl } from './image-proxy';
 
 /* Get Skill List */
 export async function getSkills(body?: any[]): Promise<Skill[]> {
@@ -31,7 +32,7 @@ export async function getSkills(body?: any[]): Promise<Skill[]> {
     id: page.id,
     name: page.properties?.['技能']?.title?.[0]?.text?.content,
     nameEN: page.properties?.['Name']?.rich_text?.[0]?.text?.content,
-    logo: page.icon?.file?.url,
+    logo: getProxiedImageUrl(page.icon?.file?.url) ?? page.icon?.file?.url ?? '',
     status: SkillStatusEnum[
       (page.properties?.['优先级 / 状态']?.status?.name as keyof typeof SkillStatusEnum) ?? '学习中'
     ] as SkillStatus,
@@ -50,7 +51,7 @@ export async function _getSkill(id: string): Promise<Skill> {
     id: page.id,
     name: page.properties?.['技能']?.title?.[0]?.text?.content,
     nameEN: page.properties?.['Name']?.rich_text?.[0]?.text?.content,
-    logo: page.icon?.file?.url,
+    logo: getProxiedImageUrl(page.icon?.file?.url) ?? page.icon?.file?.url ?? '',
     // TODO: support bold and other annotations
     description: page.properties?.['简介 *']?.rich_text
       ?.map((item: any) => item?.plain_text)
