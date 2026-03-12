@@ -103,7 +103,7 @@ export default async function RootLayout({
   }
 
   return (
-    <html>
+    <html lang={locale}>
       <body
         className={`${inter.className} ${inter.variable} max-w-[1200px] min-h-screen bg-white m-auto overflow-x-hidden flex flex-col items-center text-black font-normal leading-none`}
       >
