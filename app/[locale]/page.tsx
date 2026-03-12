@@ -1,7 +1,11 @@
+import nextDynamic from 'next/dynamic';
+
 // import SectionService from './components/SectionService';
-import Banner from './components/section/Banner';
 import SectionProject from './components/section/SectionProject';
 import SectionSkill from './components/section/SectionSkill';
+
+/** 含 GSAP，单独 chunk 以减小主 bundle、改善 Reduce unused JavaScript */
+const Banner = nextDynamic(() => import('./components/section/Banner'), { ssr: true });
 
 export const dynamic = 'force-dynamic'; // use SSR to avoid Notion's image expiry
 
