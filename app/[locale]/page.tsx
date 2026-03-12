@@ -7,7 +7,8 @@ import SectionSkill from './components/section/SectionSkill';
 /** 含 GSAP，单独 chunk 以减小主 bundle、改善 Reduce unused JavaScript */
 const Banner = nextDynamic(() => import('./components/section/Banner'), { ssr: true });
 
-export const dynamic = 'force-dynamic'; // use SSR to avoid Notion's image expiry
+export const revalidate = 300; // revalidate at most every 5 minutes
+// export const dynamic = 'force-dynamic'; // use SSR to avoid Notion's image expiry
 
 export default function Home() {
   return (
