@@ -99,7 +99,7 @@ function BasicInfo({ skill }: { skill: Skill }) {
             </h1>
 
             {skill?.site && (
-              <Link href={skill?.site} target="_blank" className="p-1 group">
+              <Link href={skill?.site} target="_blank" className="p-1 group" aria-label="Open skill website">
                 <ArrowTopRightOnSquareIcon className="size-4 text-light group-hover:text-primary" />
               </Link>
             )}

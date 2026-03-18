@@ -11,7 +11,7 @@ interface MenuItem {
 export default function Breadcrumb({ menus }: { menus: MenuItem[] }) {
   return (
     <div className="pt-4 pb-8 flex items-center gap-2">
-      <Link href="/">
+      <Link href="/" aria-label="Home">
         <HomeIcon className="size-4 text-light" />
       </Link>
 

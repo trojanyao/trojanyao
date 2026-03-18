@@ -7,10 +7,11 @@ const LINKEDIN_LINK = 'https://www.linkedin.com/in/trojan-yao-005992b1';
 
 export default function LinkedInLink() {
   return (
-    <Link href={LINKEDIN_LINK} target="_blank" className="group">
+    <Link href={LINKEDIN_LINK} target="_blank" className="group" aria-label="TROJAN's LinkedIn">
       <Image
         src={LinkedInLogo}
-        alt="TROJAN's GitHub"
+        alt="TROJAN's LinkedIn"
+        role="presentation"
         className="size-6 opacity-50 group-hover:opacity-100 transition-opacity duration-200"
       />
     </Link>
