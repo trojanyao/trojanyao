@@ -2,7 +2,7 @@ import '../globals.css';
 import { notFound } from 'next/navigation';
 
 import { hasLocale, NextIntlClientProvider } from 'next-intl';
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 import { routing } from '@/i18n/routing';
 import { inter } from '@/lib/fonts';
@@ -75,7 +75,8 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations('common');
+  // 使用显式 locale，避免触发 getRequestConfig 的 requestLocale（否则会强制 dynamic）
+  const t = await getTranslations({ locale, namespace: 'common' });
 
   return {
     title: {
@@ -101,6 +102,9 @@ export default async function RootLayout({
   if (!hasLocale(routing.locales, locale)) {
     notFound();
   }
+
+  // Enable static rendering
+  setRequestLocale(locale);
 
   return (
     <html lang={locale}>
