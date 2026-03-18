@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 
+import sharp from 'sharp';
+
 /** Notion 图片实际存储的 S3 域名，仅允许代理此来源 */
 const NOTION_S3_HOST = 'prod-files-secure.s3.us-west-2.amazonaws.com';
 /** 响应头 Cache-Control max-age（秒），约 1 年，满足 Lighthouse 缓存建议 */
@@ -11,16 +13,15 @@ const SERVER_CACHE_MAX = 80;
 
 type CacheEntry = { body: ArrayBuffer; contentType: string; cachedAt: number };
 
-/** 按 S3 pathname 缓存图片二进制，同一张图不同预签名 URL 会命中同一缓存 */
+/** 按 pathname + format 缓存，同一张图不同格式分别缓存 */
 const serverCache = new Map<string, CacheEntry>();
 
 function isAllowedUrl(url: URL): boolean {
   return url.hostname === NOTION_S3_HOST && url.pathname.startsWith('/');
 }
 
-/** 用 pathname 做 key，这样预签名参数变化（同一张图）仍能命中缓存 */
-function getCacheKey(url: URL): string {
-  return url.pathname;
+function getCacheKey(url: URL, format: string | null): string {
+  return url.pathname + (format ? `:${format}` : '');
 }
 
 /** 缓存条数达到上限时，淘汰约 20% 最久未使用的条目 */
@@ -36,12 +37,15 @@ function evictOldEntries(): void {
 }
 
 /**
- * GET /api/image-proxy?url=<编码后的 Notion 图片 URL>
- * 从 Notion S3 拉取图片并返回，响应带长期 Cache-Control，解决 Lighthouse「Use efficient cache lifetimes」。
- * 50 分钟内同一张图（相同 pathname）会直接从本站内存缓存返回，不再请求 Notion。
+ * GET /api/image-proxy?url=<编码后的 Notion 图片 URL>[&format=avif]
+ * 从 Notion S3 拉取图片并返回，响应带长期 Cache-Control。
+ * format=avif 时在服务端用 sharp 转为 AVIF（在不开启 Next 图片优化时仍可让封面用 AVIF）。
+ * 50 分钟内同一张图（相同 pathname + format）会从内存缓存返回。
  */
 export async function GET(request: NextRequest) {
   const urlParam = request.nextUrl.searchParams.get('url');
+  const format = request.nextUrl.searchParams.get('format');
+
   if (!urlParam) {
     return NextResponse.json({ error: 'Missing url' }, { status: 400 });
   }
@@ -57,10 +61,9 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: 'URL not allowed' }, { status: 400 });
   }
 
-  const cacheKey = getCacheKey(targetUrl);
+  const cacheKey = getCacheKey(targetUrl, format);
   const cached = serverCache.get(cacheKey);
   const now = Date.now();
-  // 命中服务端缓存：直接返回，不再请求 Notion
   if (cached && now - cached.cachedAt < SERVER_CACHE_TTL_MS) {
     return new NextResponse(cached.body, {
       status: 200,
@@ -81,8 +84,23 @@ export async function GET(request: NextRequest) {
         { status: 502 }
       );
     }
-    const body = await res.arrayBuffer();
-    const contentType = res.headers.get('Content-Type') ?? 'image/png';
+    let body: ArrayBuffer = await res.arrayBuffer();
+    let contentType = res.headers.get('Content-Type') ?? 'image/png';
+
+    if (format === 'avif') {
+      try {
+        const avif = await sharp(Buffer.from(body))
+          .avif({ quality: 70 })
+          .toBuffer();
+        body = avif.buffer.slice(
+          avif.byteOffset,
+          avif.byteOffset + avif.byteLength
+        ) as ArrayBuffer;
+        contentType = 'image/avif';
+      } catch {
+        // 转换失败则返回原图
+      }
+    }
 
     evictOldEntries();
     serverCache.set(cacheKey, { body, contentType, cachedAt: now });

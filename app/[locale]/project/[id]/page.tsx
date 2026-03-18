@@ -202,9 +202,9 @@ function BasicInfo({ project }: { project: Project }) {
         </div>
       </div>
 
-      {/* Cover (LCP) */}
+      {/* Cover (LCP)，有 coverAvif 时用 AVIF */}
       <Image
-        src={project?.cover}
+        src={project?.coverAvif ?? project?.cover}
         alt={project?.name}
         width={600}
         height={450}

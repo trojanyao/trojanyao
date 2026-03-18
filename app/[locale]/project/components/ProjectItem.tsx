@@ -14,10 +14,10 @@ export default function ProjectItem({ data }: { data: Project }) {
       href={`/project/${data?.id}`}
       className="flex-1 aspect-4/3 bg-light-gray border border-third rounded-[20px] overflow-hidden relative flex flex-col"
     >
-      {/* Cover */}
+      {/* Cover：有 coverAvif 时用 AVIF（unoptimized 时由 image-proxy 转换） */}
       <div className="flex-1 overflow-hidden">
         <Image
-          src={data?.cover}
+          src={data?.coverAvif ?? data?.cover}
           alt={data?.name}
           width={1472}
           height={1104}

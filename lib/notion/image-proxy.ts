@@ -15,13 +15,21 @@ export function isNotionImageUrl(url: string | null | undefined): boolean {
   }
 }
 
+export type ProxiedImageFormat = 'avif' | undefined;
+
 /**
  * 将 Notion 图片 URL 转为本站代理 URL，以便响应头带上长期缓存（如 1 年），
  * 满足 Lighthouse "Use efficient cache lifetimes" 要求。
  * 非 Notion 的 URL 原样返回。
+ * @param format 若为 'avif'，代理会转换为 AVIF 后返回（需保持 unoptimized 时封面图用 AVIF 时使用）
  */
-export function getProxiedImageUrl(url: string | null | undefined): string | undefined {
+export function getProxiedImageUrl(
+  url: string | null | undefined,
+  options?: { format?: ProxiedImageFormat }
+): string | undefined {
   if (!url || typeof url !== 'string') return undefined;
   if (!isNotionImageUrl(url)) return url;
-  return `/api/image-proxy?url=${encodeURIComponent(url)}`;
+  const base = `/api/image-proxy?url=${encodeURIComponent(url)}`;
+  if (options?.format === 'avif') return `${base}&format=avif`;
+  return base;
 }

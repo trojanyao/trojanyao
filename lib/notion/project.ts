@@ -35,6 +35,7 @@ export async function getProjects(body?: any[]): Promise<Project[]> {
     nameEN: page.properties?.['Name *']?.rich_text?.[0]?.text?.content,
     logo: getProxiedImageUrl(page.icon?.file?.url) ?? page.icon?.file?.url ?? '',
     cover: getProxiedImageUrl(page.cover?.file?.url) ?? page.cover?.file?.url ?? '',
+    coverAvif: getProxiedImageUrl(page.cover?.file?.url, { format: 'avif' }),
     desc: page.properties?.['简介 *']?.rich_text?.[0]?.text?.content,
     descEN: page.properties?.['Intro *']?.rich_text?.[0]?.text?.content,
     dateStart: page.properties?.['开始 * → 结束']?.date?.start?.match(/^\d{4}-\d{2}/)?.[0],
@@ -61,6 +62,7 @@ export async function _getProject(id: string): Promise<Project> {
     nameEN: page.properties?.['Name *']?.rich_text?.[0]?.text?.content,
     logo: getProxiedImageUrl(page.icon?.file?.url) ?? page.icon?.file?.url ?? '',
     cover: getProxiedImageUrl(page.cover?.file?.url) ?? page.cover?.file?.url ?? '',
+    coverAvif: getProxiedImageUrl(page.cover?.file?.url, { format: 'avif' }),
     desc: page.properties?.['简介 *']?.rich_text?.[0]?.text?.content,
     descEN: page.properties?.['Intro *']?.rich_text?.[0]?.text?.content,
     dateStart: page.properties?.['开始 * → 结束']?.date?.start
