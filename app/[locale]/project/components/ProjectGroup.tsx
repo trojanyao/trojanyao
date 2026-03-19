@@ -90,7 +90,7 @@ export default function ProjectGroup({ projects, title }: { projects: Project[];
                 <div>{groupItem?.groupName}</div>
                 <ProjectCount count={groupItem?.items?.length} />
               </div>
-              <ProjectGrid list={groupItem?.items} />
+              <ProjectGrid list={groupItem?.items} isFirstGroup={index === 0} />
             </div>
           ))
         ) : (

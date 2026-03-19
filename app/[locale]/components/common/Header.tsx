@@ -56,7 +56,7 @@ export default function Nav() {
         {/* Logo */}
         <div>
           <Link href="/" className="flex items-center gap-1">
-            <Image src={Logo} alt="Logo" className="w-auto h-10 object-left" priority />
+            <Image src={Logo} alt="Logo" className="w-auto h-10 object-left" preload />
 
             <div className="hidden sm:block text-lg text-black font-[450]">{t('app')}</div>
           </Link>

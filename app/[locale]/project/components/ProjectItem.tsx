@@ -5,7 +5,14 @@ import { useLocale } from 'next-intl';
 
 import ProductType from './primitives/ProductType';
 
-export default function ProjectItem({ data }: { data: Project }) {
+export default function ProjectItem({
+  data,
+  /** Only one cover per page/section should be the LCP candidate; parents must set this (not just map index). */
+  isHeroCover = false,
+}: {
+  data: Project;
+  isHeroCover?: boolean;
+}) {
   const locale = useLocale();
   const isEN = locale === 'en';
 
@@ -14,16 +21,19 @@ export default function ProjectItem({ data }: { data: Project }) {
       href={`/project/${data?.id}`}
       className="flex-1 aspect-4/3 bg-light-gray border border-third rounded-[20px] overflow-hidden relative flex flex-col"
     >
-      {/* Cover：有 coverAvif 时用 AVIF（unoptimized 时由 image-proxy 转换） */}
+      {/* Cover: prefer AVIF when coverAvif exists (image-proxy when unoptimized). */}
       <div className="flex-1 overflow-hidden">
         <Image
           src={data?.coverAvif ?? data?.cover}
           alt={data?.name}
           width={1472}
           height={1104}
+          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
           className="[@media(hover:hover)]:hover:scale-110 transition-all duration-300 ease-out"
-          loading="eager"
-          fetchPriority="high"
+          {...(isHeroCover
+            ? /* preload: early discovery (LCP breakdown). fetchPriority is forwarded to ReactDOM.preload() / <link rel="preload"> by Next (see next/dist/client/image-component.js ImagePreload). Do not set loading here (avoid preload+loading per docs). */
+              { preload: true as const, fetchPriority: 'high' as const }
+            : { loading: 'lazy' as const, fetchPriority: 'low' as const })}
         />
       </div>
 
