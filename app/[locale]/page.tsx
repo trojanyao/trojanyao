@@ -9,9 +9,7 @@ import SectionSkill from './components/section/SectionSkill';
 /** 含 GSAP，单独 chunk 以减小主 bundle、改善 Reduce unused JavaScript */
 const Banner = nextDynamic(() => import('./components/section/Banner'), { ssr: true });
 
-export const revalidate = 1800; // revalidate at most every 30 minutes
-// export const dynamic = 'force-dynamic'; // use SSR to avoid Notion's image expiry
-// export const dynamicParams = false; // disable dynamic params
+export const dynamic = 'force-dynamic'; // use SSR to avoid Notion's image expiry
 
 export default async function Home({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
