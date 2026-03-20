@@ -7,12 +7,15 @@ const nextConfig = {
     config.plugins.push(
       AutoImport({
         imports: ['react'], // 可根据需要添加其他需要自动导入的模块
-      })
+      }),
     );
     // if (dev && !isServer) {
     //   config.devtool = 'source-map';
     // }
     return config;
+  },
+  experimental: {
+    inlineCss: true,
   },
   images: {
     formats: ['image/avif', 'image/webp'],
