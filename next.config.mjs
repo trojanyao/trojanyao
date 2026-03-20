@@ -28,6 +28,15 @@ const nextConfig = {
     ],
   },
   // productionBrowserSourceMaps: true,
+  // Disable/avoid Next.js legacy polyfills for modern browsers.
+  // This is a Turbopack-only workaround for Lighthouse "Legacy JavaScript".
+  transpilePackages: ['next'],
+  turbopack: {
+    resolveAlias: {
+      '../build/polyfills/polyfill-module': './lib/modern-polyfill.js',
+      'next/dist/build/polyfills/polyfill-module': './lib/modern-polyfill.js',
+    },
+  },
 };
 
 const withNextIntl = createNextIntlPlugin('./i18n/request.ts');
