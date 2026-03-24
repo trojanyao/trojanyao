@@ -41,9 +41,6 @@ export default async function Skills() {
   return (
     <div className="content-wrap">
       <Breadcrumb menus={breadcrumbMenus} />
-
-      {/* <SkillListSkeleton /> */}
-
       <Suspense fallback={<SkillListSkeleton />}>
         <SkillListContent />
       </Suspense>
@@ -52,7 +49,6 @@ export default async function Skills() {
 }
 
 async function SkillListContent() {
-  /* Get All Skills */
   const skills: Skill[] = await getSkills();
 
   return <SkillGroup skills={skills} />;
@@ -70,7 +66,7 @@ function SkillListSkeleton() {
     <div>
       <SectionHeader title={t('dev-skill')} icon={<CodeBracketSquareIcon />}>
         {/* Avoid CLS */}
-        <div className="h-7"></div>
+        <div className="h-7" />
       </SectionHeader>
 
       <div className="flex flex-col gap-6">

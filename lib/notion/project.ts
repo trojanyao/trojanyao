@@ -1,12 +1,13 @@
 import { cache } from 'react';
+import { unstable_cache } from 'next/cache';
 
 import { ProjectPlatform, type ProjectPlatformOriginType } from '../constants/project.constants';
 
 import notion from './client';
 import { getProxiedImageUrl } from './image-proxy';
 
-/* Get Project List */
-export async function getProjects(body?: any[]): Promise<Project[]> {
+/* Get Project List (cached) */
+async function _getProjects(body?: any[]): Promise<Project[]> {
   const res = await notion.databases.query({
     database_id: process.env.NOTION_DATABASE_PROJECT_DEV!,
     filter: {
@@ -47,6 +48,16 @@ export async function getProjects(body?: any[]): Promise<Project[]> {
     color: page.properties?.['品牌色 *']?.rich_text?.[0]?.text?.content,
     resumeOrder: page.properties?.['简历排序']?.number,
   }));
+}
+
+const getProjectsCached = unstable_cache(_getProjects, ['notion', 'project', 'getProjects'], {
+  // Project data changes infrequently; align with proxy cache window.
+  revalidate: 50 * 60, // 50 minutes (seconds)
+  tags: ['projects'],
+});
+
+export async function getProjects(body?: any[]): Promise<Project[]> {
+  return getProjectsCached(body);
 }
 
 /* Get Project Detail */

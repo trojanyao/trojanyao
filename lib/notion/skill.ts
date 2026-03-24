@@ -1,12 +1,13 @@
 import { cache } from 'react';
+import { unstable_cache } from 'next/cache';
 
 import { SkillCategoryEnum, SkillStatusEnum } from '../constants/skill.constants';
 
 import notion from './client';
 import { getProxiedImageUrl } from './image-proxy';
 
-/* Get Skill List */
-export async function getSkills(body?: any[]): Promise<Skill[]> {
+/* Get Skill List (cached) */
+async function _getSkills(body?: any[]): Promise<Skill[]> {
   const res = await notion.databases.query({
     database_id: process.env.NOTION_DATABASE_SKILL_DEV!,
     filter: {
@@ -42,9 +43,19 @@ export async function getSkills(body?: any[]): Promise<Skill[]> {
   }));
 }
 
+const getSkillsCached = unstable_cache(_getSkills, ['notion', 'skill', 'getSkills'], {
+  // Skill data changes infrequently; cache long enough to avoid LCP blocking calls.
+  revalidate: 50 * 60, // 50 minutes (seconds) - align with image proxy server cache TTL
+  tags: ['skills'],
+});
+
+export async function getSkills(body?: any[]): Promise<Skill[]> {
+  return getSkillsCached(body);
+}
+
 /* Get Skill Detail */
 export async function _getSkill(id: string): Promise<Skill> {
-  // console.log(`[getSkill] 实际执行 API 调用，id: ${id}`, new Date().toISOString());
+  // console.log(`[getSkill] actual API call, id: ${id}`, new Date().toISOString());
   const page: any = await notion.pages.retrieve({ page_id: id });
 
   return {
