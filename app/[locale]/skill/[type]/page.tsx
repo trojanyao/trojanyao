@@ -1,6 +1,5 @@
 import { Suspense } from 'react';
 
-import { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 
 import Breadcrumb from '@/app/[locale]/components/ui/Breadcrumb';
@@ -8,6 +7,8 @@ import { getSkills } from '@/lib/notion/skill';
 
 import SkillGroup from '../components/SkillGroup';
 import SkillListSkeleton from '../components/SkillListSkeleton';
+
+import type { Metadata } from 'next';
 
 export async function generateMetadata({
   params,
