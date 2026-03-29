@@ -3,9 +3,10 @@ import { Suspense } from 'react';
 import { getTranslations } from 'next-intl/server';
 
 import Breadcrumb from '@/app/[locale]/components/ui/Breadcrumb';
+import { getSkillListBreadcrumbMenus } from '@/app/[locale]/skill/get-skill-list-breadcrumbs';
 import { getSkills } from '@/lib/notion/skill';
 
-import SkillGroup from '../components/SkillGroup';
+import SkillGroupDynamic from '../components/SkillGroupDynamic';
 import SkillListSkeleton from '../components/SkillListSkeleton';
 
 import type { Metadata } from 'next';
@@ -28,12 +29,7 @@ export async function generateMetadata({
 }
 
 export default async function Skills() {
-  const t = await getTranslations();
-
-  const breadcrumbMenus = [
-    { text: t('common.dev'), url: '/dev' },
-    { text: t('skill.dev-skill'), url: '/dev/projects' },
-  ];
+  const breadcrumbMenus = await getSkillListBreadcrumbMenus();
 
   return (
     <div className="content-wrap">
@@ -48,5 +44,5 @@ export default async function Skills() {
 async function SkillListContent() {
   const skills: Skill[] = await getSkills();
 
-  return <SkillGroup skills={skills} />;
+  return <SkillGroupDynamic skills={skills} />;
 }
