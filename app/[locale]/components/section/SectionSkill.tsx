@@ -1,7 +1,7 @@
 import { Suspense } from 'react';
 
 import { CommandLineIcon } from '@heroicons/react/24/outline';
-import { getTranslations } from 'next-intl/server';
+import { getLocale, getTranslations } from 'next-intl/server';
 
 import SkillGrid from '@/app/[locale]/skill/components/SkillGrid';
 import SkillGridSkeleton from '@/app/[locale]/skill/components/SkillGridSkeleton';
@@ -25,6 +25,8 @@ export default async function SectionSkill() {
 }
 
 async function SkillList() {
+  const locale = await getLocale();
+  const isEnglish = locale === 'en';
   const skills = await getSkills([
     {
       property: '首页精选',
@@ -39,5 +41,5 @@ async function SkillList() {
     return indexA - indexB;
   });
 
-  return <SkillGrid skills={skills} />;
+  return <SkillGrid skills={skills} isEnglish={isEnglish} />;
 }

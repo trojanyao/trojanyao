@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
 
-import { getTranslations } from 'next-intl/server';
+import { getLocale, getTranslations } from 'next-intl/server';
 
 import { SkillItemSkeleton } from '@/app/[locale]/skill/components/SkillGridSkeleton';
 import SkillItem from '@/app/[locale]/skill/components/SkillItem';
@@ -18,6 +18,8 @@ export default function TechStacks() {
 
 /* Component: TechStacksContent */
 async function TechStacksContent() {
+  const locale = await getLocale();
+  const isEnglish = locale === 'en';
   const t = await getTranslations('skill.category');
 
   const skills: Skill[] = await getSkills();
@@ -34,12 +36,12 @@ async function TechStacksContent() {
   return groupedSkills?.map((groupItem, index) => (
     <div key={index} className="flex flex-col gap-4">
       <div className="pl-1 text-primary text-middle font-medium">{t(groupItem?.groupName)}</div>
-      <SkillGrid skills={groupItem?.items} />
+      <SkillGrid skills={groupItem?.items} isEnglish={isEnglish} />
     </div>
   ));
 }
 
-function SkillGrid({ skills }: { skills: Skill[] }) {
+function SkillGrid({ skills, isEnglish }: { skills: Skill[]; isEnglish: boolean }) {
   skills.sort((a, b) => {
     const indexA = skillProficiencies.indexOf(a?.status);
     const indexB = skillProficiencies.indexOf(b?.status);
@@ -49,7 +51,7 @@ function SkillGrid({ skills }: { skills: Skill[] }) {
   return (
     <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
       {skills.map((item) => (
-        <SkillItem key={item?.id} data={item} className="bg-white" />
+        <SkillItem key={item?.id} data={item} className="bg-white" isEnglish={isEnglish} />
       ))}
     </div>
   );

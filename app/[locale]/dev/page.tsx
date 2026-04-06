@@ -1,4 +1,5 @@
 import { Squares2X2Icon, CodeBracketSquareIcon } from '@heroicons/react/24/outline';
+import { getLocale } from 'next-intl/server';
 
 import { getProjects, getSkills } from '@/lib/notion';
 
@@ -8,6 +9,8 @@ import ProjectItem from '../project/components/ProjectItem';
 import SkillGrid from '../skill/components/SkillGrid';
 
 export default async function Develop() {
+  const locale = await getLocale();
+  const isEnglish = locale === 'en';
   const projects = await getProjects([{ property: '首页精选', checkbox: { equals: true } }]);
   const skills = await getSkills([
     {
@@ -45,7 +48,7 @@ export default async function Develop() {
         {/* Develop Skills */}
         <section className="section-item">
           <SectionHeader url="/skill/dev" icon={<CodeBracketSquareIcon />} title="开发技能" />
-          <SkillGrid skills={skills} />
+          <SkillGrid skills={skills} isEnglish={isEnglish} />
         </section>
       </div>
     </div>

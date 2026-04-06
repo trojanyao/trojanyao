@@ -7,7 +7,7 @@ import {
   FolderOpenIcon,
   RectangleStackIcon,
 } from '@heroicons/react/24/outline';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 
 import SectionHeader from '@/app/[locale]/components/common/SectionHeader';
 import GroupBy from '@/app/[locale]/components/ui/GroupBy';
@@ -18,6 +18,8 @@ import { groupBy } from '@/lib/utils/group-by';
 import SkillGrid from './SkillGrid';
 
 export default function SkillGroup({ skills }: { skills: Skill[] }) {
+  const locale = useLocale();
+  const isEnglish = locale === 'en';
   const t = useTranslations('skill');
 
   const groupByOptions: GroupOptionItem[] = [
@@ -84,7 +86,7 @@ export default function SkillGroup({ skills }: { skills: Skill[] }) {
         {groupedSkills?.map((groupItem, index) => (
           <div key={index} className="flex flex-col gap-4">
             <div className="title-small text-secondary">{groupItem?.groupName}</div>
-            <SkillGrid skills={groupItem?.items} />
+            <SkillGrid skills={groupItem?.items} isEnglish={isEnglish} />
           </div>
         ))}
       </div>

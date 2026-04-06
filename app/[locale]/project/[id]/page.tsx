@@ -218,6 +218,8 @@ function BasicInfo({ project }: { project: Project }) {
 
 /* Component: TechStack */
 async function TechStack({ project }: { project: Project }) {
+  const locale = await getLocale();
+  const isEnglish = locale === 'en';
   const t = await getTranslations('project');
 
   // Returns unsorted skills
@@ -248,7 +250,7 @@ async function TechStack({ project }: { project: Project }) {
         icon={<CodeBracketIcon />}
         color={`#${project?.color}`}
       />
-      <SkillGrid skills={skills} />
+      <SkillGrid skills={skills} isEnglish={isEnglish} />
     </div>
   );
 }
