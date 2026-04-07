@@ -6,7 +6,7 @@ import Breadcrumb from '@/app/[locale]/components/ui/Breadcrumb';
 import { getSkillListBreadcrumbMenus } from '@/app/[locale]/skill/get-skill-list-breadcrumbs';
 import { getSkills } from '@/lib/notion/skill';
 
-import SkillGroupDynamic from '../components/SkillGroupDynamic';
+import SkillGroupServer from '../components/SkillGroupServer';
 import SkillListSkeleton from '../components/SkillListSkeleton';
 
 import type { Metadata } from 'next';
@@ -41,8 +41,9 @@ export default async function Skills() {
   );
 }
 
+/** Fetches Notion data, then renders the split server/client skill shell (`SkillGroupServer`). */
 async function SkillListContent() {
   const skills: Skill[] = await getSkills();
 
-  return <SkillGroupDynamic skills={skills} />;
+  return <SkillGroupServer skills={skills} />;
 }
