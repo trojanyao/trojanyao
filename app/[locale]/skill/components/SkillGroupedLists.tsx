@@ -1,6 +1,6 @@
 /**
  * Client-only: depends on `groupKey` from context, `useTranslations` for section titles under each
- * group, and `isEnglish` for `SkillGrid` / `SkillItem` name fields.
+ * group, `isEnglish` for skill names, and one `skill.level` map for per-cell status labels.
  *
  * Group ordering mirrors Notion-driven enums in `skill.constants` (status vs category order).
  */
@@ -13,6 +13,8 @@ import { useLocale, useTranslations } from 'next-intl';
 import { skillCategories, skillStatuses } from '@/lib/constants/skill.constants';
 import { groupBy } from '@/lib/utils/group-by';
 
+import { buildSkillLevelLabelMap } from '../build-skill-level-label-map';
+
 import SkillGrid from './SkillGrid';
 import { useSkillGroup } from './SkillGroupContext';
 
@@ -22,6 +24,12 @@ export default function SkillGroupedLists() {
   const locale = useLocale();
   const isEnglish = locale === 'en';
   const t = useTranslations('skill');
+  const tLevel = useTranslations('skill.level');
+
+  // This component is `use client`, so we cannot call `getSkillLevelLabelMap` (server `getTranslations`).
+  // Build the same map once with `useTranslations('skill.level')` and pass it to `SkillGrid` so cells
+  // avoid per-row intl hooks (same goal as `getSkillLevelLabelMap` on RSC pages).
+  const statusLabels = useMemo(() => buildSkillLevelLabelMap((key) => tLevel(key)), [tLevel]);
 
   // Recompute when skills, grouping dimension, or locale messages change (`t` updates on locale switch).
   const groupedSkills = useMemo(
@@ -61,7 +69,7 @@ export default function SkillGroupedLists() {
       {groupedSkills?.map((groupItem, index) => (
         <div key={index} className="flex flex-col gap-4">
           <div className="title-small text-secondary">{groupItem?.groupName}</div>
-          <SkillGrid skills={groupItem?.items} isEnglish={isEnglish} />
+          <SkillGrid skills={groupItem?.items} isEnglish={isEnglish} statusLabels={statusLabels} />
         </div>
       ))}
     </div>

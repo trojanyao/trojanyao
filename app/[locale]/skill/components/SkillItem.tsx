@@ -1,7 +1,10 @@
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import SkillStatus from './SkillStatus';
+import SkillStatusView from './SkillStatusView';
+
+const SkillStatusClient = dynamic(() => import('./SkillStatusClient'));
 
 function getAngleFromId(id: string) {
   let hash = 0;
@@ -16,10 +19,16 @@ export default function SkillItem({
   data,
   className,
   isEnglish,
+  statusLabel,
 }: {
   data: Skill;
   className?: string;
   isEnglish: boolean;
+  /**
+   * Pre-resolved `skill.level.*` from a parent (`SkillGrid` / server map or client `useMemo`).
+   * When defined, renders `SkillStatusView` only; when omitted, falls back to `SkillStatusClient` (dynamic).
+   */
+  statusLabel?: string;
 }) {
   const angle = getAngleFromId(data?.id);
 
@@ -43,7 +52,11 @@ export default function SkillItem({
           {isEnglish ? data?.nameEN || data?.name : data?.name}
         </div>
 
-        <SkillStatus status={data?.status} />
+        {statusLabel !== undefined ? (
+          <SkillStatusView status={data?.status} label={statusLabel} />
+        ) : (
+          <SkillStatusClient status={data?.status} />
+        )}
       </div>
     </Link>
   );

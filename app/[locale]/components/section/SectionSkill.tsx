@@ -5,6 +5,7 @@ import { getLocale, getTranslations } from 'next-intl/server';
 
 import SkillGrid from '@/app/[locale]/skill/components/SkillGrid';
 import SkillGridSkeleton from '@/app/[locale]/skill/components/SkillGridSkeleton';
+import { getSkillLevelLabelMap } from '@/app/[locale]/skill/get-skill-level-labels';
 import { getSkills } from '@/lib/notion';
 
 import SectionHeader from '../common/SectionHeader';
@@ -27,6 +28,8 @@ export default async function SectionSkill() {
 async function SkillList() {
   const locale = await getLocale();
   const isEnglish = locale === 'en';
+  // Same as dev page: server-resolved map for `SkillGrid` → `SkillItem` without per-cell intl hooks.
+  const statusLabels = await getSkillLevelLabelMap();
   const skills = await getSkills([
     {
       property: '首页精选',
@@ -41,5 +44,5 @@ async function SkillList() {
     return indexA - indexB;
   });
 
-  return <SkillGrid skills={skills} isEnglish={isEnglish} />;
+  return <SkillGrid skills={skills} isEnglish={isEnglish} statusLabels={statusLabels} />;
 }

@@ -16,6 +16,7 @@ import { getLocale, getTranslations } from 'next-intl/server';
 import SectionHeader from '@/app/[locale]/components/common/SectionHeader';
 import Breadcrumb from '@/app/[locale]/components/ui/Breadcrumb';
 import SkillGrid from '@/app/[locale]/skill/components/SkillGrid';
+import { getSkillLevelLabelMap } from '@/app/[locale]/skill/get-skill-level-labels';
 import { getProject, getSkills } from '@/lib/notion';
 import { checkIsPortrait } from '@/lib/utils/check-portrait';
 import { checkUrlValid } from '@/lib/utils/check-url';
@@ -220,6 +221,8 @@ function BasicInfo({ project }: { project: Project }) {
 async function TechStack({ project }: { project: Project }) {
   const locale = await getLocale();
   const isEnglish = locale === 'en';
+  // Tech stack grid: resolve status labels on the server once, then pass through `SkillGrid`.
+  const statusLabels = await getSkillLevelLabelMap();
   const t = await getTranslations('project');
 
   // Returns unsorted skills
@@ -250,7 +253,7 @@ async function TechStack({ project }: { project: Project }) {
         icon={<CodeBracketIcon />}
         color={`#${project?.color}`}
       />
-      <SkillGrid skills={skills} isEnglish={isEnglish} />
+      <SkillGrid skills={skills} isEnglish={isEnglish} statusLabels={statusLabels} />
     </div>
   );
 }
