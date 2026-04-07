@@ -9,6 +9,7 @@ import { getProjects } from '@/lib/notion/project';
 import { getSkill } from '@/lib/notion/skill';
 
 import SkillDetailBasicInfo from './components/SkillDetailBasicInfo';
+import { SkillDetailBodySkeleton } from './components/SkillDetailSkeleton';
 
 export async function generateMetadata({
   params,
@@ -32,7 +33,7 @@ export default async function SkillDetail({ params }: { params: Promise<{ id: st
     <div className="content-wrap">
       <SkillBreadcrumb dataPromise={getSkill(id)} />
 
-      <Suspense fallback={<BasicInfoSkeleton />}>
+      <Suspense fallback={<SkillDetailBodySkeleton />}>
         <SkillContent dataPromise={getSkill(id)} />
       </Suspense>
     </div>
@@ -78,30 +79,6 @@ async function SkillContent({ dataPromise }: { dataPromise: Promise<Skill> }) {
       <SkillDetailBasicInfo skill={skill} statusLabel={statusLabel} />
 
       <ProjectList projects={projects} title={t('skill.related-project')} />
-    </div>
-  );
-}
-
-function BasicInfoSkeleton() {
-  return (
-    <div className="pt-8 flex justify-between items-center animate-pulse">
-      {/* Left */}
-      <div className="w-full lg:w-2/3 flex gap-6">
-        <div className="bg-middle-gray size-24 aspect-square rounded-full" />
-
-        <div className="py-1 flex flex-col justify-center gap-1 w-full">
-          {/* Name & Link */}
-          <div className="flex items-center gap-3">
-            <div className="bg-middle-gray h-6 w-32 rounded-md" />
-          </div>
-
-          {/* Desc */}
-          <div className="bg-middle-gray h-4 w-full rounded-md mt-2" />
-
-          {/* Status */}
-          <div className="bg-middle-gray h-4 w-24 rounded-md mt-4" />
-        </div>
-      </div>
     </div>
   );
 }
