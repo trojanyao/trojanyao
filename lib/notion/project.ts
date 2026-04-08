@@ -46,6 +46,8 @@ async function _getProjects(body?: any[]): Promise<Project[]> {
     ),
     // 个人网站
     color: page.properties?.['品牌色 *']?.rich_text?.[0]?.text?.content,
+    width: page.properties?.['截图宽度 px *']?.number,
+    height: page.properties?.['截图高度 px *']?.number,
     resumeOrder: page.properties?.['简历排序']?.number,
   }));
 }

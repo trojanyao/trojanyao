@@ -7,7 +7,6 @@ import {
   CodeBracketIcon,
   DevicePhoneMobileIcon,
   ComputerDesktopIcon,
-  ArrowDownCircleIcon,
 } from '@heroicons/react/24/outline';
 import { Metadata } from 'next';
 import { useLocale, useTranslations } from 'next-intl';
@@ -16,6 +15,7 @@ import { getLocale, getTranslations } from 'next-intl/server';
 import SectionHeader from '@/app/[locale]/components/common/SectionHeader';
 import Breadcrumb from '@/app/[locale]/components/ui/Breadcrumb';
 import SkillGrid from '@/app/[locale]/skill/components/SkillGrid';
+import SkillGridSkeleton from '@/app/[locale]/skill/components/SkillGridSkeleton';
 import { getSkillLevelLabelMap } from '@/app/[locale]/skill/get-skill-level-labels';
 import { getProject, getSkills } from '@/lib/notion';
 import { checkIsPortrait } from '@/lib/utils/check-portrait';
@@ -46,14 +46,12 @@ export async function generateMetadata({
 /* Function Component */
 export default async function ProjectDetail({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
+  const projectPromise = getProject(id);
 
   return (
     <div className="content-wrap">
-      <ProjectBreadCrumb dataPromise={getProject(id)} />
-
-      <Suspense fallback={<ProjectBasicSkeleton />}>
-        <ProjectContent dataPromise={getProject(id)} />
-      </Suspense>
+      <ProjectBreadCrumb dataPromise={projectPromise} />
+      <ProjectContent dataPromise={projectPromise} />
     </div>
   );
 }
@@ -75,6 +73,7 @@ async function ProjectBreadCrumb({ dataPromise }: { dataPromise: Promise<Project
 
 async function ProjectContent({ dataPromise }: { dataPromise: Promise<Project> }) {
   const locale = await getLocale();
+  const tProject = await getTranslations('project');
 
   const project = await dataPromise;
 
@@ -106,7 +105,16 @@ async function ProjectContent({ dataPromise }: { dataPromise: Promise<Project> }
         />
       </div>
 
-      <TechStack project={project} />
+      <Suspense
+        fallback={
+          <TechStackSkeleton
+            title={tProject('tech-stack')}
+            color={project?.color ? `#${project.color}` : 'var(--color-primary)'}
+          />
+        }
+      >
+        <TechStack project={project} />
+      </Suspense>
       <Preview project={project} />
     </div>
   );
@@ -281,44 +289,14 @@ function Preview({ project }: { project: Project }) {
   );
 }
 
-/* Component: Skeleton */
-function ProjectBasicSkeleton() {
+function TechStackSkeleton({ title, color }: { title: string; color: string }) {
   return (
-    <div className="flex flex-col gap-6 md:flex-row md:gap-20 lg:gap-24 animate-pulse">
-      {/* Details */}
-      <div className="md:flex-1 md:py-2 flex flex-col gap-6 md:gap-12">
-        {/* Top */}
-        <div className="flex flex-col gap-4">
-          {/* Header */}
-          <div className="flex items-center gap-3">
-            <div className="size-16 bg-middle-gray rounded-md"></div>
-
-            <div className="flex flex-col gap-3">
-              {/* Title + Label */}
-              <div className="flex items-center gap-2">
-                <div className="w-20 h-6 bg-middle-gray rounded-sm"></div>
-                <div className={`w-8 h-4 bg-middle-gray rounded-full`}></div>
-              </div>
-
-              {/* Description */}
-              <div className="w-48 h-4 bg-middle-gray rounded-sm"></div>
-            </div>
-          </div>
-        </div>
-
-        {/* Bottom */}
-        <div className="flex flex-col gap-4 xl:gap-8">
-          {/* Link */}
-          <div className="w-44 h-8 bg-middle-gray rounded-lg"></div>
-
-          {/* Date */}
-          <div className="w-24 h-4 bg-middle-gray rounded-sm"></div>
-        </div>
-      </div>
-
-      {/* Cover */}
-      <div className="w-full md:flex-1 aspect-4/3 bg-middle-gray self-start rounded-2xl flex justify-center items-center">
-        <ArrowDownCircleIcon className="size-8 text-gray-200 animate-bounce animation-duration-[1s]" />
+    <div className="animate-pulse">
+      <SectionHeader title={title} icon={<CodeBracketIcon />} color={color}>
+        <div className="h-7" />
+      </SectionHeader>
+      <div className="mt-6">
+        <SkillGridSkeleton length={6} />
       </div>
     </div>
   );

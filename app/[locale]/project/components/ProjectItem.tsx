@@ -19,6 +19,20 @@ export default function ProjectItem({
   return (
     <Link
       href={`/project/${data?.id}`}
+      onClick={() => {
+        try {
+          sessionStorage.setItem(
+            `project_hint_${data?.id}`,
+            JSON.stringify({
+              color: data?.color ?? '',
+              width: data?.width ?? 0,
+              height: data?.height ?? 0,
+            }),
+          );
+        } catch {
+          /* quota exceeded or private browsing */
+        }
+      }}
       className="flex-1 aspect-4/3 bg-light-gray border border-third rounded-[20px] overflow-hidden relative flex flex-col"
     >
       {/* Cover: prefer AVIF when coverAvif exists (image-proxy when unoptimized). */}
