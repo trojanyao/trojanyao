@@ -24,7 +24,15 @@ export default function SkillDetailBasicInfo({
   return (
     <div className="flex justify-between items-center">
       <div className="w-full lg:w-2/3 flex gap-6">
-        <Image src={skill?.logo} alt={skill?.name} width={96} height={96} className="size-24" />
+        <Image
+          src={skill?.logo}
+          alt={skill?.name}
+          width={96}
+          height={96}
+          className="size-24"
+          priority
+          fetchPriority="high"
+        />
 
         <div className="py-1 flex flex-col justify-center gap-2">
           <div className="flex items-center gap-3">

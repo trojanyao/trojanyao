@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 
 import sharp from 'sharp';
 
+export const runtime = 'nodejs';
+
 /** Notion 图片实际存储的 S3 域名，仅允许代理此来源 */
 const NOTION_S3_HOST = 'prod-files-secure.s3.us-west-2.amazonaws.com';
 /** 响应头 Cache-Control max-age（秒），约 1 年，满足 Lighthouse 缓存建议 */
@@ -27,9 +29,7 @@ function getCacheKey(url: URL, format: string | null): string {
 /** 缓存条数达到上限时，淘汰约 20% 最久未使用的条目 */
 function evictOldEntries(): void {
   if (serverCache.size < SERVER_CACHE_MAX) return;
-  const sorted = [...serverCache.entries()].sort(
-    (a, b) => a[1].cachedAt - b[1].cachedAt
-  );
+  const sorted = [...serverCache.entries()].sort((a, b) => a[1].cachedAt - b[1].cachedAt);
   const toRemove = serverCache.size - Math.floor(SERVER_CACHE_MAX * 0.8);
   for (let i = 0; i < toRemove && i < sorted.length; i++) {
     serverCache.delete(sorted[i][0]);
@@ -79,23 +79,15 @@ export async function GET(request: NextRequest) {
       headers: { 'User-Agent': 'Mozilla/5.0 (compatible; Notion-Image-Proxy/1)' },
     });
     if (!res.ok) {
-      return NextResponse.json(
-        { error: `Upstream returned ${res.status}` },
-        { status: 502 }
-      );
+      return NextResponse.json({ error: `Upstream returned ${res.status}` }, { status: 502 });
     }
     let body: ArrayBuffer = await res.arrayBuffer();
     let contentType = res.headers.get('Content-Type') ?? 'image/png';
 
     if (format === 'avif') {
       try {
-        const avif = await sharp(Buffer.from(body))
-          .avif({ quality: 70 })
-          .toBuffer();
-        body = avif.buffer.slice(
-          avif.byteOffset,
-          avif.byteOffset + avif.byteLength
-        ) as ArrayBuffer;
+        const avif = await sharp(Buffer.from(body)).avif({ quality: 60 }).toBuffer();
+        body = avif.buffer.slice(avif.byteOffset, avif.byteOffset + avif.byteLength) as ArrayBuffer;
         contentType = 'image/avif';
       } catch {
         // 转换失败则返回原图
@@ -113,9 +105,6 @@ export async function GET(request: NextRequest) {
       },
     });
   } catch {
-    return NextResponse.json(
-      { error: 'Failed to fetch image' },
-      { status: 502 }
-    );
+    return NextResponse.json({ error: 'Failed to fetch image' }, { status: 502 });
   }
 }

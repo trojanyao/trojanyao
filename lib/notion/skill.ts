@@ -1,4 +1,3 @@
-import { cache } from 'react';
 import { unstable_cache } from 'next/cache';
 
 import { SkillCategoryEnum, SkillStatusEnum } from '../constants/skill.constants';
@@ -75,4 +74,12 @@ export async function _getSkill(id: string): Promise<Skill> {
   };
 }
 
-export const getSkill = cache(_getSkill);
+const getSkillCached = unstable_cache(_getSkill, ['notion', 'skill', 'getSkill'], {
+  // Skill detail also changes infrequently; cache to reduce per-request LCP variance.
+  revalidate: 50 * 60, // 50 minutes (seconds)
+  tags: ['skills'],
+});
+
+export async function getSkill(id: string): Promise<Skill> {
+  return getSkillCached(id);
+}
