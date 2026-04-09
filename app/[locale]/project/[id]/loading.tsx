@@ -134,7 +134,7 @@ function ProjectBasicSkeleton() {
 
 function ResponsibilitiesSkeleton() {
   return (
-    <div className="flex-1 flex items-center gap-6">
+    <div className="flex-1 flex flex-col md:flex-row items-center gap-6">
       <div className="min-w-26 lg:w-fit flex flex-col items-center gap-3">
         <div className="size-6 rounded-full bg-middle-gray" />
         <div className="h-4 w-20 rounded-sm bg-middle-gray" />
@@ -144,7 +144,7 @@ function ResponsibilitiesSkeleton() {
         {Array.from({ length: 3 }).map((_, index) => (
           <div key={index} className="flex items-center gap-2">
             <div className="size-4 rounded-full bg-middle-gray" />
-            <div className="h-4 w-full max-w-[380px] rounded-sm bg-middle-gray" />
+            <div className="flex-1 h-4 w-full md:max-w-[380px] rounded-sm bg-middle-gray" />
           </div>
         ))}
       </div>
