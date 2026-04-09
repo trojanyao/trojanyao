@@ -9,11 +9,7 @@ import { getProjects } from '@/lib/notion/project';
 import { getSkill } from '@/lib/notion/skill';
 
 import SkillDetailBasicInfo from './components/SkillDetailBasicInfo';
-import {
-  BasicInfoSkeleton,
-  RelatedProjectsSkeleton,
-  SkillBreadcrumbSkeleton,
-} from './components/SkillDetailSkeleton';
+import { BasicInfoSkeleton, SkillBreadcrumbSkeleton } from './components/SkillDetailSkeleton';
 
 /* Metadata */
 export async function generateMetadata({
@@ -84,13 +80,8 @@ async function SkillContent({
         <SkillDetailBasicInfoSection skillPromise={skillPromise} />
       </Suspense>
 
-      {/* Keep basic info interactive while related projects are still fetching. */}
-      <Suspense fallback={<RelatedProjectsSkeleton />}>
-        <RelatedProjectsSection
-          projectsPromise={projectsPromise}
-          title={t('skill.related-project')}
-        />
-      </Suspense>
+      {/* Note: Section already contains internal skeleton loading components. */}
+      <ProjectGroup projectsRequest={projectsPromise} title={t('skill.related-project')} />
     </div>
   );
 }
@@ -103,16 +94,4 @@ async function SkillDetailBasicInfoSection({ skillPromise }: { skillPromise: Pro
   const statusLabel = tLevel(skill.status);
 
   return <SkillDetailBasicInfo skill={skill} statusLabel={statusLabel} />;
-}
-
-async function RelatedProjectsSection({
-  projectsPromise,
-  title,
-}: {
-  projectsPromise: Promise<Project[]>;
-  title: string;
-}) {
-  const projects = await projectsPromise;
-
-  return <ProjectGroup projects={projects} title={title} />;
 }

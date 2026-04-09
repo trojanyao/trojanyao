@@ -8,6 +8,7 @@ import ProjectGroup from './components/ProjectGroup';
 
 export const dynamic = 'force-dynamic'; // use SSR to avoid Notion's image expiry
 
+/* Metadata */
 export async function generateMetadata({
   params,
 }: {
@@ -30,7 +31,7 @@ export default async function DevProjects({ params }: { params: Promise<{ locale
   setRequestLocale(locale);
 
   const t = await getTranslations({ locale, namespace: 'dev' });
-  const projects = await getProjects();
+  const projectsRequest = getProjects();
 
   const breadcrumbMenus = [
     { text: t('common') }, // TODO: open /dev url
@@ -41,8 +42,8 @@ export default async function DevProjects({ params }: { params: Promise<{ locale
   return (
     <div className="content-wrap">
       <Breadcrumb menus={breadcrumbMenus} />
-      {/* LCP cover: first grid card uses Image `preload` (ProjectGrid isFirstGroup + ProjectItem isHeroCover). */}
-      <ProjectGroup projects={projects} />
+
+      <ProjectGroup projectsRequest={projectsRequest} />
     </div>
   );
 }
