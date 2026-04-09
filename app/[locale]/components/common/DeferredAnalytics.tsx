@@ -13,8 +13,15 @@ export default function DeferredAnalytics() {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    const id = requestIdleCallback(() => setMounted(true), { timeout: 4000 });
-    return () => cancelIdleCallback(id);
+    const mount = () => setMounted(true);
+
+    // Safari lacks requestIdleCallback; fall back to setTimeout.
+    if (typeof requestIdleCallback === 'function') {
+      const id = requestIdleCallback(mount, { timeout: 4000 });
+      return () => cancelIdleCallback(id);
+    }
+    const timer = setTimeout(mount, 100);
+    return () => clearTimeout(timer);
   }, []);
 
   if (!mounted) return null;

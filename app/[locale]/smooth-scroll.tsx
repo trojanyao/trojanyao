@@ -12,21 +12,25 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
   const [LenisWrapper, setLenisWrapper] = useState<React.ComponentType<{ children: React.ReactNode }> | null>(null);
 
   useEffect(() => {
-    const id = requestIdleCallback(
-      () => {
-        import('lenis/react').then(({ ReactLenis }) => {
-          const Wrapper = (props: { children: React.ReactNode }) => (
-            <ReactLenis root options={LENIS_OPTIONS}>
-              {props.children}
-            </ReactLenis>
-          );
-          Wrapper.displayName = 'LenisWrapper';
-          setLenisWrapper(() => Wrapper);
-        });
-      },
-      { timeout: 2500 }
-    );
-    return () => cancelIdleCallback(id);
+    const loadLenis = () => {
+      import('lenis/react').then(({ ReactLenis }) => {
+        const Wrapper = (props: { children: React.ReactNode }) => (
+          <ReactLenis root options={LENIS_OPTIONS}>
+            {props.children}
+          </ReactLenis>
+        );
+        Wrapper.displayName = 'LenisWrapper';
+        setLenisWrapper(() => Wrapper);
+      });
+    };
+
+    // Safari lacks requestIdleCallback; fall back to setTimeout.
+    if (typeof requestIdleCallback === 'function') {
+      const id = requestIdleCallback(loadLenis, { timeout: 2500 });
+      return () => cancelIdleCallback(id);
+    }
+    const timer = setTimeout(loadLenis, 100);
+    return () => clearTimeout(timer);
   }, []);
 
   if (!LenisWrapper) return <>{children}</>;
