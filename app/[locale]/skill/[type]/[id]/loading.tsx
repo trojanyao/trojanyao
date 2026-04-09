@@ -1,13 +1,18 @@
 import {
+  BasicInfoSkeleton,
+  RelatedProjectsSkeleton,
   SkillBreadcrumbSkeleton,
-  SkillDetailBodySkeleton,
 } from './components/SkillDetailSkeleton';
 
-export default function Loading() {
+export default async function Loading() {
   return (
     <div className="content-wrap">
       <SkillBreadcrumbSkeleton />
-      <SkillDetailBodySkeleton />
+
+      <div className="flex flex-col gap-8">
+        <BasicInfoSkeleton />
+        <RelatedProjectsSkeleton />
+      </div>
     </div>
   );
 }

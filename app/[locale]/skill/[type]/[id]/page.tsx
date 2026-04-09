@@ -1,3 +1,5 @@
+import { Suspense } from 'react';
+
 import { Metadata } from 'next';
 import { getLocale, getTranslations } from 'next-intl/server';
 
@@ -7,6 +9,11 @@ import { getProjects } from '@/lib/notion/project';
 import { getSkill } from '@/lib/notion/skill';
 
 import SkillDetailBasicInfo from './components/SkillDetailBasicInfo';
+import {
+  BasicInfoSkeleton,
+  RelatedProjectsSkeleton,
+  SkillBreadcrumbSkeleton,
+} from './components/SkillDetailSkeleton';
 
 /* Metadata */
 export async function generateMetadata({
@@ -26,6 +33,7 @@ export async function generateMetadata({
 
 export default async function SkillDetail({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
+
   const skillPromise = getSkill(id);
   const projectsPromise = getProjects([
     {
@@ -35,18 +43,20 @@ export default async function SkillDetail({ params }: { params: Promise<{ id: st
       },
     },
   ]);
-  const [skill, projects] = await Promise.all([skillPromise, projectsPromise]);
 
   return (
     <div className="content-wrap">
-      <SkillBreadcrumb skill={skill} />
+      <Suspense fallback={<SkillBreadcrumbSkeleton />}>
+        <SkillBreadcrumb skillPromise={skillPromise} />
+      </Suspense>
 
-      <SkillContent skill={skill} projects={projects} />
+      <SkillContent skillPromise={skillPromise} projectsPromise={projectsPromise} />
     </div>
   );
 }
 
-async function SkillBreadcrumb({ skill }: { skill: Skill }) {
+async function SkillBreadcrumb({ skillPromise }: { skillPromise: Promise<Skill> }) {
+  const skill = await skillPromise;
   const locale = await getLocale();
   const t = await getTranslations();
 
@@ -59,17 +69,50 @@ async function SkillBreadcrumb({ skill }: { skill: Skill }) {
   return <Breadcrumb menus={breadcrumbMenus} />;
 }
 
-async function SkillContent({ skill, projects }: { skill: Skill; projects: Project[] }) {
+async function SkillContent({
+  skillPromise,
+  projectsPromise,
+}: {
+  skillPromise: Promise<Skill>;
+  projectsPromise: Promise<Project[]>;
+}) {
   const t = await getTranslations();
+
+  return (
+    <div className="flex flex-col gap-8">
+      <Suspense fallback={<BasicInfoSkeleton />}>
+        <SkillDetailBasicInfoSection skillPromise={skillPromise} />
+      </Suspense>
+
+      {/* Keep basic info interactive while related projects are still fetching. */}
+      <Suspense fallback={<RelatedProjectsSkeleton />}>
+        <RelatedProjectsSection
+          projectsPromise={projectsPromise}
+          title={t('skill.related-project')}
+        />
+      </Suspense>
+    </div>
+  );
+}
+
+async function SkillDetailBasicInfoSection({ skillPromise }: { skillPromise: Promise<Skill> }) {
+  const skill = await skillPromise;
   const tLevel = await getTranslations('skill.level');
   // Resolve the one `skill.level.*` string on the server for `SkillDetailBasicInfo` (client) so the
   // status row does not need `useTranslations` there—same idea as `getSkillLevelLabelMap` for grids.
   const statusLabel = tLevel(skill.status);
 
-  return (
-    <div className="flex flex-col gap-8">
-      <SkillDetailBasicInfo skill={skill} statusLabel={statusLabel} />
-      <ProjectGroup projects={projects} title={t('skill.related-project')} />
-    </div>
-  );
+  return <SkillDetailBasicInfo skill={skill} statusLabel={statusLabel} />;
+}
+
+async function RelatedProjectsSection({
+  projectsPromise,
+  title,
+}: {
+  projectsPromise: Promise<Project[]>;
+  title: string;
+}) {
+  const projects = await projectsPromise;
+
+  return <ProjectGroup projects={projects} title={title} />;
 }
