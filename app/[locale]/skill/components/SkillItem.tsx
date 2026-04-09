@@ -2,9 +2,9 @@ import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import SkillStatusView from './SkillStatusView';
+import SkillStatusView from './primitives/SkillStatusView';
 
-const SkillStatusClient = dynamic(() => import('./SkillStatusClient'));
+const SkillStatusClient = dynamic(() => import('./primitives/SkillStatusClient'));
 
 function getAngleFromId(id: string) {
   let hash = 0;

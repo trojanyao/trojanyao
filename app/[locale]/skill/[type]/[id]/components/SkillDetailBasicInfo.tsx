@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { ArrowTopRightOnSquareIcon } from '@heroicons/react/16/solid';
 import { useLocale } from 'next-intl';
 
-import SkillStatusView from '@/app/[locale]/skill/components/SkillStatusView';
+import SkillStatusView from '@/app/[locale]/skill/components/primitives/SkillStatusView';
 
 /**
  * Detail route only: hero block. `statusLabel` is pre-resolved in the RSC parent (`getTranslations`)
