@@ -6,8 +6,8 @@ import Breadcrumb from '@/app/[locale]/components/ui/Breadcrumb';
 import { getSkillListBreadcrumbMenus } from '@/app/[locale]/skill/get-skill-list-breadcrumbs';
 import { getSkills } from '@/lib/notion/skill';
 
+import SkillGroupSkeleton from '../components/skeleton/SkillGroupSkeleton';
 import SkillGroupServer from '../components/SkillGroupServer';
-import SkillListSkeleton from '../components/SkillListSkeleton';
 
 import type { Metadata } from 'next';
 
@@ -34,7 +34,7 @@ export default async function Skills() {
   return (
     <div className="content-wrap">
       <Breadcrumb menus={breadcrumbMenus} />
-      <Suspense fallback={<SkillListSkeleton />}>
+      <Suspense fallback={<SkillGroupSkeleton />}>
         <SkillListContent />
       </Suspense>
     </div>

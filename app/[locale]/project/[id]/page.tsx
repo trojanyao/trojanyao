@@ -14,8 +14,8 @@ import { getLocale, getTranslations } from 'next-intl/server';
 
 import SectionHeader from '@/app/[locale]/components/common/SectionHeader';
 import Breadcrumb from '@/app/[locale]/components/ui/Breadcrumb';
+import SkillGridSkeleton from '@/app/[locale]/skill/components/skeleton/SkillGridSkeleton';
 import SkillGrid from '@/app/[locale]/skill/components/SkillGrid';
-import SkillGridSkeleton from '@/app/[locale]/skill/components/SkillGridSkeleton';
 import { getSkillLevelLabelMap } from '@/app/[locale]/skill/get-skill-level-labels';
 import { getProject, getSkills } from '@/lib/notion';
 import { checkIsPortrait } from '@/lib/utils/check-portrait';

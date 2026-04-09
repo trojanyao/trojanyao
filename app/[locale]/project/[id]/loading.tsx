@@ -13,7 +13,7 @@ import { useTranslations } from 'next-intl';
 import SectionHeader from '@/app/[locale]/components/common/SectionHeader';
 import Breadcrumb from '@/app/[locale]/components/ui/Breadcrumb';
 import Line from '@/app/[locale]/components/ui/Line';
-import SkillGridSkeleton from '@/app/[locale]/skill/components/SkillGridSkeleton';
+import SkillGridSkeleton from '@/app/[locale]/skill/components/skeleton/SkillGridSkeleton';
 
 interface ProjectLoadingHint {
   color: string | null;

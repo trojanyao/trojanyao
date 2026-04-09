@@ -9,7 +9,7 @@ import Line from '@/app/[locale]/components/ui/Line';
 
 import SkillGridSkeleton from './SkillGridSkeleton';
 
-export default function SkillListSkeleton() {
+export default function SkillGroupSkeleton() {
   const t = useTranslations('skill');
   const staticGroupByOptions: GroupOptionItem[] = [
     { icon: <RectangleStackIcon />, key: 'status', text: t('group.proficiency') },

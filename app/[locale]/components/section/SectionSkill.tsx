@@ -3,8 +3,8 @@ import { Suspense } from 'react';
 import { CommandLineIcon } from '@heroicons/react/24/outline';
 import { getLocale, getTranslations } from 'next-intl/server';
 
+import SkillGridSkeleton from '@/app/[locale]/skill/components/skeleton/SkillGridSkeleton';
 import SkillGrid from '@/app/[locale]/skill/components/SkillGrid';
-import SkillGridSkeleton from '@/app/[locale]/skill/components/SkillGridSkeleton';
 import { getSkillLevelLabelMap } from '@/app/[locale]/skill/get-skill-level-labels';
 import { getSkills } from '@/lib/notion';
 

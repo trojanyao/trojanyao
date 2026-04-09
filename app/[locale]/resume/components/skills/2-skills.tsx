@@ -2,7 +2,7 @@ import { Suspense } from 'react';
 
 import { getLocale, getTranslations } from 'next-intl/server';
 
-import { SkillItemSkeleton } from '@/app/[locale]/skill/components/SkillGridSkeleton';
+import { SkillItemSkeleton } from '@/app/[locale]/skill/components/skeleton/SkillGridSkeleton';
 import SkillItem from '@/app/[locale]/skill/components/SkillItem';
 import { getSkillLevelLabelMap } from '@/app/[locale]/skill/get-skill-level-labels';
 import { skillCategories, skillProficiencies } from '@/lib/constants/skill.constants';
