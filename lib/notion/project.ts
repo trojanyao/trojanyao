@@ -62,10 +62,8 @@ export async function getProjects(body?: any[]): Promise<Project[]> {
   return getProjectsCached(body);
 }
 
-/* Get Project Detail */
-export async function _getProject(id: string): Promise<Project> {
-  // console.log(`[getProject] 实际执行 API 调用，id: ${id}`, new Date().toISOString());
-
+/* Get Project Detail (cached) */
+async function _getProject(id: string): Promise<Project> {
   const page: any = await notion.pages.retrieve({ page_id: id });
 
   return {
@@ -116,4 +114,11 @@ export async function _getProject(id: string): Promise<Project> {
   };
 }
 
-export const getProject = cache(_getProject);
+// Cross-request cache: avoid Notion API call on every navigation.
+const _getProjectCached = unstable_cache(_getProject, ['notion', 'project', 'getProject'], {
+  revalidate: 50 * 60, // 50 minutes — align with image proxy cache TTL
+  tags: ['projects'],
+});
+
+// React cache wraps the cached version for per-request dedup (metadata + render).
+export const getProject = cache(_getProjectCached);

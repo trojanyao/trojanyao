@@ -211,13 +211,15 @@ function BasicInfo({ project }: { project: Project }) {
         </div>
       </div>
 
-      {/* Cover (LCP)，有 coverAvif 时用 AVIF */}
+      {/* Cover (LCP): preload injects <link rel="preload"> in <head> to cut resource-load-delay. */}
       <Image
         src={project?.coverAvif ?? project?.cover}
         alt={project?.name}
         width={600}
         height={450}
+        sizes="(min-width: 768px) 50vw, 100vw"
         className="w-full md:flex-1 aspect-4/3 self-start rounded-2xl border border-secondary overflow-hidden"
+        preload
         loading="eager"
         fetchPriority="high"
       />
