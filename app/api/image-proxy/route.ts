@@ -12,6 +12,8 @@ const CACHE_MAX_AGE = 31536000;
 const SERVER_CACHE_TTL_MS = 50 * 60 * 1000;
 /** 服务端缓存最多保留条数，超出时按最久未用淘汰 */
 const SERVER_CACHE_MAX = 80;
+/** Max output width – matches Next.js largest default deviceSize */
+const MAX_WIDTH = 3840;
 
 type CacheEntry = { body: ArrayBuffer; contentType: string; cachedAt: number };
 
@@ -22,8 +24,11 @@ function isAllowedUrl(url: URL): boolean {
   return url.hostname === NOTION_S3_HOST && url.pathname.startsWith('/');
 }
 
-function getCacheKey(url: URL, format: string | null): string {
-  return url.pathname + (format ? `:${format}` : '');
+function getCacheKey(url: URL, format: string | null, w: number): string {
+  let key = url.pathname;
+  if (format) key += `:${format}`;
+  if (w) key += `:w${w}`;
+  return key;
 }
 
 /** 缓存条数达到上限时，淘汰约 20% 最久未使用的条目 */
@@ -37,14 +42,19 @@ function evictOldEntries(): void {
 }
 
 /**
- * GET /api/image-proxy?url=<编码后的 Notion 图片 URL>[&format=avif]
- * 从 Notion S3 拉取图片并返回，响应带长期 Cache-Control。
- * format=avif 时在服务端用 sharp 转为 AVIF（在不开启 Next 图片优化时仍可让封面用 AVIF）。
- * 50 分钟内同一张图（相同 pathname + format）会从内存缓存返回。
+ * GET /api/image-proxy?url=<encoded Notion image URL>[&format=avif][&w=640]
+ *
+ * Proxies Notion S3 images with long-term Cache-Control.
+ * - `format=avif` converts to AVIF via sharp.
+ * - `w=<number>` resizes to the given width (capped at MAX_WIDTH, never upscales).
+ *   Resize runs before format conversion for better performance.
+ * - Results are cached in-memory for 50 min (keyed by pathname + format + width).
  */
 export async function GET(request: NextRequest) {
   const urlParam = request.nextUrl.searchParams.get('url');
   const format = request.nextUrl.searchParams.get('format');
+  const wParam = request.nextUrl.searchParams.get('w');
+  const w = wParam ? Math.min(Math.max(parseInt(wParam, 10) || 0, 0), MAX_WIDTH) : 0;
 
   if (!urlParam) {
     return NextResponse.json({ error: 'Missing url' }, { status: 400 });
@@ -61,7 +71,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: 'URL not allowed' }, { status: 400 });
   }
 
-  const cacheKey = getCacheKey(targetUrl, format);
+  const cacheKey = getCacheKey(targetUrl, format, w);
   const cached = serverCache.get(cacheKey);
   const now = Date.now();
   if (cached && now - cached.cachedAt < SERVER_CACHE_TTL_MS) {
@@ -84,13 +94,19 @@ export async function GET(request: NextRequest) {
     let body: ArrayBuffer = await res.arrayBuffer();
     let contentType = res.headers.get('Content-Type') ?? 'image/png';
 
-    if (format === 'avif') {
+    const wantResize = w > 0;
+    const wantAvif = format === 'avif';
+
+    if (wantResize || wantAvif) {
       try {
-        const avif = await sharp(Buffer.from(body)).avif({ quality: 60 }).toBuffer();
-        body = avif.buffer.slice(avif.byteOffset, avif.byteOffset + avif.byteLength) as ArrayBuffer;
-        contentType = 'image/avif';
+        let pipeline = sharp(Buffer.from(body));
+        if (wantResize) pipeline = pipeline.resize({ width: w, withoutEnlargement: true });
+        if (wantAvif) pipeline = pipeline.avif({ quality: 60 });
+        const result = await pipeline.toBuffer();
+        body = result.buffer.slice(result.byteOffset, result.byteOffset + result.byteLength) as ArrayBuffer;
+        if (wantAvif) contentType = 'image/avif';
       } catch {
-        // 转换失败则返回原图
+        // Processing failed – fall through with original bytes
       }
     }
 

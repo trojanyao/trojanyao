@@ -18,9 +18,9 @@ const nextConfig = {
     inlineCss: true,
   },
   images: {
-    formats: ['image/avif', 'image/webp'],
+    loader: 'custom',
+    loaderFile: './lib/image-loader.ts',
     dangerouslyAllowSVG: true,
-    unoptimized: true, // Disable image optimization to save Vercel costs
     remotePatterns: [
       {
         protocol: 'https',
