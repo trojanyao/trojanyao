@@ -1,4 +1,4 @@
-export default function ProjectCardSkeleton() {
+export default function ProjectItemSkeleton() {
   return (
     <div className="flex-1 aspect-4/3 bg-middle-gray border border-third rounded-[20px] overflow-hidden relative animate-pulse">
       <div className="w-full bg-white/75 p-3 backdrop-blur-xl flex justify-between items-center gap-3 absolute bottom-0">

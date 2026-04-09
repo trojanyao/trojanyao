@@ -4,7 +4,7 @@ import { getTranslations } from 'next-intl/server';
 import SectionHeader from '@/app/[locale]/components/common/SectionHeader';
 import Breadcrumb from '@/app/[locale]/components/ui/Breadcrumb';
 import Line from '@/app/[locale]/components/ui/Line';
-import ProjectCardSkeleton from '@/app/[locale]/project/components/ProjectItemSkeleton';
+import ProjectItemSkeleton from '@/app/[locale]/project/components/skeleton/ProjectItemSkeleton';
 
 export default async function ProjectListLoading() {
   const t = await getTranslations('dev');
@@ -30,7 +30,7 @@ export default async function ProjectListLoading() {
 
               <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {Array.from({ length: 3 - index }).map((_, idx) => (
-                  <ProjectCardSkeleton key={idx} />
+                  <ProjectItemSkeleton key={idx} />
                 ))}
               </div>
             </div>

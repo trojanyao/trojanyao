@@ -4,7 +4,7 @@ import { CheckBadgeIcon } from '@heroicons/react/24/outline';
 import { getTranslations } from 'next-intl/server';
 
 import ProjectItem from '@/app/[locale]/project/components/ProjectItem';
-import ProjectCardSkeleton from '@/app/[locale]/project/components/ProjectItemSkeleton';
+import ProjectItemSkeleton from '@/app/[locale]/project/components/skeleton/ProjectItemSkeleton';
 import { getProjects } from '@/lib/notion';
 
 import SectionHeader from '../common/SectionHeader';
@@ -45,7 +45,7 @@ function ProjectListSkeleton() {
   return (
     <>
       {Array.from({ length: 3 }).map((_, index) => (
-        <ProjectCardSkeleton key={index} />
+        <ProjectItemSkeleton key={index} />
       ))}
     </>
   );

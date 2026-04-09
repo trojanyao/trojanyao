@@ -8,7 +8,7 @@ import { useTranslations } from 'next-intl';
 
 import SectionHeader from '@/app/[locale]/components/common/SectionHeader';
 import Line from '@/app/[locale]/components/ui/Line';
-import ProjectCardSkeleton from '@/app/[locale]/project/components/ProjectItemSkeleton';
+import ProjectItemSkeleton from '@/app/[locale]/project/components/skeleton/ProjectItemSkeleton';
 
 export function SkillBreadcrumbSkeleton() {
   const t = useTranslations();
@@ -90,7 +90,7 @@ export function RelatedProjectsSkeleton() {
 
             <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {Array.from({ length: 3 - index }).map((__, idx) => (
-                <ProjectCardSkeleton key={idx} />
+                <ProjectItemSkeleton key={idx} />
               ))}
             </div>
           </div>
