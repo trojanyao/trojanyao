@@ -46,7 +46,7 @@ export default function ProjectItem({
           className="[@media(hover:hover)]:hover:scale-110 transition-all duration-300 ease-out"
           {...(isHeroCover
             ? /* preload: early discovery (LCP breakdown). fetchPriority is forwarded to ReactDOM.preload() / <link rel="preload"> by Next (see next/dist/client/image-component.js ImagePreload). Do not set loading here (avoid preload+loading per docs). */
-              { preload: true as const, fetchPriority: 'high' as const }
+              { preload: true as const, fetchPriority: 'high' as const, loading: 'eager' as const }
             : { loading: 'lazy' as const, fetchPriority: 'low' as const })}
         />
       </div>

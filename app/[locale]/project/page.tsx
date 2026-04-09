@@ -3,7 +3,6 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 import Breadcrumb from '@/app/[locale]/components/ui/Breadcrumb';
 import { getProjects } from '@/lib/notion';
-import { getProjectListFirstGridCoverHref } from '@/lib/utils/project-list-first-cover';
 
 import ProjectGroup from './components/ProjectGroup';
 
@@ -32,7 +31,6 @@ export default async function DevProjects({ params }: { params: Promise<{ locale
 
   const t = await getTranslations({ locale, namespace: 'dev' });
   const projects = await getProjects();
-  const firstCoverHref = getProjectListFirstGridCoverHref(projects);
 
   const breadcrumbMenus = [
     { text: t('common') }, // TODO: open /dev url
@@ -43,16 +41,7 @@ export default async function DevProjects({ params }: { params: Promise<{ locale
   return (
     <div className="content-wrap">
       <Breadcrumb menus={breadcrumbMenus} />
-      {/*
-        NOTE: Manually injecting link preload for the cover image is required. * Using the
-      "preload" attribute directly on an `Image` tag does not guarantee the image gets preloaded
-      before client-side React hydration. * Preloading via `link` ensures the browser starts
-      fetching the key cover image as early as possible, which is critical for LCP (Largest
-      Contentful Paint) optimization, especially during SSR.
-      */}
-      {firstCoverHref ? (
-        <link rel="preload" as="image" href={firstCoverHref} fetchPriority="high" />
-      ) : null}
+      {/* LCP cover: first grid card uses Image `preload` (ProjectGrid isFirstGroup + ProjectItem isHeroCover). */}
       <ProjectGroup projects={projects} />
     </div>
   );
