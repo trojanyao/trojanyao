@@ -19,6 +19,7 @@
     "dev": "Dev",
     "project": "Project",
     "service": "Service",
+    "resume": "Resume",
     "skill": "Skill",
     "copy-text": "Copy Text",
     "copy-email": "Copy Email"

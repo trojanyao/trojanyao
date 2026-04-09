@@ -24,16 +24,16 @@ export default function Nav() {
   const menus = [
     [
       {
-        name: t('service'),
-        path: '/resume',
-      },
-      {
         name: t('project'),
         path: '/project',
       },
       {
         name: t('skill'),
         path: '/skill/dev',
+      },
+      {
+        name: t('resume'),
+        path: '/resume',
       },
     ],
     // [
