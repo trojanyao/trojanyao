@@ -20,7 +20,11 @@ export default function GroupBy({
           onClick={() => onChange(option?.key)}
         >
           <span className="size-4">{option?.icon}</span>
-          <span className="hidden sm:inline text-small whitespace-nowrap">{option?.text}</span>
+          <span
+            className={`${option?.key === groupKey ? 'inline' : 'hidden'} sm:inline text-small whitespace-nowrap`}
+          >
+            {option?.text}
+          </span>
         </div>
       ))}
     </div>
