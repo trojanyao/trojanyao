@@ -5,7 +5,6 @@ import Breadcrumb from '@/app/[locale]/components/ui/Breadcrumb';
 import ProjectGroup from '@/app/[locale]/project/components/ProjectGroup';
 import { getProjects } from '@/lib/notion/project';
 import { getSkill } from '@/lib/notion/skill';
-import { getProjectListFirstGridCoverHref } from '@/lib/utils/project-list-first-cover';
 
 import SkillDetailBasicInfo from './components/SkillDetailBasicInfo';
 
@@ -37,19 +36,10 @@ export default async function SkillDetail({ params }: { params: Promise<{ id: st
     },
   ]);
   const [skill, projects] = await Promise.all([skillPromise, projectsPromise]);
-  const firstCoverHref = getProjectListFirstGridCoverHref(projects);
 
   return (
     <div className="content-wrap">
       <SkillBreadcrumb skill={skill} />
-
-      {skill?.logo ? (
-        <link rel="preload" as="image" href={skill.logo} fetchPriority="high" />
-      ) : null}
-
-      {firstCoverHref ? (
-        <link rel="preload" as="image" href={firstCoverHref} fetchPriority="high" />
-      ) : null}
 
       <SkillContent skill={skill} projects={projects} />
     </div>
