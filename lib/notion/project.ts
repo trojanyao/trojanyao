@@ -52,12 +52,6 @@ async function _getProjects(body?: any[]): Promise<Project[]> {
   }));
 }
 
-const getProjectsCached = unstable_cache(_getProjects, ['notion', 'project', 'getProjects'], {
-  // Project data changes infrequently; align with proxy cache window.
-  revalidate: 50 * 60, // 50 minutes (seconds)
-  tags: ['projects'],
-});
-
 export async function getProjects(body?: any[]): Promise<Project[]> {
   return getProjectsCached(body);
 }
@@ -114,9 +108,15 @@ async function _getProject(id: string): Promise<Project> {
   };
 }
 
-// Cross-request cache: avoid Notion API call on every navigation.
+const getProjectsCached = unstable_cache(_getProjects, ['notion', 'project', 'getProjects'], {
+  // Keep cache short to reduce stale signed URL risk while preserving server-render performance.
+  revalidate: 5 * 60, // 5 minutes (seconds)
+  tags: ['projects'],
+});
+
 const _getProjectCached = unstable_cache(_getProject, ['notion', 'project', 'getProject'], {
-  revalidate: 50 * 60, // 50 minutes — align with image proxy cache TTL
+  // Detail pages are expensive to compose; short TTL balances freshness and performance.
+  revalidate: 5 * 60, // 5 minutes (seconds)
   tags: ['projects'],
 });
 

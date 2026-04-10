@@ -31,6 +31,39 @@ function getCacheKey(url: URL, format: string | null, w: number): string {
   return key;
 }
 
+function redirectToOrigin(targetUrl: URL): NextResponse {
+  return NextResponse.redirect(targetUrl.toString(), 307);
+}
+
+function inferImageContentTypeFromPathname(pathname: string): string | null {
+  const ext = pathname.split('.').pop()?.toLowerCase();
+  if (!ext) return null;
+  if (ext === 'jpg' || ext === 'jpeg') return 'image/jpeg';
+  if (ext === 'png') return 'image/png';
+  if (ext === 'webp') return 'image/webp';
+  if (ext === 'avif') return 'image/avif';
+  if (ext === 'gif') return 'image/gif';
+  if (ext === 'svg') return 'image/svg+xml';
+  return null;
+}
+
+function normalizeContentType(raw: string | null, pathname: string): string {
+  const normalizedRaw = raw?.split(';')?.[0]?.trim().toLowerCase();
+  if (normalizedRaw?.startsWith('image/')) return normalizedRaw;
+  return inferImageContentTypeFromPathname(pathname) ?? 'application/octet-stream';
+}
+
+function isSharpTransformableImage(contentType: string): boolean {
+  return (
+    contentType === 'image/jpeg' ||
+    contentType === 'image/png' ||
+    contentType === 'image/webp' ||
+    contentType === 'image/gif' ||
+    contentType === 'image/tiff' ||
+    contentType === 'image/avif'
+  );
+}
+
 /** 缓存条数达到上限时，淘汰约 20% 最久未使用的条目 */
 function evictOldEntries(): void {
   if (serverCache.size < SERVER_CACHE_MAX) return;
@@ -89,15 +122,18 @@ export async function GET(request: NextRequest) {
       headers: { 'User-Agent': 'Mozilla/5.0 (compatible; Notion-Image-Proxy/1)' },
     });
     if (!res.ok) {
-      return NextResponse.json({ error: `Upstream returned ${res.status}` }, { status: 502 });
+      // Fallback to the origin URL so browser can still try direct fetch.
+      return redirectToOrigin(targetUrl);
     }
     let body: ArrayBuffer = await res.arrayBuffer();
-    let contentType = res.headers.get('Content-Type') ?? 'image/png';
+    let contentType = normalizeContentType(res.headers.get('Content-Type'), targetUrl.pathname);
 
     const wantResize = w > 0;
-    const wantAvif = format === 'avif';
+    // SVG should always stay vector; ignore AVIF conversion requests for this source type.
+    const wantAvif = format === 'avif' && contentType !== 'image/svg+xml';
 
-    if (wantResize || wantAvif) {
+    const canTransform = isSharpTransformableImage(contentType);
+    if ((wantResize || wantAvif) && canTransform) {
       try {
         let pipeline = sharp(Buffer.from(body));
         if (wantResize) pipeline = pipeline.resize({ width: w, withoutEnlargement: true });
@@ -121,6 +157,7 @@ export async function GET(request: NextRequest) {
       },
     });
   } catch {
-    return NextResponse.json({ error: 'Failed to fetch image' }, { status: 502 });
+    // Network/runtime failures on server side should not hard-break rendering.
+    return redirectToOrigin(targetUrl);
   }
 }

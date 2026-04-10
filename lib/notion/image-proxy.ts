@@ -17,6 +17,14 @@ export function isNotionImageUrl(url: string | null | undefined): boolean {
 
 export type ProxiedImageFormat = 'avif' | undefined;
 
+function isSvgUrl(url: string): boolean {
+  try {
+    return new URL(url).pathname.toLowerCase().endsWith('.svg');
+  } catch {
+    return false;
+  }
+}
+
 /**
  * 将 Notion 图片 URL 转为本站代理 URL，以便响应头带上长期缓存（如 1 年），
  * 满足 Lighthouse "Use efficient cache lifetimes" 要求。
@@ -30,6 +38,7 @@ export function getProxiedImageUrl(
   if (!url || typeof url !== 'string') return undefined;
   if (!isNotionImageUrl(url)) return url;
   const base = `/api/image-proxy?url=${encodeURIComponent(url)}`;
-  if (options?.format === 'avif') return `${base}&format=avif`;
+  // SVG is vector format; AVIF conversion is unnecessary and may reduce compatibility.
+  if (options?.format === 'avif' && !isSvgUrl(url)) return `${base}&format=avif`;
   return base;
 }

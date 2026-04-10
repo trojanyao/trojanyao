@@ -42,12 +42,6 @@ async function _getSkills(body?: any[]): Promise<Skill[]> {
   }));
 }
 
-const getSkillsCached = unstable_cache(_getSkills, ['notion', 'skill', 'getSkills'], {
-  // Skill data changes infrequently; cache long enough to avoid LCP blocking calls.
-  revalidate: 50 * 60, // 50 minutes (seconds) - align with image proxy server cache TTL
-  tags: ['skills'],
-});
-
 export async function getSkills(body?: any[]): Promise<Skill[]> {
   return getSkillsCached(body);
 }
@@ -74,12 +68,18 @@ export async function _getSkill(id: string): Promise<Skill> {
   };
 }
 
-const getSkillCached = unstable_cache(_getSkill, ['notion', 'skill', 'getSkill'], {
-  // Skill detail also changes infrequently; cache to reduce per-request LCP variance.
-  revalidate: 50 * 60, // 50 minutes (seconds)
-  tags: ['skills'],
-});
-
 export async function getSkill(id: string): Promise<Skill> {
   return getSkillCached(id);
 }
+
+const getSkillsCached = unstable_cache(_getSkills, ['notion', 'skill', 'getSkills'], {
+  // Keep cache short to lower stale signed URL probability while preserving page speed.
+  revalidate: 5 * 60, // 5 minutes (seconds)
+  tags: ['skills'],
+});
+
+const getSkillCached = unstable_cache(_getSkill, ['notion', 'skill', 'getSkill'], {
+  // Skill detail also benefits from short-lived cache for better TTFB.
+  revalidate: 5 * 60, // 5 minutes (seconds)
+  tags: ['skills'],
+});
