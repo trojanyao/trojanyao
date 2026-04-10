@@ -1,5 +1,3 @@
-import Image from 'next/image';
-
 import {
   AcademicCapIcon,
   BriefcaseIcon,
@@ -27,7 +25,6 @@ function GithubIcon({ className }: { className?: string }) {
 }
 
 import { formatYearMonth } from '@/lib/utils/format-date';
-import Portrait from '@/public/imgs/portrait.webp';
 
 import CopyableText from '../../components/ui/copyable-text';
 
@@ -89,15 +86,29 @@ export default function Cover() {
 
   return (
     <div className="bg-cover-black w-full aspect-4/3 pr-2 xs:pr-6 relative overflow-hidden flex flex-row-reverse items-center">
-      <Image
-        src={Portrait}
-        alt="Portrait"
-        width={288}
-        height={432}
-        className="w-1/2 absolute top-0 left-0 bottom-0"
-        loading="eager"
-        fetchPriority="high"
-      />
+      <picture>
+        <source
+          type="image/avif"
+          srcSet="/imgs/portrait.avif"
+          sizes="(max-width: 576px) 50vw, 288px"
+        />
+        <source
+          type="image/webp"
+          srcSet="/imgs/portrait.webp"
+          sizes="(max-width: 576px) 50vw, 288px"
+        />
+        {/* Keep native sources for explicit format fallback under unoptimized mode. */}
+        <img
+          src="/imgs/portrait.webp"
+          alt="Portrait"
+          width={288}
+          height={432}
+          className="w-1/2 absolute top-0 left-0 bottom-0"
+          loading="eager"
+          fetchPriority="high"
+          decoding="async"
+        />
+      </picture>
 
       <div className="flex flex-col gap-3 xs:gap-6 relative z-10">
         {/* Header */}
