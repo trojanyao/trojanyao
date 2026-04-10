@@ -119,7 +119,9 @@ export default async function RootLayout({
 
             {/* 1280px(xl breakpoint) + 72px(40px width + 2 * 16px padding) = 1352px as the breakpoint to fix ScrollToTop */}
             <LazyScrollToTop className="fixed bottom-3 right-3 min-[1352px]:left-[calc(50vw+600px+16px)]" />
-            <DeferredAnalytics />
+            {process.env.NODE_ENV === 'production' && process.env.VERCEL === '1' ? (
+              <DeferredAnalytics />
+            ) : null}
           </SmoothScroll>
         </NextIntlClientProvider>
       </body>

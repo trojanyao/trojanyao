@@ -7,8 +7,15 @@ const Analytics = dynamic(
   () => import('@vercel/analytics/next').then((mod) => ({ default: mod.Analytics })),
   { ssr: false }
 );
+const SpeedInsights = dynamic(
+  () => import('@vercel/speed-insights/next').then((mod) => ({ default: mod.SpeedInsights })),
+  { ssr: false }
+);
 
-/** 在 requestIdleCallback 后再挂载 Analytics，减轻首屏主线程 Script Evaluation */
+/**
+ * Mount Vercel telemetry scripts after idle time to reduce
+ * main-thread script evaluation during initial paint.
+ */
 export default function DeferredAnalytics() {
   const [mounted, setMounted] = useState(false);
 
@@ -25,5 +32,10 @@ export default function DeferredAnalytics() {
   }, []);
 
   if (!mounted) return null;
-  return <Analytics />;
+  return (
+    <>
+      <Analytics />
+      <SpeedInsights />
+    </>
+  );
 }
