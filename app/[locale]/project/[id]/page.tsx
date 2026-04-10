@@ -123,6 +123,7 @@ async function ProjectContent({ dataPromise }: { dataPromise: Promise<Project> }
 /* Component: BasicInfo */
 function BasicInfo({ project }: { project: Project }) {
   const locale = useLocale();
+  const tType = useTranslations('project.type');
 
   return (
     <div className="flex flex-col gap-6 md:flex-row md:gap-8 lg:gap-10">
@@ -143,7 +144,7 @@ function BasicInfo({ project }: { project: Project }) {
 
                 <div className="flex items-center gap-1">
                   {project?.platform?.map((t: ProjectPlatformVisible, i) => (
-                    <ProductType key={i} platform={t} />
+                    <ProductType key={i} platform={t} label={tType(t)} />
                   ))}
                 </div>
               </div>

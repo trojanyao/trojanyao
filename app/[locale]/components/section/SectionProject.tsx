@@ -3,7 +3,7 @@ import { Suspense } from 'react';
 import { CheckBadgeIcon } from '@heroicons/react/24/outline';
 import { getTranslations } from 'next-intl/server';
 
-import ProjectItem from '@/app/[locale]/project/components/ProjectItem';
+import ProjectItemServer from '@/app/[locale]/project/components/ProjectItemServer';
 import ProjectItemSkeleton from '@/app/[locale]/project/components/skeleton/ProjectItemSkeleton';
 import { getProjects } from '@/lib/notion';
 
@@ -35,7 +35,7 @@ async function ProjectList() {
   return (
     <>
       {projects?.map((item, index) => (
-        <ProjectItem key={index} data={item} />
+        <ProjectItemServer key={index} data={item} />
       ))}
     </>
   );

@@ -6,7 +6,7 @@ import { getProjects, getSkills } from '@/lib/notion';
 
 import SectionHeader from '../components/common/SectionHeader';
 import Breadcrumb from '../components/ui/Breadcrumb';
-import ProjectItem from '../project/components/ProjectItem';
+import ProjectItemServer from '../project/components/ProjectItemServer';
 import SkillGrid from '../skill/components/SkillGrid';
 
 export default async function Develop() {
@@ -44,7 +44,7 @@ export default async function Develop() {
 
           <div className="max-w-full flex gap-6 overflow-x-scroll">
             {projects.map((item, index) => (
-              <ProjectItem key={index} data={item} />
+              <ProjectItemServer key={index} data={item} />
             ))}
           </div>
         </section>

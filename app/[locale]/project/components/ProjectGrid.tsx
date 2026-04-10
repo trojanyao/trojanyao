@@ -1,4 +1,4 @@
-import ProjectItem from './ProjectItem';
+import ProjectItemClient from './ProjectItemClient';
 
 export default function ProjectGrid({
   list,
@@ -13,7 +13,7 @@ export default function ProjectGrid({
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {list.map((item, index) => (
-        <ProjectItem
+        <ProjectItemClient
           key={item.id}
           data={item}
           isHeroCover={Boolean(isFirstGroup && index === 0)}

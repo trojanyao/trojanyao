@@ -1,42 +1,23 @@
-'use client';
-
+import { type ReactNode } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
 
-import { useLocale } from 'next-intl';
+import getProjectPlatformColorClass from './primitives/getProjectPlatformColorClass';
 
-import ProductType from './primitives/ProductType';
-
-export default function ProjectItem({
+// Shared presentational card for both server and client wrappers.
+// Keep this component free of routing, storage, and i18n hooks so both environments can reuse it.
+export default function ProjectItemCard({
   data,
-  /** Only one cover per page/section should be the LCP candidate; parents must set this (not just map index). */
-  isHeroCover = false,
+  isEN,
+  isHeroCover,
+  platformLabel,
 }: {
   data: Project;
-  isHeroCover?: boolean;
+  isEN: boolean;
+  isHeroCover: boolean;
+  platformLabel: (platform: ProjectPlatformVisible) => ReactNode;
 }) {
-  const locale = useLocale();
-  const isEN = locale === 'en';
-
   return (
-    <Link
-      href={`/project/${data?.id}`}
-      onClick={() => {
-        try {
-          sessionStorage.setItem(
-            `project_hint_${data?.id}`,
-            JSON.stringify({
-              color: data?.color ?? '',
-              width: data?.width ?? 0,
-              height: data?.height ?? 0,
-            }),
-          );
-        } catch {
-          /* quota exceeded or private browsing */
-        }
-      }}
-      className="flex-1 aspect-4/3 bg-light-gray border border-third rounded-[20px] overflow-hidden relative flex flex-col"
-    >
+    <>
       {/* Cover: prefer AVIF when coverAvif exists (image-proxy when unoptimized). */}
       <div className="flex-1 overflow-hidden">
         <Image
@@ -70,8 +51,13 @@ export default function ProjectItem({
             </div>
 
             <div className="flex items-center gap-1">
-              {data?.platform?.map((t: ProjectPlatformVisible, i) => (
-                <ProductType key={i} platform={t} />
+              {data?.platform?.map((platform: ProjectPlatformVisible, i) => (
+                <div
+                  key={i}
+                  className={`px-2 py-1 ${getProjectPlatformColorClass(platform)} rounded-full text-center text-[0.625rem] whitespace-nowrap`}
+                >
+                  {platformLabel(platform)}
+                </div>
               ))}
             </div>
           </div>
@@ -93,6 +79,6 @@ export default function ProjectItem({
           </div>
         </div>
       </div>
-    </Link>
+    </>
   );
 }
