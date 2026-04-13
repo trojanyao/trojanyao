@@ -7,6 +7,7 @@
       "ui-ux": "Good at crafting\\nUI- and UX-friendly front-end projects"
     },
     "design-savvy": "Design-Savvy",
+    "full-stack-engineer": "Full-Stack Engineer",
     "fe-engineer": "Front-end Engineer",
     "fully-remote": "Fully Remote",
     "minimalist": "Minimalist",
@@ -15,7 +16,7 @@
   "common": {
     "app": "MinimaLife",
     "title": "MinimaLife | TROJAN's Website",
-    "desc": "Fully remote freelancer, design-savvy front-end engineer, minimalist",
+    "desc": "AI-Driven full-stack engineer, design-savvy front-end engineer, minimalist",
     "dev": "Dev",
     "project": "Project",
     "service": "Service",

@@ -9,7 +9,6 @@ import { gsap } from 'gsap';
 import { useLocale, useTranslations } from 'next-intl';
 
 import AvailableStatus from '@/app/[locale]/service/components/AvailableStatus';
-import { kaushan_script } from '@/lib/fonts';
 
 gsap.registerPlugin(useGSAP);
 
@@ -20,7 +19,7 @@ export default function Banner() {
 
   const textGroups = [
     {
-      title: { left: t('fully-remote'), right: 'Freelancer' },
+      title: { left: 'AI-Driven', right: t('full-stack-engineer') },
       description: t('desc.masterpiece'),
     },
     {
@@ -32,7 +31,7 @@ export default function Banner() {
       description: t('desc.minimalism'),
     },
     {
-      title: { left: t('fully-remote'), right: 'Freelancer' },
+      title: { left: 'AI-Driven', right: t('full-stack-engineer') },
       description: t('desc.masterpiece'),
     },
   ];
@@ -118,12 +117,18 @@ export default function Banner() {
                   <div
                     className={`flex ${locale === 'en' ? 'flex-col sm:flex-row' : 'flex-row'} justify-center items-center gap-2`}
                   >
-                    <span className="banner-left">{text?.title?.left}</span>
+                    <span
+                      className={`banner-left
+                        ${(index === 0 || index === 3) && 'text-green italic'}
+                      `}
+                    >
+                      {text?.title?.left}
+                    </span>
                     <span
                       className={`banner-right
-                        ${(index === 0 || index === 3) && 'text-green'}
+                        
                         ${index === 2 && 'text-orange'}
-                        ${(index === 0 || index === 3) && kaushan_script.className}`}
+                        `}
                     >
                       {text?.title?.right}
                     </span>
