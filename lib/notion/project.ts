@@ -1,5 +1,4 @@
 import { cache } from 'react';
-import { unstable_cache } from 'next/cache';
 
 import { ProjectPlatform, type ProjectPlatformOriginType } from '../constants/project.constants';
 
@@ -52,9 +51,11 @@ async function _getProjects(body?: any[]): Promise<Project[]> {
   }));
 }
 
-export async function getProjects(body?: any[]): Promise<Project[]> {
-  return getProjectsCached(body);
-}
+/*
+ * Use React `cache()` only (no unstable_cache). unstable_cache can serve stale-while-revalidate
+ * payloads with expired Notion S3 presigned URLs, breaking images on the first request after TTL.
+ */
+export const getProjects = cache(_getProjects);
 
 /* Get Project Detail (cached) */
 async function _getProject(id: string): Promise<Project> {
@@ -108,17 +109,4 @@ async function _getProject(id: string): Promise<Project> {
   };
 }
 
-const getProjectsCached = unstable_cache(_getProjects, ['notion', 'project', 'getProjects'], {
-  // Keep cache short to reduce stale signed URL risk while preserving server-render performance.
-  revalidate: 5 * 60, // 5 minutes (seconds)
-  tags: ['projects'],
-});
-
-const _getProjectCached = unstable_cache(_getProject, ['notion', 'project', 'getProject'], {
-  // Detail pages are expensive to compose; short TTL balances freshness and performance.
-  revalidate: 5 * 60, // 5 minutes (seconds)
-  tags: ['projects'],
-});
-
-// React cache wraps the cached version for per-request dedup (metadata + render).
-export const getProject = cache(_getProjectCached);
+export const getProject = cache(_getProject);
