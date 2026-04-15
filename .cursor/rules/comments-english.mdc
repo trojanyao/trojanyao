@@ -1,0 +1,17 @@
+---
+description: All code comments must be written in English
+alwaysApply: true
+---
+
+# Comments language
+
+- Write **all** code comments, JSDoc/TSDoc, and inline `//` / `/* */` explanations in **English** only.
+- User-facing copy (UI strings, i18n keys, docs for end users) may stay in the product’s locale; this rule applies to **developer comments in source code**.
+
+```tsx
+// ❌ BAD: Chinese comment in source
+// 封面图 LCP 优化
+
+// ✅ GOOD
+// Cover image LCP optimization
+```

@@ -1,0 +1,30 @@
+---
+description: Wrap code-like identifiers in assistant replies with backticks
+alwaysApply: true
+---
+
+# Code-like identifiers in replies
+
+When writing **assistant replies** to the user (not necessarily when editing source files), wrap **code-like** tokens in **inline backticks** so they read clearly and match Markdown convention.
+
+## What to wrap
+
+- **Identifiers**: function and API names (e.g. `unstable_cache`, `cache`), hooks (`useEffect`), types, variables mentioned as symbols
+- **Framework / runtime concepts as symbols**: `force-dynamic`, `revalidate`, `GET`, `Cache-Control`
+- **Paths and locations**: file paths (`lib/notion/project.ts`), directories (`.cursor/rules/`), config keys when shown as literals
+- **Commands and package names** when inline: `pnpm exec tsc`; prefer fenced blocks for multi-line commands or logs
+
+## What stays plain
+
+- Normal prose, product names, and **end-user UI copy** unless you are quoting a literal string from code
+- Whole sentences of explanation—only the **symbol-like** fragments get backticks
+
+## Examples
+
+- Prefer: `unstable_cache` 的 stale-while-revalidate 行为
+- Avoid: unstable_cache 的 stale-while-revalidate 行为（未加反引号）
+
+- Prefer: 使用 React 的 `cache()` 做请求内去重
+- Avoid: 使用 React 的 cache() 做请求内去重（括号易被误读）
+
+Keep **developer-facing comments inside source code** governed by the existing **Comments language** rule (English only); this rule is about **Markdown in chat**, not comment language.
