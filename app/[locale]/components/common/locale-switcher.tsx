@@ -35,10 +35,10 @@ export function LocaleSwitcher() {
     <div className="shadcn-root">
       <Tabs defaultValue={locale} value={locale} onValueChange={handleValueChange}>
         <TabsList aria-label={locale === 'zh' ? '选择语言' : 'Switch language'}>
-          {locales.map(({ locale, label, flag }) => (
+          {locales.map(({ locale: tabLocale, label, flag }) => (
             <TabsTrigger
-              key={locale}
-              value={locale}
+              key={tabLocale}
+              value={tabLocale}
               className="flex items-center gap-1 cursor-pointer"
               aria-label={
                 label === '中文'
@@ -55,7 +55,7 @@ export function LocaleSwitcher() {
             </TabsTrigger>
           ))}
         </TabsList>
-        {/* 占位内容，使 Trigger 的 aria-controls 指向的 id 存在于 DOM，满足 a11y 校验 */}
+        {/* Placeholder panels so each trigger's aria-controls id exists in the DOM (a11y). */}
         <TabsContent value="zh" className="sr-only" />
         <TabsContent value="en" className="sr-only" />
       </Tabs>
