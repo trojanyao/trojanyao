@@ -7,17 +7,20 @@ const nextConfig = {
     config.plugins.push(
       AutoImport({
         imports: ['react'], // 可根据需要添加其他需要自动导入的模块
-      })
+      }),
     );
     // if (dev && !isServer) {
     //   config.devtool = 'source-map';
     // }
     return config;
   },
+  experimental: {
+    inlineCss: true,
+  },
   images: {
-    formats: ['image/avif', 'image/webp'],
+    loader: 'custom',
+    loaderFile: './lib/image-loader.ts',
     dangerouslyAllowSVG: true,
-    unoptimized: true, // Disable image optimization to save Vercel costs
     remotePatterns: [
       {
         protocol: 'https',
@@ -28,6 +31,15 @@ const nextConfig = {
     ],
   },
   // productionBrowserSourceMaps: true,
+  // Disable/avoid Next.js legacy polyfills for modern browsers.
+  // This is a Turbopack-only workaround for Lighthouse "Legacy JavaScript".
+  transpilePackages: ['next'],
+  turbopack: {
+    resolveAlias: {
+      '../build/polyfills/polyfill-module': './lib/modern-polyfill.js',
+      'next/dist/build/polyfills/polyfill-module': './lib/modern-polyfill.js',
+    },
+  },
 };
 
 const withNextIntl = createNextIntlPlugin('./i18n/request.ts');

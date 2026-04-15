@@ -1,9 +1,10 @@
 import { Suspense } from 'react';
 
-import { getTranslations } from 'next-intl/server';
+import { getLocale, getTranslations } from 'next-intl/server';
 
+import { SkillItemSkeleton } from '@/app/[locale]/skill/components/skeleton/SkillGridSkeleton';
 import SkillItem from '@/app/[locale]/skill/components/SkillItem';
-import SkillItemSkeleton from '@/app/[locale]/skill/components/SkillItemSkeleton';
+import { getSkillLevelLabelMap } from '@/app/[locale]/skill/get-skill-level-labels';
 import { skillCategories, skillProficiencies } from '@/lib/constants/skill.constants';
 import { getSkills } from '@/lib/notion';
 import { groupBy } from '@/lib/utils/group-by';
@@ -18,6 +19,10 @@ export default function TechStacks() {
 
 /* Component: TechStacksContent */
 async function TechStacksContent() {
+  const locale = await getLocale();
+  const isEnglish = locale === 'en';
+  // Resume skill grids are RSC here: use server map so nested `SkillItem` rows skip per-cell intl.
+  const statusLabels = await getSkillLevelLabelMap();
   const t = await getTranslations('skill.category');
 
   const skills: Skill[] = await getSkills();
@@ -34,12 +39,21 @@ async function TechStacksContent() {
   return groupedSkills?.map((groupItem, index) => (
     <div key={index} className="flex flex-col gap-4">
       <div className="pl-1 text-primary text-middle font-medium">{t(groupItem?.groupName)}</div>
-      <SkillGrid skills={groupItem?.items} />
+      <SkillGrid skills={groupItem?.items} isEnglish={isEnglish} statusLabels={statusLabels} />
     </div>
   ));
 }
 
-function SkillGrid({ skills }: { skills: Skill[] }) {
+function SkillGrid({
+  skills,
+  isEnglish,
+  statusLabels,
+}: {
+  skills: Skill[];
+  isEnglish: boolean;
+  /** From `getSkillLevelLabelMap()` in parent RSC—forwarded to each `SkillItem` as `statusLabel`. */
+  statusLabels: Record<SkillStatus, string>;
+}) {
   skills.sort((a, b) => {
     const indexA = skillProficiencies.indexOf(a?.status);
     const indexB = skillProficiencies.indexOf(b?.status);
@@ -49,7 +63,13 @@ function SkillGrid({ skills }: { skills: Skill[] }) {
   return (
     <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
       {skills.map((item) => (
-        <SkillItem key={item?.id} data={item} className="bg-white" />
+        <SkillItem
+          key={item?.id}
+          data={item}
+          className="bg-white"
+          isEnglish={isEnglish}
+          statusLabel={statusLabels[item.status]}
+        />
       ))}
     </div>
   );

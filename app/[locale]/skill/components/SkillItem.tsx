@@ -1,23 +1,35 @@
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { useLocale } from 'next-intl';
+import SkillStatusView from './primitives/SkillStatusView';
 
-import SkillStatus from './SkillStatus';
+const SkillStatusClient = dynamic(() => import('./primitives/SkillStatusClient'));
 
 function getAngleFromId(id: string) {
   let hash = 0;
   for (const ch of id) {
     hash = (hash << 5) - hash + ch.charCodeAt(0);
-    hash |= 0; // 转成 32 位有符号
+    hash |= 0; // Force 32-bit signed int
   }
   return hash % 2 === 0 ? 'group-hover:-rotate-10' : 'group-hover:rotate-10';
 }
 
-export default function SkillItem({ data, className }: { data: Skill; className?: string }) {
-  const locale = useLocale();
-  const isEN = locale === 'en';
-
+export default function SkillItem({
+  data,
+  className,
+  isEnglish,
+  statusLabel,
+}: {
+  data: Skill;
+  className?: string;
+  isEnglish: boolean;
+  /**
+   * Pre-resolved `skill.level.*` from a parent (`SkillGrid` / server map or client `useMemo`).
+   * When defined, renders `SkillStatusView` only; when omitted, falls back to `SkillStatusClient` (dynamic).
+   */
+  statusLabel?: string;
+}) {
   const angle = getAngleFromId(data?.id);
 
   return (
@@ -37,10 +49,14 @@ export default function SkillItem({ data, className }: { data: Skill; className?
         <div
           className={`text-secondary text-small font-medium leading-tight overflow-hidden whitespace-nowrap text-ellipsis`}
         >
-          {isEN ? data?.nameEN || data?.name : data?.name}
+          {isEnglish ? data?.nameEN || data?.name : data?.name}
         </div>
 
-        <SkillStatus status={data?.status} />
+        {statusLabel !== undefined ? (
+          <SkillStatusView status={data?.status} label={statusLabel} />
+        ) : (
+          <SkillStatusClient status={data?.status} />
+        )}
       </div>
     </Link>
   );

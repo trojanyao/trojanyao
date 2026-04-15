@@ -3,9 +3,10 @@ import { cache } from 'react';
 import { SkillCategoryEnum, SkillStatusEnum } from '../constants/skill.constants';
 
 import notion from './client';
+import { getProxiedImageUrl } from './image-proxy';
 
-/* Get Skill List */
-export async function getSkills(body?: any[]): Promise<Skill[]> {
+/* Get Skill List (cached) */
+async function _getSkills(body?: any[]): Promise<Skill[]> {
   const res = await notion.databases.query({
     database_id: process.env.NOTION_DATABASE_SKILL_DEV!,
     filter: {
@@ -31,7 +32,7 @@ export async function getSkills(body?: any[]): Promise<Skill[]> {
     id: page.id,
     name: page.properties?.['技能']?.title?.[0]?.text?.content,
     nameEN: page.properties?.['Name']?.rich_text?.[0]?.text?.content,
-    logo: page.icon?.file?.url,
+    logo: getProxiedImageUrl(page.icon?.file?.url) ?? page.icon?.file?.url ?? '',
     status: SkillStatusEnum[
       (page.properties?.['优先级 / 状态']?.status?.name as keyof typeof SkillStatusEnum) ?? '学习中'
     ] as SkillStatus,
@@ -41,16 +42,21 @@ export async function getSkills(body?: any[]): Promise<Skill[]> {
   }));
 }
 
+/*
+ * Same as projects: avoid unstable_cache SWR serving expired Notion file URLs.
+ */
+export const getSkills = cache(_getSkills);
+
 /* Get Skill Detail */
 export async function _getSkill(id: string): Promise<Skill> {
-  // console.log(`[getSkill] 实际执行 API 调用，id: ${id}`, new Date().toISOString());
+  // console.log(`[getSkill] actual API call, id: ${id}`, new Date().toISOString());
   const page: any = await notion.pages.retrieve({ page_id: id });
 
   return {
     id: page.id,
     name: page.properties?.['技能']?.title?.[0]?.text?.content,
     nameEN: page.properties?.['Name']?.rich_text?.[0]?.text?.content,
-    logo: page.icon?.file?.url,
+    logo: getProxiedImageUrl(page.icon?.file?.url) ?? page.icon?.file?.url ?? '',
     // TODO: support bold and other annotations
     description: page.properties?.['简介 *']?.rich_text
       ?.map((item: any) => item?.plain_text)

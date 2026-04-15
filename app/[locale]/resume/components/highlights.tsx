@@ -159,7 +159,13 @@ export default function Highlights() {
 
             {/* Image */}
             <div className={`w-3/5 overflow-hidden ${index === 0 ? 'rounded-2xl' : ''}`}>
-              <Image src={item.img} alt={item[lang].title} />
+              <Image
+                src={item.img}
+                alt={item[lang].title}
+                // Cards are around 60% of the container width, not full viewport.
+                sizes="(max-width: 576px) 60vw, 346px"
+                loading="lazy"
+              />
             </div>
           </div>
         ))}

@@ -4,8 +4,7 @@ import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 
 import CopyableText from '@/app/[locale]/components/ui/copyable-text';
-import WeChatLogo from '@/public/icons/wechat.webp';
-import WeChatQRCode from '@/public/imgs/wechat-qrcode.webp';
+import WeChatLogo from '@/public/icons/wechat.svg';
 
 import { btnTextClass, buttonClass } from '.';
 
@@ -74,13 +73,20 @@ export default function AddWeChat() {
 		`}
           style={{ zIndex: 20 }}
         >
-          <Image
-            src={WeChatQRCode}
-            alt="WeChat QR Code"
-            width={112}
-            height={112}
-            className="size-28 min-w-28 min-h-28"
-          />
+          <picture>
+            <source type="image/avif" srcSet="/imgs/wechat-qrcode.avif" />
+            <source type="image/webp" srcSet="/imgs/wechat-qrcode.webp" />
+            {/* Keep native fallback to align with unoptimized image strategy. */}
+            <img
+              src="/imgs/wechat-qrcode.webp"
+              alt="WeChat QR Code"
+              width={112}
+              height={112}
+              className="size-28 min-w-28 min-h-28"
+              loading="lazy"
+              decoding="async"
+            />
+          </picture>
           <CopyableText text="trojanyao" ariaLabel={t('copy-wechat')} />
         </div>
       </div>

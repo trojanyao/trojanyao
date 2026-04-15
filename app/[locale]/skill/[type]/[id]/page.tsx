@@ -1,19 +1,17 @@
 import { Suspense } from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
 
-import { ArrowTopRightOnSquareIcon } from '@heroicons/react/16/solid';
 import { Metadata } from 'next';
-import { useLocale } from 'next-intl';
 import { getLocale, getTranslations } from 'next-intl/server';
 
 import Breadcrumb from '@/app/[locale]/components/ui/Breadcrumb';
-import ProjectList from '@/app/[locale]/project/components/ProjectGroup';
+import ProjectGroup from '@/app/[locale]/project/components/ProjectGroup';
 import { getProjects } from '@/lib/notion/project';
 import { getSkill } from '@/lib/notion/skill';
 
-import SkillStatus from '../../components/SkillStatus';
+import SkillDetailBasicInfo from './components/SkillDetailBasicInfo';
+import { BasicInfoSkeleton, SkillBreadcrumbSkeleton } from './components/SkillDetailSkeleton';
 
+/* Metadata */
 export async function generateMetadata({
   params,
 }: {
@@ -32,22 +30,31 @@ export async function generateMetadata({
 export default async function SkillDetail({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
 
+  const skillPromise = getSkill(id);
+  const projectsPromise = getProjects([
+    {
+      property: '技术栈 *',
+      relation: {
+        contains: id,
+      },
+    },
+  ]);
+
   return (
     <div className="content-wrap">
-      <SkillBreadcrumb dataPromise={getSkill(id)} />
-
-      <Suspense fallback={<BasicInfoSkeleton />}>
-        <SkillContent dataPromise={getSkill(id)} />
+      <Suspense fallback={<SkillBreadcrumbSkeleton />}>
+        <SkillBreadcrumb skillPromise={skillPromise} />
       </Suspense>
+
+      <SkillContent skillPromise={skillPromise} projectsPromise={projectsPromise} />
     </div>
   );
 }
 
-async function SkillBreadcrumb({ dataPromise }: { dataPromise: Promise<Skill> }) {
+async function SkillBreadcrumb({ skillPromise }: { skillPromise: Promise<Skill> }) {
+  const skill = await skillPromise;
   const locale = await getLocale();
   const t = await getTranslations();
-
-  const skill = await dataPromise;
 
   const breadcrumbMenus = [
     { text: t('common.dev'), url: '/dev' },
@@ -58,88 +65,33 @@ async function SkillBreadcrumb({ dataPromise }: { dataPromise: Promise<Skill> })
   return <Breadcrumb menus={breadcrumbMenus} />;
 }
 
-async function SkillContent({ dataPromise }: { dataPromise: Promise<Skill> }) {
+async function SkillContent({
+  skillPromise,
+  projectsPromise,
+}: {
+  skillPromise: Promise<Skill>;
+  projectsPromise: Promise<Project[]>;
+}) {
   const t = await getTranslations();
-
-  const skill = await dataPromise;
-
-  /* <RelatedProjects> must be a client component, so we need to fetch the projects here */
-  const projects = await getProjects([
-    {
-      property: '技术栈 *',
-      relation: {
-        contains: skill?.id,
-      },
-    },
-  ]);
 
   return (
     <div className="flex flex-col gap-8">
-      <BasicInfo skill={skill} />
+      <Suspense fallback={<BasicInfoSkeleton />}>
+        <SkillDetailBasicInfoSection skillPromise={skillPromise} />
+      </Suspense>
 
-      <ProjectList projects={projects} title={t('skill.related-project')} />
+      {/* Note: Section already contains internal skeleton loading components. */}
+      <ProjectGroup projectsRequest={projectsPromise} title={t('skill.related-project')} />
     </div>
   );
 }
 
-function BasicInfo({ skill }: { skill: Skill }) {
-  const locale = useLocale();
+async function SkillDetailBasicInfoSection({ skillPromise }: { skillPromise: Promise<Skill> }) {
+  const skill = await skillPromise;
+  const tLevel = await getTranslations('skill.level');
+  // Resolve the one `skill.level.*` string on the server for `SkillDetailBasicInfo` (client) so the
+  // status row does not need `useTranslations` there—same idea as `getSkillLevelLabelMap` for grids.
+  const statusLabel = tLevel(skill.status);
 
-  return (
-    <div className="flex justify-between items-center">
-      {/* Left */}
-      <div className="w-full lg:w-2/3 flex gap-6">
-        <Image src={skill?.logo} alt={skill?.name} width={96} height={96} className="size-24" />
-
-        <div className="py-1 flex flex-col justify-center gap-2">
-          {/* Name & Link */}
-          <div className="flex items-center gap-3">
-            <h1 className="title-large">
-              {locale === 'en' ? skill?.nameEN || skill?.name : skill?.name}
-            </h1>
-
-            {skill?.site && (
-              <Link href={skill?.site} target="_blank" className="p-1 group">
-                <ArrowTopRightOnSquareIcon className="size-4 text-light group-hover:text-primary" />
-              </Link>
-            )}
-          </div>
-
-          {/* Desc */}
-          {skill?.description && locale === 'zh' && (
-            <div className="text-small text-light text-pretty leading-normal">
-              {skill?.description}
-            </div>
-          )}
-
-          {/* Status */}
-          <SkillStatus status={skill?.status} />
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function BasicInfoSkeleton() {
-  return (
-    <div className="pt-8 flex justify-between items-center animate-pulse">
-      {/* Left */}
-      <div className="w-full lg:w-2/3 flex gap-6">
-        <div className="bg-middle-gray size-24 aspect-square rounded-full" />
-
-        <div className="py-1 flex flex-col justify-center gap-1 w-full">
-          {/* Name & Link */}
-          <div className="flex items-center gap-3">
-            <div className="bg-middle-gray h-6 w-32 rounded-md" />
-          </div>
-
-          {/* Desc */}
-          <div className="bg-middle-gray h-4 w-full rounded-md mt-2" />
-
-          {/* Status */}
-          <div className="bg-middle-gray h-4 w-24 rounded-md mt-4" />
-        </div>
-      </div>
-    </div>
-  );
+  return <SkillDetailBasicInfo skill={skill} statusLabel={statusLabel} />;
 }

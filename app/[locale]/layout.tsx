@@ -1,15 +1,16 @@
 import '../globals.css';
 import { notFound } from 'next/navigation';
 
-import { Analytics } from '@vercel/analytics/next';
 import { hasLocale, NextIntlClientProvider } from 'next-intl';
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 import { routing } from '@/i18n/routing';
+import { inter } from '@/lib/fonts';
 
+import DeferredAnalytics from './components/common/DeferredAnalytics';
 import Footer from './components/common/Footer';
 import Header from './components/common/Header';
-import ScrollToTop from './components/common/ScrollToTop';
+import LazyScrollToTop from './components/common/LazyScrollToTop';
 import SmoothScroll from './smooth-scroll';
 
 import type { Metadata } from 'next';
@@ -74,7 +75,8 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations('common');
+  // 使用显式 locale，避免触发 getRequestConfig 的 requestLocale（否则会强制 dynamic）
+  const t = await getTranslations({ locale, namespace: 'common' });
 
   return {
     title: {
@@ -101,9 +103,14 @@ export default async function RootLayout({
     notFound();
   }
 
+  // Enable static rendering
+  setRequestLocale(locale);
+
   return (
-    <html>
-      <body className="max-w-[1200px] min-h-screen bg-white m-auto overflow-x-hidden flex flex-col items-center text-black font-normal leading-none">
+    <html lang={locale}>
+      <body
+        className={`${inter.className} ${inter.variable} max-w-[1200px] min-h-screen bg-white m-auto overflow-x-hidden flex flex-col items-center text-black font-normal leading-none`}
+      >
         <NextIntlClientProvider locale={locale}>
           <SmoothScroll>
             <Header />
@@ -111,8 +118,10 @@ export default async function RootLayout({
             <Footer />
 
             {/* 1280px(xl breakpoint) + 72px(40px width + 2 * 16px padding) = 1352px as the breakpoint to fix ScrollToTop */}
-            <ScrollToTop className="fixed bottom-3 right-3 min-[1352px]:left-[calc(50vw+600px+16px)]" />
-            <Analytics />
+            <LazyScrollToTop className="fixed bottom-3 right-3 min-[1352px]:left-[calc(50vw+600px+16px)]" />
+            {process.env.NODE_ENV === 'production' && process.env.VERCEL === '1' ? (
+              <DeferredAnalytics />
+            ) : null}
           </SmoothScroll>
         </NextIntlClientProvider>
       </body>

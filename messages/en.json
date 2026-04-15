@@ -4,9 +4,10 @@
     "desc": {
       "masterpiece": "Building refined, high-quality products\\nwith care and precision",
       "minimalism": "Minimalism isn’t about being simplistic —\\nit’s about removing the unnecessary",
-      "ui-ux": "Passionate about crafting\\nUI- and UX-friendly front-end projects"
+      "ui-ux": "Good at crafting\\nUI- and UX-friendly front-end projects"
     },
     "design-savvy": "Design-Savvy",
+    "full-stack-engineer": "Full-Stack Engineer",
     "fe-engineer": "Front-end Engineer",
     "fully-remote": "Fully Remote",
     "minimalist": "Minimalist",
@@ -15,10 +16,11 @@
   "common": {
     "app": "MinimaLife",
     "title": "MinimaLife | TROJAN's Website",
-    "desc": "Fully remote freelancer, design-savvy front-end engineer, minimalist",
+    "desc": "AI-Driven full-stack engineer, design-savvy front-end engineer, minimalist",
     "dev": "Dev",
     "project": "Project",
     "service": "Service",
+    "resume": "Resume",
     "skill": "Skill",
     "copy-text": "Copy Text",
     "copy-email": "Copy Email"

@@ -11,6 +11,7 @@ const mailAddress = 'ytj1996@gmail.com';
 
 export default function SendMail() {
   const t = useTranslations('resume.action-bar');
+  const emailLabel = t('email');
 
   const [expanded, setExpanded] = useState(false);
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -46,9 +47,14 @@ export default function SendMail() {
       ${expanded ? 'bg-primary/20' : ''}
       grid grid-cols-[auto_auto] transition-all duration-500 group`}
     >
-      <button className="flex items-center gap-1" onClick={handleClick}>
-        <EnvelopeIcon className="size-5 sm:size-4 shrink-0" />
-        <span className={`${btnTextClass} shrink-0`}>{t('email')}</span>
+      <button
+        type="button"
+        aria-label={emailLabel}
+        className="flex items-center gap-1"
+        onClick={handleClick}
+      >
+        <EnvelopeIcon aria-hidden className="size-5 sm:size-4 shrink-0" />
+        <span className={`${btnTextClass} shrink-0`}>{emailLabel}</span>
       </button>
 
       {/* Detail */}

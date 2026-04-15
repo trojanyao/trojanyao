@@ -5,8 +5,8 @@ import { useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 
 import SectionHeader from '@/app/[locale]/components/common/SectionHeader';
-import ProjectItem from '@/app/[locale]/project/components/ProjectItem';
-import ProjectCardSkeleton from '@/app/[locale]/project/components/ProjectItemSkeleton';
+import ProjectItemServer from '@/app/[locale]/project/components/ProjectItemServer';
+import ProjectItemSkeleton from '@/app/[locale]/project/components/skeleton/ProjectItemSkeleton';
 import { getProjects } from '@/lib/notion';
 
 export default function Projects() {
@@ -36,7 +36,7 @@ async function ProjectContent() {
       <SectionHeader title={t('case')} icon={<Squares2X2Icon />} />
       <div className="flex flex-col gap-4">
         {projects?.map((project: Project) => (
-          <ProjectItem key={project.id} data={project} />
+          <ProjectItemServer key={project.id} data={project} />
         ))}
       </div>
     </div>
@@ -51,7 +51,7 @@ function ProjectsSkeleton() {
       <SectionHeader title={t('case')} icon={<Squares2X2Icon />} />
       <div className="flex flex-col gap-4">
         {Array.from({ length: 3 }).map((_, i) => (
-          <ProjectCardSkeleton key={i} />
+          <ProjectItemSkeleton key={i} />
         ))}
       </div>
     </div>

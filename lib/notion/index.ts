@@ -6,4 +6,4 @@ export { default } from './client';
 export { getProjects, getProject } from './project';
 
 // Export skill related
-export { getSkills } from './skill';
+export { getSkills, getSkill } from './skill';

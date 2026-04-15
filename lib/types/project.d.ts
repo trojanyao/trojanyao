@@ -9,6 +9,8 @@ declare global {
     nameEN: string;
     logo: string;
     cover: string;
+    /** 封面图的 AVIF 代理 URL（仅当 cover 走本站 proxy 时有值），用于 unoptimized 时仍用 AVIF */
+    coverAvif?: string;
     desc: string;
     descEN: string;
     dateStart: string;

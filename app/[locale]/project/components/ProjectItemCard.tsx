@@ -1,29 +1,36 @@
+import { type ReactNode } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
 
-import { useLocale } from 'next-intl';
+import getProjectPlatformColorClass from './primitives/getProjectPlatformColorClass';
 
-import ProductType from './primitives/ProductType';
-
-export default function ProjectItem({ data }: { data: Project }) {
-  const locale = useLocale();
-  const isEN = locale === 'en';
-
+// Shared presentational card for both server and client wrappers.
+// Keep this component free of routing, storage, and i18n hooks so both environments can reuse it.
+export default function ProjectItemCard({
+  data,
+  isEN,
+  isHeroCover,
+  platformLabel,
+}: {
+  data: Project;
+  isEN: boolean;
+  isHeroCover: boolean;
+  platformLabel: (platform: ProjectPlatformVisible) => ReactNode;
+}) {
   return (
-    <Link
-      href={`/project/${data?.id}`}
-      className="flex-1 aspect-4/3 bg-light-gray border border-third rounded-[20px] overflow-hidden relative flex flex-col"
-    >
-      {/* Cover */}
+    <>
+      {/* Cover: prefer AVIF when coverAvif exists (image-proxy when unoptimized). */}
       <div className="flex-1 overflow-hidden">
         <Image
-          src={data?.cover}
+          src={data?.coverAvif ?? data?.cover}
           alt={data?.name}
           width={1472}
           height={1104}
+          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
           className="[@media(hover:hover)]:hover:scale-110 transition-all duration-300 ease-out"
-          loading="eager"
-          fetchPriority="high"
+          {...(isHeroCover
+            ? /* preload: early discovery (LCP breakdown). fetchPriority is forwarded to ReactDOM.preload() / <link rel="preload"> by Next (see next/dist/client/image-component.js ImagePreload). Do not set loading here (avoid preload+loading per docs). */
+              { preload: true as const, fetchPriority: 'high' as const, loading: 'eager' as const }
+            : { loading: 'lazy' as const, fetchPriority: 'low' as const })}
         />
       </div>
 
@@ -44,8 +51,13 @@ export default function ProjectItem({ data }: { data: Project }) {
             </div>
 
             <div className="flex items-center gap-1">
-              {data?.platform?.map((t: ProjectPlatformVisible, i) => (
-                <ProductType key={i} platform={t} />
+              {data?.platform?.map((platform: ProjectPlatformVisible, i) => (
+                <div
+                  key={i}
+                  className={`px-2 py-1 ${getProjectPlatformColorClass(platform)} rounded-full text-center text-[0.625rem] whitespace-nowrap`}
+                >
+                  {platformLabel(platform)}
+                </div>
               ))}
             </div>
           </div>
@@ -67,6 +79,6 @@ export default function ProjectItem({ data }: { data: Project }) {
           </div>
         </div>
       </div>
-    </Link>
+    </>
   );
 }

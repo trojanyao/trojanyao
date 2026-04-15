@@ -1,13 +1,20 @@
 import { Squares2X2Icon, CodeBracketSquareIcon } from '@heroicons/react/24/outline';
+import { getLocale } from 'next-intl/server';
 
+import { getSkillLevelLabelMap } from '@/app/[locale]/skill/get-skill-level-labels';
 import { getProjects, getSkills } from '@/lib/notion';
 
 import SectionHeader from '../components/common/SectionHeader';
 import Breadcrumb from '../components/ui/Breadcrumb';
-import ProjectItem from '../project/components/ProjectItem';
+import ProjectItemServer from '../project/components/ProjectItemServer';
 import SkillGrid from '../skill/components/SkillGrid';
 
 export default async function Develop() {
+  const locale = await getLocale();
+  const isEnglish = locale === 'en';
+  // Pre-resolve `skill.level.*` on the server; `SkillGrid` passes strings into each `SkillItem` so
+  // status text does not use `useTranslations` per cell (see scheme 3 / `SkillStatusView`).
+  const statusLabels = await getSkillLevelLabelMap();
   const projects = await getProjects([{ property: '首页精选', checkbox: { equals: true } }]);
   const skills = await getSkills([
     {
@@ -37,7 +44,7 @@ export default async function Develop() {
 
           <div className="max-w-full flex gap-6 overflow-x-scroll">
             {projects.map((item, index) => (
-              <ProjectItem key={index} data={item} />
+              <ProjectItemServer key={index} data={item} />
             ))}
           </div>
         </section>
@@ -45,7 +52,7 @@ export default async function Develop() {
         {/* Develop Skills */}
         <section className="section-item">
           <SectionHeader url="/skill/dev" icon={<CodeBracketSquareIcon />} title="开发技能" />
-          <SkillGrid skills={skills} />
+          <SkillGrid skills={skills} isEnglish={isEnglish} statusLabels={statusLabels} />
         </section>
       </div>
     </div>

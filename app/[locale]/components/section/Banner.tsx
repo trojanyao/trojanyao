@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 
 import { useGSAP } from '@gsap/react';
@@ -9,21 +8,18 @@ import { ChevronDoubleRightIcon } from '@heroicons/react/20/solid';
 import { gsap } from 'gsap';
 import { useLocale, useTranslations } from 'next-intl';
 
-import './banner.css';
-
 import AvailableStatus from '@/app/[locale]/service/components/AvailableStatus';
-import { kaushan_script } from '@/lib/fonts';
-import Memoji from '@/public/memoji.webp';
 
 gsap.registerPlugin(useGSAP);
 
 export default function Banner() {
   const locale = useLocale();
   const t = useTranslations('banner');
+  const bannerBackgroundImage = `url("data:image/svg+xml,<svg id='patternId' width='100%' height='100%' xmlns='http://www.w3.org/2000/svg'><defs><pattern id='a' patternUnits='userSpaceOnUse' width='60' height='60' patternTransform='scale(0.5) rotate(0)'><rect x='0' y='0' width='100%' height='100%' fill='hsla(0, 0%, 100%, 0)'/><path d='M11 6a5 5 0 01-5 5 5 5 0 01-5-5 5 5 0 015-5 5 5 0 015 5' transform='translate(10,0)' stroke-width='1' stroke='none' fill='hsla(212, 71%, 96%, 0.6)'/></pattern></defs><rect width='100%' height='100%' transform='translate(0,0)' fill='url(%23a)'/></svg>")`;
 
   const textGroups = [
     {
-      title: { left: t('fully-remote'), right: 'Freelancer' },
+      title: { left: 'AI-Driven', right: t('full-stack-engineer') },
       description: t('desc.masterpiece'),
     },
     {
@@ -35,7 +31,7 @@ export default function Banner() {
       description: t('desc.minimalism'),
     },
     {
-      title: { left: t('fully-remote'), right: 'Freelancer' },
+      title: { left: 'AI-Driven', right: t('full-stack-engineer') },
       description: t('desc.masterpiece'),
     },
   ];
@@ -80,7 +76,13 @@ export default function Banner() {
   });
 
   return (
-    <div className="banner-wrap w-screen h-[80vh] min-h-[700px] -mt-20 box-content border-b border-secondary flex flex-col items-center">
+    <div
+      className="w-screen h-[80vh] min-h-[700px] -mt-20 box-content border-b border-secondary flex flex-col items-center"
+      style={{
+        backgroundColor: 'var(--secondary-light-blue)',
+        backgroundImage: bannerBackgroundImage,
+      }}
+    >
       <div className="w-full max-w-[1200px] h-full min-h-[700px] relative flex flex-col justify-center items-center">
         {/* Header */}
         <div className="w-full pb-28 md:pb-36 lg:pb-[200px] flex flex-col items-center">
@@ -115,12 +117,18 @@ export default function Banner() {
                   <div
                     className={`flex ${locale === 'en' ? 'flex-col sm:flex-row' : 'flex-row'} justify-center items-center gap-2`}
                   >
-                    <span className="banner-left">{text?.title?.left}</span>
+                    <span
+                      className={`banner-left
+                        ${(index === 0 || index === 3) && 'text-green italic'}
+                      `}
+                    >
+                      {text?.title?.left}
+                    </span>
                     <span
                       className={`banner-right
-                        ${(index === 0 || index === 3) && 'text-green'}
+                        
                         ${index === 2 && 'text-orange'}
-                        ${(index === 0 || index === 3) && kaushan_script.className}`}
+                        `}
                     >
                       {text?.title?.right}
                     </span>
@@ -160,13 +168,44 @@ export default function Banner() {
         </div>
 
         {/* Memoji */}
-        <Image
-          src={Memoji}
-          alt="Memoji"
-          className="w-48 md:w-52 lg:w-56 xl:w-60 absolute bottom-0 left-1/2 -translate-x-1/2"
-          loading="eager"
-          fetchPriority="high"
-        />
+        <picture>
+          <source
+            type="image/avif"
+            srcSet={[
+              '/memoji/memoji-192.avif 192w',
+              '/memoji/memoji-256.avif 256w',
+              '/memoji/memoji-320.avif 320w',
+              '/memoji/memoji-384.avif 384w',
+              '/memoji/memoji-448.avif 448w',
+              '/memoji/memoji-512.avif 512w',
+              '/memoji/memoji-640.avif 640w',
+            ].join(', ')}
+            sizes="(min-width: 1280px) 240px, (min-width: 1024px) 224px, (min-width: 768px) 208px, 192px"
+          />
+          <source
+            type="image/webp"
+            srcSet={[
+              '/memoji/memoji-192.webp 192w',
+              '/memoji/memoji-256.webp 256w',
+              '/memoji/memoji-320.webp 320w',
+              '/memoji/memoji-384.webp 384w',
+              '/memoji/memoji-448.webp 448w',
+              '/memoji/memoji-512.webp 512w',
+              '/memoji/memoji-640.webp 640w',
+            ].join(', ')}
+            sizes="(min-width: 1280px) 240px, (min-width: 1024px) 224px, (min-width: 768px) 208px, 192px"
+          />
+          <img
+            src="/memoji/memoji-384.webp"
+            alt="Memoji"
+            width={384}
+            height={384}
+            className="w-48 md:w-52 lg:w-56 xl:w-60 absolute bottom-0 left-1/2 -translate-x-1/2"
+            loading="eager"
+            fetchPriority="high"
+            decoding="async"
+          />
+        </picture>
       </div>
     </div>
   );

@@ -8,6 +8,7 @@ import { btnTextClass, buttonClass } from '.';
 export default function DownloadResume() {
   const locale = useLocale();
   const t = useTranslations('resume.action-bar');
+  const downloadLabel = t('download');
 
   const [isBouncing, setIsBouncing] = useState(false);
 
@@ -26,15 +27,17 @@ export default function DownloadResume() {
           : '/files/Trojan_Yao_Frontend_Engineer_Resume+Portfolio.pdf'
       }
       download
+      aria-label={downloadLabel}
       className={`${buttonClass} group`}
       onClick={handleDownloadClick}
     >
       <ArrowDownTrayIcon
+        aria-hidden
         className={`size-5 sm:size-4
         [@media(hover:hover)]:group-hover:animate-[bounce_0.75s_linear_infinite]
         ${isBouncing ? 'animate-bounce' : ''}`}
       />
-      <span className={btnTextClass}>{t('download')}</span>
+      <span className={btnTextClass}>{downloadLabel}</span>
     </a>
   );
 }

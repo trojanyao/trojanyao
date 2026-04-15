@@ -1,7 +1,11 @@
-import { CommandLineIcon } from '@heroicons/react/24/outline';
-import { getTranslations } from 'next-intl/server';
+import { Suspense } from 'react';
 
+import { CommandLineIcon } from '@heroicons/react/24/outline';
+import { getLocale, getTranslations } from 'next-intl/server';
+
+import SkillGridSkeleton from '@/app/[locale]/skill/components/skeleton/SkillGridSkeleton';
 import SkillGrid from '@/app/[locale]/skill/components/SkillGrid';
+import { getSkillLevelLabelMap } from '@/app/[locale]/skill/get-skill-level-labels';
 import { getSkills } from '@/lib/notion';
 
 import SectionHeader from '../common/SectionHeader';
@@ -9,6 +13,23 @@ import SectionHeader from '../common/SectionHeader';
 export default async function SectionSkill() {
   const t = await getTranslations('skill');
 
+  return (
+    <section className="w-full!">
+      <SectionHeader url="/skill/dev" icon={<CommandLineIcon />} title={t('plural')} />
+      <div className="mt-4">
+        <Suspense fallback={<SkillGridSkeleton />}>
+          <SkillList />
+        </Suspense>
+      </div>
+    </section>
+  );
+}
+
+async function SkillList() {
+  const locale = await getLocale();
+  const isEnglish = locale === 'en';
+  // Same as dev page: server-resolved map for `SkillGrid` → `SkillItem` without per-cell intl hooks.
+  const statusLabels = await getSkillLevelLabelMap();
   const skills = await getSkills([
     {
       property: '首页精选',
@@ -23,10 +44,5 @@ export default async function SectionSkill() {
     return indexA - indexB;
   });
 
-  return (
-    <section>
-      <SectionHeader url="/skill/dev" icon={<CommandLineIcon />} title={t('plural')} />
-      <SkillGrid skills={skills} />
-    </section>
-  );
+  return <SkillGrid skills={skills} isEnglish={isEnglish} statusLabels={statusLabels} />;
 }

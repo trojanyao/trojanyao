@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { Suspense, use, useState } from 'react';
 
 import {
   ArchiveBoxIcon,
@@ -15,11 +15,27 @@ import GroupBy from '@/app/[locale]/components/ui/GroupBy';
 import Line from '@/app/[locale]/components/ui/Line';
 import ProjectCount from '@/app/[locale]/components/ui/ProjectCount';
 import ProjectGrid from '@/app/[locale]/project/components/ProjectGrid';
+import ProjectGroupSkeleton from '@/app/[locale]/project/components/skeleton/ProjectGroupSkeleton';
 import { ProjectPlatform } from '@/lib/constants/project.constants';
 import { groupBy } from '@/lib/utils/group-by';
 
-export default function ProjectGroup({ projects, title }: { projects: Project[]; title?: string }) {
+type ProjectGroupProps = {
+  projectsRequest: Promise<Project[]>;
+  title?: string;
+};
+
+export default function ProjectGroup({ projectsRequest, title }: ProjectGroupProps) {
+  return (
+    <Suspense fallback={<ProjectGroupSkeleton title={title} />}>
+      <ProjectGroupContent projectsRequest={projectsRequest} title={title} />
+    </Suspense>
+  );
+}
+
+function ProjectGroupContent({ projectsRequest, title }: ProjectGroupProps) {
   const t = useTranslations('project');
+
+  const projects = use(projectsRequest);
 
   const groupByOptions = [
     { icon: <ClockIcon />, text: t('group.by-time'), key: 'dateStart' },
@@ -47,7 +63,8 @@ export default function ProjectGroup({ projects, title }: { projects: Project[];
           );
         },
   );
-  // 按平台 group 时，给 groupName 使用 localization
+
+  /* When grouping by platform, localize the groupName */
   const localizedGroupedProjects =
     groupKey === 'platform'
       ? groupedProjects.map((groupItem) => ({
@@ -90,7 +107,8 @@ export default function ProjectGroup({ projects, title }: { projects: Project[];
                 <div>{groupItem?.groupName}</div>
                 <ProjectCount count={groupItem?.items?.length} />
               </div>
-              <ProjectGrid list={groupItem?.items} />
+
+              <ProjectGrid list={groupItem?.items} isFirstGroup={index === 0} />
             </div>
           ))
         ) : (

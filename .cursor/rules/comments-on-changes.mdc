@@ -1,0 +1,48 @@
+---
+description: Add necessary comments when changing code (why / non-obvious behavior)
+alwaysApply: true
+---
+
+# Comments on code changes
+
+When you modify or add code, include **brief, necessary** comments where they help the next reader (including future you).
+
+## What counts as “necessary”
+
+- **Why**, not what: explain intent, trade-offs, or constraints the code alone does not show.
+- **Non-obvious behavior**: edge cases, ordering assumptions, async or lifecycle coupling, security or data-shape invariants.
+- **Workarounds**: links to issues, framework bugs, or temporary hacks (with a short “remove when …” if applicable).
+- **Public or shared APIs**: JSDoc/TSDoc for non-trivial props, return shapes, or side effects when the type system is not enough.
+
+## useEffect overall comment style
+
+- For each `useEffect`, add an **overall intent comment** on the line immediately before the hook.
+- The overall intent comment must use a **block comment** format (`/* ... */`), not `//`.
+- Keep this external comment concise and focused on **why the effect exists**, not line-by-line behavior.
+- Internal comments inside the effect are still allowed when they explain non-obvious behavior.
+
+## What to skip
+
+- Restating the obvious from readable names and types.
+- Long essays or changelog-style narration in comments (use commit messages for history).
+
+## Language
+
+Follow the project rule **Comments language**: all developer comments in source must be **English** only.
+
+```tsx
+// ❌ BAD: noise
+// increment i by 1
+i += 1;
+
+// ✅ GOOD: explains non-obvious constraint
+// Defer measurement until layout stabilizes; reading offsetHeight in the same frame skews LCP.
+requestAnimationFrame(() => measure());
+
+/*
+ * Load data after the component becomes interactive to avoid blocking initial paint.
+ */
+useEffect(() => {
+  // Internal comments are allowed for non-obvious details.
+}, []);
+```

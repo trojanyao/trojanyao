@@ -3,9 +3,10 @@ import { cache } from 'react';
 import { ProjectPlatform, type ProjectPlatformOriginType } from '../constants/project.constants';
 
 import notion from './client';
+import { getProxiedImageUrl } from './image-proxy';
 
-/* Get Project List */
-export async function getProjects(body?: any[]): Promise<Project[]> {
+/* Get Project List (cached) */
+async function _getProjects(body?: any[]): Promise<Project[]> {
   const res = await notion.databases.query({
     database_id: process.env.NOTION_DATABASE_PROJECT_DEV!,
     filter: {
@@ -32,8 +33,9 @@ export async function getProjects(body?: any[]): Promise<Project[]> {
     id: page.id,
     name: page.properties?.['项目']?.title?.[0]?.text?.content,
     nameEN: page.properties?.['Name *']?.rich_text?.[0]?.text?.content,
-    logo: page.icon?.file?.url,
-    cover: page.cover?.file?.url,
+    logo: getProxiedImageUrl(page.icon?.file?.url) ?? page.icon?.file?.url ?? '',
+    cover: getProxiedImageUrl(page.cover?.file?.url) ?? page.cover?.file?.url ?? '',
+    coverAvif: getProxiedImageUrl(page.cover?.file?.url, { format: 'avif' }),
     desc: page.properties?.['简介 *']?.rich_text?.[0]?.text?.content,
     descEN: page.properties?.['Intro *']?.rich_text?.[0]?.text?.content,
     dateStart: page.properties?.['开始 * → 结束']?.date?.start?.match(/^\d{4}-\d{2}/)?.[0],
@@ -43,14 +45,20 @@ export async function getProjects(body?: any[]): Promise<Project[]> {
     ),
     // 个人网站
     color: page.properties?.['品牌色 *']?.rich_text?.[0]?.text?.content,
+    width: page.properties?.['截图宽度 px *']?.number,
+    height: page.properties?.['截图高度 px *']?.number,
     resumeOrder: page.properties?.['简历排序']?.number,
   }));
 }
 
-/* Get Project Detail */
-export async function _getProject(id: string): Promise<Project> {
-  // console.log(`[getProject] 实际执行 API 调用，id: ${id}`, new Date().toISOString());
+/*
+ * Use React `cache()` only (no unstable_cache). unstable_cache can serve stale-while-revalidate
+ * payloads with expired Notion S3 presigned URLs, breaking images on the first request after TTL.
+ */
+export const getProjects = cache(_getProjects);
 
+/* Get Project Detail (cached) */
+async function _getProject(id: string): Promise<Project> {
   const page: any = await notion.pages.retrieve({ page_id: id });
 
   return {
@@ -58,8 +66,9 @@ export async function _getProject(id: string): Promise<Project> {
     id: page.id,
     name: page.properties?.['项目']?.title?.[0]?.text?.content,
     nameEN: page.properties?.['Name *']?.rich_text?.[0]?.text?.content,
-    logo: page.icon?.file?.url,
-    cover: page.cover?.file?.url,
+    logo: getProxiedImageUrl(page.icon?.file?.url) ?? page.icon?.file?.url ?? '',
+    cover: getProxiedImageUrl(page.cover?.file?.url) ?? page.cover?.file?.url ?? '',
+    coverAvif: getProxiedImageUrl(page.cover?.file?.url, { format: 'avif' }),
     desc: page.properties?.['简介 *']?.rich_text?.[0]?.text?.content,
     descEN: page.properties?.['Intro *']?.rich_text?.[0]?.text?.content,
     dateStart: page.properties?.['开始 * → 结束']?.date?.start
@@ -73,7 +82,9 @@ export async function _getProject(id: string): Promise<Project> {
     ),
     preview: page.properties?.['线上预览 *']?.url,
     previewEN: page.properties?.['Preview']?.rich_text?.[0]?.text?.content,
-    qrcode: page.properties?.['二维码 / 小程序码']?.files?.map((file: any) => file?.file?.url),
+    qrcode: page.properties?.['二维码 / 小程序码']?.files?.map((file: any) =>
+      getProxiedImageUrl(file?.file?.url),
+    ),
     status: page.properties?.['在线状态']?.status?.name,
     // 开发
     responsibilities: page.properties?.['工作内容 *']?.rich_text?.map(
@@ -89,7 +100,9 @@ export async function _getProject(id: string): Promise<Project> {
     skills: page.properties?.['技术栈 *']?.relation?.map((item: any) => item?.id),
     // 个人网站
     color: page.properties?.['品牌色 *']?.rich_text?.[0]?.text?.content,
-    screenshots: page.properties?.['真机截图 *']?.files.map((file: any) => file?.file?.url),
+    screenshots: page.properties?.['真机截图 *']?.files.map((file: any) =>
+      getProxiedImageUrl(file?.file?.url),
+    ),
     screenshotBorder: page.properties?.['截图边框']?.checkbox,
     width: page.properties?.['截图宽度 px *']?.number,
     height: page.properties?.['截图高度 px *']?.number,
