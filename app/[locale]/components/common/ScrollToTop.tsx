@@ -35,12 +35,12 @@ export default function ScrollToTop(props: ComponentProps<'button'>) {
       type="button"
       title="回到顶部"
       aria-label="回到顶部"
-      className={`w-fit px-2 py-4 bg-secondary-middle-blue/80 rounded-full shadow-blur ${
-        isVisible ? 'translate-y-0' : 'translate-y-[calc(100%+12px)]'
-      } transition-transform duration-700 ${props?.className}`}
+      className={`w-fit px-2 py-4 bg-secondary-middle-blue/80 rounded-full cursor-pointer shadow-blur
+        ${isVisible ? 'translate-y-0' : 'translate-y-[calc(100%+12px)]'}
+        transition-transform duration-700 ${props?.className}`}
       onClick={scrollToTop}
     >
-      <BarsArrowUpIcon className="size-6 text-blue" aria-hidden />
+      <BarsArrowUpIcon className="size-6 text-blue cursor-pointer" aria-hidden />
     </button>
   );
 }
