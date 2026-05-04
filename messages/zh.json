@@ -6,8 +6,9 @@
       "minimalism": "极简不是简陋，是删繁就简",
       "ui-ux": "擅长构建\\nUI 和 UX 友好的前端项目"
     },
+    "product-minded": "产品型",
+    "ai-full-stack-engineer": "AI 全栈工程师",
     "design-savvy": "有设计审美的",
-    "full-stack-engineer": "全栈工程师",
     "fe-engineer": "前端工程师",
     "fully-remote": "全职远程",
     "minimalist": "极简主义者",
@@ -16,7 +17,7 @@
   "common": {
     "app": "极简一生",
     "title": "极简一生 | TROJAN 的个人网站",
-    "desc": "AI-Driven 全栈工程师，有设计审美的前端工程师，极简主义者",
+    "desc": "产品型 AI 全栈工程师，有设计审美的前端工程师，极简主义者",
     "dev": "开发",
     "project": "项目",
     "service": "服务",

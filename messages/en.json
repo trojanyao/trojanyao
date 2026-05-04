@@ -6,8 +6,9 @@
       "minimalism": "Minimalism isn’t about being simplistic —\\nit’s about removing the unnecessary",
       "ui-ux": "Good at crafting\\nUI- and UX-friendly front-end projects"
     },
+    "product-minded": "Product-Minded",
+    "ai-full-stack-engineer": "AI Full-Stack Engineer",
     "design-savvy": "Design-Savvy",
-    "full-stack-engineer": "Full-Stack Engineer",
     "fe-engineer": "Front-end Engineer",
     "fully-remote": "Fully Remote",
     "minimalist": "Minimalist",
@@ -16,7 +17,7 @@
   "common": {
     "app": "MinimaLife",
     "title": "MinimaLife | TROJAN's Website",
-    "desc": "AI-Driven full-stack engineer, design-savvy front-end engineer, minimalist",
+    "desc": "Product-minded AI full-stack engineer, design-savvy front-end engineer, minimalist",
     "dev": "Dev",
     "project": "Project",
     "service": "Service",

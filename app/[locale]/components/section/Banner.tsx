@@ -19,7 +19,7 @@ export default function Banner() {
 
   const textGroups = [
     {
-      title: { left: 'AI-Driven', right: t('full-stack-engineer') },
+      title: { left: t('product-minded'), right: t('ai-full-stack-engineer') },
       description: t('desc.masterpiece'),
     },
     {
@@ -31,7 +31,7 @@ export default function Banner() {
       description: t('desc.minimalism'),
     },
     {
-      title: { left: 'AI-Driven', right: t('full-stack-engineer') },
+      title: { left: t('product-minded'), right: t('ai-full-stack-engineer') },
       description: t('desc.masterpiece'),
     },
   ];
@@ -104,12 +104,12 @@ export default function Banner() {
                   text-black title-middle select-none
                   ${locale === 'zh' ? 'tracking-widest' : 'tracking-wide'}`}
               >
-                {index === 1 ? (
-                  // 第 2 个文本用 h1 包裹
+                {index === 0 ? (
+                  // 第 1 个文本用 h1 包裹
                   <h1
                     className={`flex ${locale === 'en' ? 'flex-col sm:flex-row' : 'flex-row'} justify-center items-center gap-2`}
                   >
-                    <span className="banner-left text-primary ">{text?.title?.left}</span>
+                    <span className="banner-left text-green">{text?.title?.left}</span>
                     <span className="banner-right ">{text?.title?.right}</span>
                   </h1>
                 ) : (
@@ -117,13 +117,17 @@ export default function Banner() {
                   <div
                     className={`flex ${locale === 'en' ? 'flex-col sm:flex-row' : 'flex-row'} justify-center items-center gap-2`}
                   >
+                    {/* Left */}
                     <span
                       className={`banner-left
-                        ${(index === 0 || index === 3) && 'text-green italic'}
+                        ${index === 1 && 'text-primary'}
+                        ${index === 3 && 'text-green'}
                       `}
                     >
                       {text?.title?.left}
                     </span>
+
+                    {/* Right */}
                     <span
                       className={`banner-right
                         
